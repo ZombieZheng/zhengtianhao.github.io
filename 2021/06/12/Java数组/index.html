@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-atom.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="数组">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java数组">
+<meta property="og:url" content="http://example.com/2021/06/12/Java%E6%95%B0%E7%BB%84/index.html">
+<meta property="og:site_name" content="Zombies">
+<meta property="og:description" content="数组">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-12T13:16:48.000Z">
+<meta property="article:modified_time" content="2021-06-12T13:35:13.050Z">
+<meta property="article:author" content="zhengtianhao">
+<meta property="article:tag" content="导航">
+<meta property="article:tag" content="分享">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/06/12/Java%E6%95%B0%E7%BB%84/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java数组 | Zombies</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/rss2.xml" title="Zombies" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/zombiezheng" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zombies</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/12/Java%E6%95%B0%E7%BB%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengtianhao">
+      <meta itemprop="description" content="不忘初心,砥砺前行">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zombies">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java数组
+        </h1>
+
+        <div class="post-meta">
+
+      
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-06-12 21:16:48 / 修改时间：21:35:13" itemprop="dateCreated datePublished" datetime="2021-06-12T21:16:48+08:00">2021-06-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><span id="more"></span>
+
+<h2 id="一维数组的创建并使用"><a href="#一维数组的创建并使用" class="headerlink" title="一维数组的创建并使用"></a>一维数组的创建并使用</h2><h3 id="一维数组实质上是一组相同数据类型的线性集合-当在程序中需要处理一组数据-或者传递一组数据时-可以应用这种类型的数组"><a href="#一维数组实质上是一组相同数据类型的线性集合-当在程序中需要处理一组数据-或者传递一组数据时-可以应用这种类型的数组" class="headerlink" title="一维数组实质上是一组相同数据类型的线性集合,当在程序中需要处理一组数据,或者传递一组数据时,可以应用这种类型的数组."></a>一维数组实质上是一组相同数据类型的线性集合,当在程序中需要处理一组数据,或者传递一组数据时,可以应用这种类型的数组.</h3><h3 id="创建一维数组"><a href="#创建一维数组" class="headerlink" title="创建一维数组"></a>创建一维数组</h3><h4 id="数组作为对象允许使用new关键字进行内存分配"><a href="#数组作为对象允许使用new关键字进行内存分配" class="headerlink" title="数组作为对象允许使用new关键字进行内存分配."></a>数组作为对象允许使用new关键字进行内存分配.</h4><h4 id="使用数组之前-必须首先定义数组变量所属的类型"><a href="#使用数组之前-必须首先定义数组变量所属的类型" class="headerlink" title="使用数组之前,必须首先定义数组变量所属的类型."></a>使用数组之前,必须首先定义数组变量所属的类型.</h4><h4 id="一维数组的创建"><a href="#一维数组的创建" class="headerlink" title="一维数组的创建"></a>一维数组的创建</h4><h5 id="类型-数组名-类型-数组名"><a href="#类型-数组名-类型-数组名" class="headerlink" title="类型 数组名[]; 类型[] 数组名;"></a>类型 数组名[]; 类型[] 数组名;</h5><h5 id="数组名字-new-数组元素的类型-数组元素的个数"><a href="#数组名字-new-数组元素的类型-数组元素的个数" class="headerlink" title="数组名字 = new 数组元素的类型[数组元素的个数]"></a>数组名字 = new 数组元素的类型[数组元素的个数]</h5><h5 id="使用new关键字为数组分配内存时，整型数组中各个元素的初始值都为0"><a href="#使用new关键字为数组分配内存时，整型数组中各个元素的初始值都为0" class="headerlink" title="使用new关键字为数组分配内存时，整型数组中各个元素的初始值都为0"></a>使用new关键字为数组分配内存时，整型数组中各个元素的初始值都为0</h5><h5 id="数组元素的类型-数组名-new-数组元素的类型-数组元素的个数"><a href="#数组元素的类型-数组名-new-数组元素的类型-数组元素的个数" class="headerlink" title="数组元素的类型 数组名 = new 数组元素的类型[数组元素的个数];"></a>数组元素的类型 数组名 = new 数组元素的类型[数组元素的个数];</h5><h6 id="这种i创建数组的方法是将数组的声明和内存的分配合在一起执行"><a href="#这种i创建数组的方法是将数组的声明和内存的分配合在一起执行" class="headerlink" title="这种i创建数组的方法是将数组的声明和内存的分配合在一起执行"></a>这种i创建数组的方法是将数组的声明和内存的分配合在一起执行</h6><h3 id="初始化一维数组"><a href="#初始化一维数组" class="headerlink" title="初始化一维数组"></a>初始化一维数组</h3><h4 id="int-arr-new-int-1-2-3-4-5"><a href="#int-arr-new-int-1-2-3-4-5" class="headerlink" title="int arr[] = new int[1,2,3,4,5];"></a><code>int arr[] = new int[1,2,3,4,5];</code></h4><h4 id="int-arr-1-2-3-4-5"><a href="#int-arr-1-2-3-4-5" class="headerlink" title="int arr[] = {1,2,3,4,5};"></a><code>int arr[] = &#123;1,2,3,4,5&#125;;</code></h4><h3 id="二维数组的创建及使用"><a href="#二维数组的创建及使用" class="headerlink" title="二维数组的创建及使用"></a>二维数组的创建及使用</h3><h4 id="如果一维数组中的各个元素仍然是一个数组-那么它就是一个二维数组-二维数组常用于表示表-表中的信息以行和列的形式组织-第一个下标时行-第二个是列"><a href="#如果一维数组中的各个元素仍然是一个数组-那么它就是一个二维数组-二维数组常用于表示表-表中的信息以行和列的形式组织-第一个下标时行-第二个是列" class="headerlink" title="如果一维数组中的各个元素仍然是一个数组,那么它就是一个二维数组.二维数组常用于表示表,表中的信息以行和列的形式组织,第一个下标时行,第二个是列"></a>如果一维数组中的各个元素仍然是一个数组,那么它就是一个二维数组.二维数组常用于表示表,表中的信息以行和列的形式组织,第一个下标时行,第二个是列</h4><h4 id="二维数组的创建"><a href="#二维数组的创建" class="headerlink" title="二维数组的创建"></a>二维数组的创建</h4><h5 id="基本与一维数组创建方式差不多"><a href="#基本与一维数组创建方式差不多" class="headerlink" title="基本与一维数组创建方式差不多"></a>基本与一维数组创建方式差不多</h5><h5 id="声明的同时为数组分配内存"><a href="#声明的同时为数组分配内存" class="headerlink" title="声明的同时为数组分配内存"></a>声明的同时为数组分配内存</h5><h5 id="使用这种方式为数组分配内存时-首先指定最左边维数的内存-然后单独地给余下的维数分配内存"><a href="#使用这种方式为数组分配内存时-首先指定最左边维数的内存-然后单独地给余下的维数分配内存" class="headerlink" title="使用这种方式为数组分配内存时,首先指定最左边维数的内存,然后单独地给余下的维数分配内存."></a>使用这种方式为数组分配内存时,首先指定最左边维数的内存,然后单独地给余下的维数分配内存.</h5><h3 id="二维数组的初始化"><a href="#二维数组的初始化" class="headerlink" title="二维数组的初始化"></a>二维数组的初始化</h3><h4 id="基本与一维数组相同"><a href="#基本与一维数组相同" class="headerlink" title="基本与一维数组相同"></a>基本与一维数组相同</h4><h4 id="对于整型二维数组-创建成功之后系统会赋给数组中每个元素初始值为0"><a href="#对于整型二维数组-创建成功之后系统会赋给数组中每个元素初始值为0" class="headerlink" title="对于整型二维数组,创建成功之后系统会赋给数组中每个元素初始值为0"></a>对于整型二维数组,创建成功之后系统会赋给数组中每个元素初始值为0</h4><h2 id="数组的基本操作"><a href="#数组的基本操作" class="headerlink" title="数组的基本操作"></a>数组的基本操作</h2><h3 id="java-util包的Arrays类包含了用来操作数组-如排序和搜索-的各种方法"><a href="#java-util包的Arrays类包含了用来操作数组-如排序和搜索-的各种方法" class="headerlink" title="java.util包的Arrays类包含了用来操作数组(如排序和搜索)的各种方法."></a>java.util包的Arrays类包含了用来操作数组(如排序和搜索)的各种方法.</h3><h3 id="遍历数组"><a href="#遍历数组" class="headerlink" title="遍历数组"></a>遍历数组</h3><h4 id="遍历数组就是获取数组中每个元素-通常遍历数组都是使用for循环来实现"><a href="#遍历数组就是获取数组中每个元素-通常遍历数组都是使用for循环来实现" class="headerlink" title="遍历数组就是获取数组中每个元素.通常遍历数组都是使用for循环来实现."></a>遍历数组就是获取数组中每个元素.通常遍历数组都是使用for循环来实现.</h4><h4 id="遍历二维数组需要用到双层for循环-通过数组的length属性可获得数组的长度"><a href="#遍历二维数组需要用到双层for循环-通过数组的length属性可获得数组的长度" class="headerlink" title="遍历二维数组需要用到双层for循环,通过数组的length属性可获得数组的长度"></a>遍历二维数组需要用到双层for循环,通过数组的length属性可获得数组的长度</h4><h4 id="遍历数组时使用foreach语句可能会更简单"><a href="#遍历数组时使用foreach语句可能会更简单" class="headerlink" title="遍历数组时使用foreach语句可能会更简单"></a>遍历数组时使用foreach语句可能会更简单</h4><h3 id="填充替换数组元素"><a href="#填充替换数组元素" class="headerlink" title="填充替换数组元素"></a>填充替换数组元素</h3><h4 id="数组中的元素定义完成后-可以通过Arrays类的静态方法fill-来对数组中的元素进行替换"><a href="#数组中的元素定义完成后-可以通过Arrays类的静态方法fill-来对数组中的元素进行替换" class="headerlink" title="数组中的元素定义完成后,可以通过Arrays类的静态方法fill()来对数组中的元素进行替换."></a>数组中的元素定义完成后,可以通过Arrays类的静态方法fill()来对数组中的元素进行替换.</h4><h4 id="该方法通过各种重载形式可完成对任意类型的数组元素的替换"><a href="#该方法通过各种重载形式可完成对任意类型的数组元素的替换" class="headerlink" title="该方法通过各种重载形式可完成对任意类型的数组元素的替换"></a>该方法通过各种重载形式可完成对任意类型的数组元素的替换</h4><h4 id="fill-int-a-int-value"><a href="#fill-int-a-int-value" class="headerlink" title="fill(int[] a,int value);"></a><code>fill(int[] a,int value);</code></h4><h5 id="该方法可将指定的int值分配给int型数组的每个元素"><a href="#该方法可将指定的int值分配给int型数组的每个元素" class="headerlink" title="该方法可将指定的int值分配给int型数组的每个元素"></a>该方法可将指定的int值分配给int型数组的每个元素</h5><h4 id="fill-int-a-int-fromIndex-int-toIndex-int-value"><a href="#fill-int-a-int-fromIndex-int-toIndex-int-value" class="headerlink" title="fill(int[] a,int fromIndex,int toIndex,int value);"></a><code>fill(int[] a,int fromIndex,int toIndex,int value);</code></h4><h5 id="a-要填充的数组"><a href="#a-要填充的数组" class="headerlink" title="a:要填充的数组"></a>a:要填充的数组</h5><h5 id="fromIndex-要使用指定值填充的第一个元素的索引-包括"><a href="#fromIndex-要使用指定值填充的第一个元素的索引-包括" class="headerlink" title="fromIndex:要使用指定值填充的第一个元素的索引(包括)"></a>fromIndex:要使用指定值填充的第一个元素的索引(包括)</h5><h5 id="toIndex-要使用指定值填充的最后一个元素的索引-不包括"><a href="#toIndex-要使用指定值填充的最后一个元素的索引-不包括" class="headerlink" title="toIndex:要使用指定值填充的最后一个元素的索引(不包括)"></a>toIndex:要使用指定值填充的最后一个元素的索引(不包括)</h5><h5 id="value-要储存的所有的元素的值"><a href="#value-要储存的所有的元素的值" class="headerlink" title="value:要储存的所有的元素的值"></a>value:要储存的所有的元素的值</h5><h5 id="该方法将指定的int值分配给int型数组指定范围中的每个元素。填充的范围从索引fromIndex-包括）一直到索引toIndex（不包括）。如果fromIndex-toIndex-则填充范围为空"><a href="#该方法将指定的int值分配给int型数组指定范围中的每个元素。填充的范围从索引fromIndex-包括）一直到索引toIndex（不包括）。如果fromIndex-toIndex-则填充范围为空" class="headerlink" title="该方法将指定的int值分配给int型数组指定范围中的每个元素。填充的范围从索引fromIndex(包括）一直到索引toIndex（不包括）。如果fromIndex==toIndex,则填充范围为空"></a>该方法将指定的int值分配给int型数组指定范围中的每个元素。填充的范围从索引fromIndex(包括）一直到索引toIndex（不包括）。如果fromIndex==toIndex,则填充范围为空</h5><h5 id="如果指定的索引位置大于或等于要进行填充的数组的长度，则会报出ArrayIndexOutOf-BoundsException-数组越界异常）异常。"><a href="#如果指定的索引位置大于或等于要进行填充的数组的长度，则会报出ArrayIndexOutOf-BoundsException-数组越界异常）异常。" class="headerlink" title="如果指定的索引位置大于或等于要进行填充的数组的长度，则会报出ArrayIndexOutOf,BoundsException(数组越界异常）异常。"></a>如果指定的索引位置大于或等于要进行填充的数组的长度，则会报出ArrayIndexOutOf,BoundsException(数组越界异常）异常。</h5><h3 id="对数组进行排序"><a href="#对数组进行排序" class="headerlink" title="对数组进行排序"></a>对数组进行排序</h3><h4 id="通过Arrays类的静态方法sort-方法可以实现对数组的排序"><a href="#通过Arrays类的静态方法sort-方法可以实现对数组的排序" class="headerlink" title="通过Arrays类的静态方法sort()方法可以实现对数组的排序."></a>通过Arrays类的静态方法sort()方法可以实现对数组的排序.</h4><h4 id="sort-方法提供了多种重载形式-可对任意类型的数组进行升序排序"><a href="#sort-方法提供了多种重载形式-可对任意类型的数组进行升序排序" class="headerlink" title="sort()方法提供了多种重载形式,可对任意类型的数组进行升序排序"></a>sort()方法提供了多种重载形式,可对任意类型的数组进行升序排序</h4><h5 id="Java中的String类型数组的排序算法是根据字典编排顺序排序的-因此数字排在字母的前面-大写字母排在小写字母的前面"><a href="#Java中的String类型数组的排序算法是根据字典编排顺序排序的-因此数字排在字母的前面-大写字母排在小写字母的前面" class="headerlink" title="Java中的String类型数组的排序算法是根据字典编排顺序排序的,因此数字排在字母的前面,大写字母排在小写字母的前面."></a>Java中的String类型数组的排序算法是根据字典编排顺序排序的,因此数字排在字母的前面,大写字母排在小写字母的前面.</h5><h3 id="复制数组"><a href="#复制数组" class="headerlink" title="复制数组"></a>复制数组</h3><h4 id="Arrays类的copyOf-方法与copyOfRange-方法可以实现对数组的复制"><a href="#Arrays类的copyOf-方法与copyOfRange-方法可以实现对数组的复制" class="headerlink" title="Arrays类的copyOf()方法与copyOfRange()方法可以实现对数组的复制."></a>Arrays类的copyOf()方法与copyOfRange()方法可以实现对数组的复制.</h4><h4 id="copyOf-方法"><a href="#copyOf-方法" class="headerlink" title="copyOf()方法"></a>copyOf()方法</h4><h5 id="复制数组至指定长度"><a href="#复制数组至指定长度" class="headerlink" title="复制数组至指定长度."></a>复制数组至指定长度.</h5><h5 id="提供了多种重载形式-用于满足不同类型数组的复制"><a href="#提供了多种重载形式-用于满足不同类型数组的复制" class="headerlink" title="提供了多种重载形式,用于满足不同类型数组的复制"></a>提供了多种重载形式,用于满足不同类型数组的复制</h5><h4 id="copyOfRange-方法"><a href="#copyOfRange-方法" class="headerlink" title="copyOfRange()方法"></a>copyOfRange()方法</h4><h5 id="将指定数组的指定长度复制到一个新数组中"><a href="#将指定数组的指定长度复制到一个新数组中" class="headerlink" title="将指定数组的指定长度复制到一个新数组中"></a>将指定数组的指定长度复制到一个新数组中</h5><h5 id="同样提供了多种重载形式"><a href="#同样提供了多种重载形式" class="headerlink" title="同样提供了多种重载形式"></a>同样提供了多种重载形式</h5><h5 id="copyOfRange-arr-iint-fromIndex-int-toIndex"><a href="#copyOfRange-arr-iint-fromIndex-int-toIndex" class="headerlink" title="copyOfRange(arr,iint fromIndex,int toIndex)"></a><code>copyOfRange(arr,iint fromIndex,int toIndex)</code></h5><h6 id="arr-要进行复制的数组对象"><a href="#arr-要进行复制的数组对象" class="headerlink" title="arr:要进行复制的数组对象"></a>arr:要进行复制的数组对象</h6><h6 id="formIndex-指定开始复制数组的索引位置-formIndex必须在0至整个数组的长度之间-新数组包括索引是formIndex的元素"><a href="#formIndex-指定开始复制数组的索引位置-formIndex必须在0至整个数组的长度之间-新数组包括索引是formIndex的元素" class="headerlink" title="formIndex:指定开始复制数组的索引位置.formIndex必须在0至整个数组的长度之间.新数组包括索引是formIndex的元素"></a>formIndex:指定开始复制数组的索引位置.formIndex必须在0至整个数组的长度之间.新数组包括索引是formIndex的元素</h6><h6 id="toIndex-要复制范围的最后索引位置-可大于数组arr的长度-新数组不包含索引是toIndex的元素"><a href="#toIndex-要复制范围的最后索引位置-可大于数组arr的长度-新数组不包含索引是toIndex的元素" class="headerlink" title="toIndex:要复制范围的最后索引位置.可大于数组arr的长度.新数组不包含索引是toIndex的元素."></a>toIndex:要复制范围的最后索引位置.可大于数组arr的长度.新数组不包含索引是toIndex的元素.</h6><h3 id="数组查询"><a href="#数组查询" class="headerlink" title="数组查询"></a>数组查询</h3><h4 id="Arrays类的binarySearch-方法"><a href="#Arrays类的binarySearch-方法" class="headerlink" title="Arrays类的binarySearch()方法,"></a>Arrays类的binarySearch()方法,</h4><h4 id="该方法可使用二分搜索法来搜索指定数组，以获得指定对象。该方法返回要搜索元素的索引值。"><a href="#该方法可使用二分搜索法来搜索指定数组，以获得指定对象。该方法返回要搜索元素的索引值。" class="headerlink" title="该方法可使用二分搜索法来搜索指定数组，以获得指定对象。该方法返回要搜索元素的索引值。"></a>该方法可使用二分搜索法来搜索指定数组，以获得指定对象。该方法返回要搜索元素的索引值。</h4><h4 id="提供了多种重载形式-用于满足各种类型数组的查找需要"><a href="#提供了多种重载形式-用于满足各种类型数组的查找需要" class="headerlink" title="提供了多种重载形式,用于满足各种类型数组的查找需要."></a>提供了多种重载形式,用于满足各种类型数组的查找需要.</h4><h4 id="必须在进行此调用之前对数组进行排序（通过sort-方法）。如果没有对数组进行排序，则结果是不确定的，如果数组包含多个带有指定值的元素，则无法保证找到的是哪一个。"><a href="#必须在进行此调用之前对数组进行排序（通过sort-方法）。如果没有对数组进行排序，则结果是不确定的，如果数组包含多个带有指定值的元素，则无法保证找到的是哪一个。" class="headerlink" title="必须在进行此调用之前对数组进行排序（通过sort()方法）。如果没有对数组进行排序，则结果是不确定的，如果数组包含多个带有指定值的元素，则无法保证找到的是哪一个。"></a>必须在进行此调用之前对数组进行排序（通过sort()方法）。如果没有对数组进行排序，则结果是不确定的，如果数组包含多个带有指定值的元素，则无法保证找到的是哪一个。</h4><h4 id="有两种参数类型"><a href="#有两种参数类型" class="headerlink" title="有两种参数类型"></a>有两种参数类型</h4><h5 id="binarySearch-Object-Object-key"><a href="#binarySearch-Object-Object-key" class="headerlink" title="binarySearch(Object[].Object key);"></a><code>binarySearch(Object[].Object key);</code></h5><h6 id="如果key包含在数组中-则返回搜索值的索引-否则返回-1或”-“-插入点-插入点是搜索键将要插入数组的那一点-即第一个大于此键的元素索引"><a href="#如果key包含在数组中-则返回搜索值的索引-否则返回-1或”-“-插入点-插入点是搜索键将要插入数组的那一点-即第一个大于此键的元素索引" class="headerlink" title="如果key包含在数组中,则返回搜索值的索引;否则返回-1或”-“(插入点).插入点是搜索键将要插入数组的那一点,即第一个大于此键的元素索引."></a>如果key包含在数组中,则返回搜索值的索引;否则返回-1或”-“(插入点).插入点是搜索键将要插入数组的那一点,即第一个大于此键的元素索引.</h6><h6 id="如果数组中的所有元素都小于指定的键-则为a-length-注意-这保证了当且仅当此键被找到时-返回的值将大于等于零"><a href="#如果数组中的所有元素都小于指定的键-则为a-length-注意-这保证了当且仅当此键被找到时-返回的值将大于等于零" class="headerlink" title="如果数组中的所有元素都小于指定的键,则为a.length(注意,这保证了当且仅当此键被找到时,返回的值将大于等于零)"></a>如果数组中的所有元素都小于指定的键,则为a.length(注意,这保证了当且仅当此键被找到时,返回的值将大于等于零)</h6><h5 id="binarySearch-Object-int-formIndex-int-toIndex-Object-key"><a href="#binarySearch-Object-int-formIndex-int-toIndex-Object-key" class="headerlink" title="binarySearch(Object[],int formIndex,int toIndex,Object key);"></a><code>binarySearch(Object[],int formIndex,int toIndex,Object key);</code></h5><h6 id="该方法在指定的范围内检索某一元素"><a href="#该方法在指定的范围内检索某一元素" class="headerlink" title="该方法在指定的范围内检索某一元素"></a>该方法在指定的范围内检索某一元素</h6><h6 id="如果数组中的所有元素都小于指定的键-则为toIndex-注意-这保证了当且仅当此键被找到时-返回的值将大于等于零"><a href="#如果数组中的所有元素都小于指定的键-则为toIndex-注意-这保证了当且仅当此键被找到时-返回的值将大于等于零" class="headerlink" title="如果数组中的所有元素都小于指定的键,则为toIndex(注意,这保证了当且仅当此键被找到时,返回的值将大于等于零)"></a>如果数组中的所有元素都小于指定的键,则为toIndex(注意,这保证了当且仅当此键被找到时,返回的值将大于等于零)</h6><h6 id="如果指定的范围大于或等于数组的长度-则会爆出ArraysIndexOutOfBoundsExceptiom异常"><a href="#如果指定的范围大于或等于数组的长度-则会爆出ArraysIndexOutOfBoundsExceptiom异常" class="headerlink" title="如果指定的范围大于或等于数组的长度,则会爆出ArraysIndexOutOfBoundsExceptiom异常"></a>如果指定的范围大于或等于数组的长度,则会爆出ArraysIndexOutOfBoundsExceptiom异常</h6><h2 id="数组排序算法"><a href="#数组排序算法" class="headerlink" title="数组排序算法"></a>数组排序算法</h2><h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><h4 id="定义-冒泡排序是最常用的数组排序算法之一-它排序数组元素的过程总是将小数往前放-大数往后放"><a href="#定义-冒泡排序是最常用的数组排序算法之一-它排序数组元素的过程总是将小数往前放-大数往后放" class="headerlink" title="定义:冒泡排序是最常用的数组排序算法之一,它排序数组元素的过程总是将小数往前放,大数往后放,"></a>定义:冒泡排序是最常用的数组排序算法之一,它排序数组元素的过程总是将小数往前放,大数往后放,</h4><h4 id="基本思想-冒泡排序的基本思想是对比相邻的元素值-如果满足条件就交换元素值-把较小的元素移动到数组前面-把大的元素移动到数组的后面-也就是交换两个元素的位置-这样较小的元素就像旗袍一样从底部往上升"><a href="#基本思想-冒泡排序的基本思想是对比相邻的元素值-如果满足条件就交换元素值-把较小的元素移动到数组前面-把大的元素移动到数组的后面-也就是交换两个元素的位置-这样较小的元素就像旗袍一样从底部往上升" class="headerlink" title="基本思想:冒泡排序的基本思想是对比相邻的元素值,如果满足条件就交换元素值,把较小的元素移动到数组前面,把大的元素移动到数组的后面(也就是交换两个元素的位置),这样较小的元素就像旗袍一样从底部往上升."></a>基本思想:冒泡排序的基本思想是对比相邻的元素值,如果满足条件就交换元素值,把较小的元素移动到数组前面,把大的元素移动到数组的后面(也就是交换两个元素的位置),这样较小的元素就像旗袍一样从底部往上升.</h4><h5 id="通常使用双层循环实现"><a href="#通常使用双层循环实现" class="headerlink" title="通常使用双层循环实现"></a>通常使用双层循环实现</h5><h6 id="外层循环-用于控制排序轮数-一般为要排序的数组长度减1次-因为最后只剩下一个数组元素-不需要对比-同时数组已经完成排序了"><a href="#外层循环-用于控制排序轮数-一般为要排序的数组长度减1次-因为最后只剩下一个数组元素-不需要对比-同时数组已经完成排序了" class="headerlink" title="外层循环:用于控制排序轮数,一般为要排序的数组长度减1次,因为最后只剩下一个数组元素,不需要对比,同时数组已经完成排序了."></a>外层循环:用于控制排序轮数,一般为要排序的数组长度减1次,因为最后只剩下一个数组元素,不需要对比,同时数组已经完成排序了.</h6><h6 id="内层循环-用于对比数组中每个临近元素的大小-以确定是否交换位置-对比和交换次数随排序的轮数而减少"><a href="#内层循环-用于对比数组中每个临近元素的大小-以确定是否交换位置-对比和交换次数随排序的轮数而减少" class="headerlink" title="内层循环:用于对比数组中每个临近元素的大小,以确定是否交换位置,对比和交换次数随排序的轮数而减少."></a>内层循环:用于对比数组中每个临近元素的大小,以确定是否交换位置,对比和交换次数随排序的轮数而减少.</h6><h3 id="直接选择排序"><a href="#直接选择排序" class="headerlink" title="直接选择排序"></a>直接选择排序</h3><h4 id="定义-属于选择排序的一种-它的排序速度要比冒泡快一些-因为交换次数少-也是常用的排序算法"><a href="#定义-属于选择排序的一种-它的排序速度要比冒泡快一些-因为交换次数少-也是常用的排序算法" class="headerlink" title="定义:属于选择排序的一种,它的排序速度要比冒泡快一些,,因为交换次数少,也是常用的排序算法"></a>定义:属于选择排序的一种,它的排序速度要比冒泡快一些,,因为交换次数少,也是常用的排序算法</h4><h4 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h4><h5 id="将指定排序位置与其他数组元素分别进行对比-如果满足条件就交换元素值-注意这里区别冒泡排序-不是交换相邻元素-而是把满足条件的元素与指定的排序位置交换-如从最后一个元素开始排序"><a href="#将指定排序位置与其他数组元素分别进行对比-如果满足条件就交换元素值-注意这里区别冒泡排序-不是交换相邻元素-而是把满足条件的元素与指定的排序位置交换-如从最后一个元素开始排序" class="headerlink" title="将指定排序位置与其他数组元素分别进行对比,如果满足条件就交换元素值,注意这里区别冒泡排序,不是交换相邻元素,而是把满足条件的元素与指定的排序位置交换(如从最后一个元素开始排序)."></a>将指定排序位置与其他数组元素分别进行对比,如果满足条件就交换元素值,注意这里区别冒泡排序,不是交换相邻元素,而是把满足条件的元素与指定的排序位置交换(如从最后一个元素开始排序).</h5><h5 id="每一趟从待排序的数据元素中选出最大或最小-顺序地放在已排好序的数列的最后-直到全部待排序的数据元素排完"><a href="#每一趟从待排序的数据元素中选出最大或最小-顺序地放在已排好序的数列的最后-直到全部待排序的数据元素排完" class="headerlink" title="每一趟从待排序的数据元素中选出最大或最小,顺序地放在已排好序的数列的最后,直到全部待排序的数据元素排完."></a>每一趟从待排序的数据元素中选出最大或最小,顺序地放在已排好序的数列的最后,直到全部待排序的数据元素排完.</h5><h3 id="反转排序"><a href="#反转排序" class="headerlink" title="反转排序"></a>反转排序</h3><h4 id="定义-以相反的顺序将原有数组的内容重新排序"><a href="#定义-以相反的顺序将原有数组的内容重新排序" class="headerlink" title="定义:以相反的顺序将原有数组的内容重新排序"></a>定义:以相反的顺序将原有数组的内容重新排序</h4><h4 id="基本思想-反转排序的基本思想比较简单-也很好理解-其实现思路就是把数组的最后一个元素与都一个元素进行替换-所以只需要循环数组长度的半数次就可以"><a href="#基本思想-反转排序的基本思想比较简单-也很好理解-其实现思路就是把数组的最后一个元素与都一个元素进行替换-所以只需要循环数组长度的半数次就可以" class="headerlink" title="基本思想:反转排序的基本思想比较简单,也很好理解,其实现思路就是把数组的最后一个元素与都一个元素进行替换,所以只需要循环数组长度的半数次就可以."></a>基本思想:反转排序的基本思想比较简单,也很好理解,其实现思路就是把数组的最后一个元素与都一个元素进行替换,所以只需要循环数组长度的半数次就可以.</h4>
+    </div>
+
+    
+    
+    
+
+    
+   <div>
+     <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+   </div>
+ 
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="zhengtianhao 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="zhengtianhao 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>zhengtianhao
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2021/06/12/Java%E6%95%B0%E7%BB%84/" title="Java数组">http://example.com/2021/06/12/Java数组/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/wechat_channel.jpg">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">微信</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AF%BC%E8%88%AA/" rel="tag"># 导航</a>
+              <a href="/tags/%E5%88%86%E4%BA%AB/" rel="tag"># 分享</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/12/CSS/" rel="prev" title="CSS">
+      <i class="fa fa-chevron-left"></i> CSS
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E7%9A%84%E5%88%9B%E5%BB%BA%E5%B9%B6%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">一维数组的创建并使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E5%AE%9E%E8%B4%A8%E4%B8%8A%E6%98%AF%E4%B8%80%E7%BB%84%E7%9B%B8%E5%90%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%BA%BF%E6%80%A7%E9%9B%86%E5%90%88-%E5%BD%93%E5%9C%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E9%9C%80%E8%A6%81%E5%A4%84%E7%90%86%E4%B8%80%E7%BB%84%E6%95%B0%E6%8D%AE-%E6%88%96%E8%80%85%E4%BC%A0%E9%80%92%E4%B8%80%E7%BB%84%E6%95%B0%E6%8D%AE%E6%97%B6-%E5%8F%AF%E4%BB%A5%E5%BA%94%E7%94%A8%E8%BF%99%E7%A7%8D%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E7%BB%84"><span class="nav-number">1.1.1.</span> <span class="nav-text">一维数组实质上是一组相同数据类型的线性集合,当在程序中需要处理一组数据,或者传递一组数据时,可以应用这种类型的数组.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="nav-number">1.1.2.</span> <span class="nav-text">创建一维数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%BD%9C%E4%B8%BA%E5%AF%B9%E8%B1%A1%E5%85%81%E8%AE%B8%E4%BD%BF%E7%94%A8new%E5%85%B3%E9%94%AE%E5%AD%97%E8%BF%9B%E8%A1%8C%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">数组作为对象允许使用new关键字进行内存分配.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%95%B0%E7%BB%84%E4%B9%8B%E5%89%8D-%E5%BF%85%E9%A1%BB%E9%A6%96%E5%85%88%E5%AE%9A%E4%B9%89%E6%95%B0%E7%BB%84%E5%8F%98%E9%87%8F%E6%89%80%E5%B1%9E%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">使用数组之前,必须首先定义数组变量所属的类型.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">一维数组的创建</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B-%E6%95%B0%E7%BB%84%E5%90%8D-%E7%B1%BB%E5%9E%8B-%E6%95%B0%E7%BB%84%E5%90%8D"><span class="nav-number">1.1.2.3.1.</span> <span class="nav-text">类型 数组名[]; 类型[] 数组名;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%90%8D%E5%AD%97-new-%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9A%84%E7%B1%BB%E5%9E%8B-%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">1.1.2.3.2.</span> <span class="nav-text">数组名字 &#x3D; new 数组元素的类型[数组元素的个数]</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8new%E5%85%B3%E9%94%AE%E5%AD%97%E4%B8%BA%E6%95%B0%E7%BB%84%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98%E6%97%B6%EF%BC%8C%E6%95%B4%E5%9E%8B%E6%95%B0%E7%BB%84%E4%B8%AD%E5%90%84%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E5%88%9D%E5%A7%8B%E5%80%BC%E9%83%BD%E4%B8%BA0"><span class="nav-number">1.1.2.3.3.</span> <span class="nav-text">使用new关键字为数组分配内存时，整型数组中各个元素的初始值都为0</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9A%84%E7%B1%BB%E5%9E%8B-%E6%95%B0%E7%BB%84%E5%90%8D-new-%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9A%84%E7%B1%BB%E5%9E%8B-%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">1.1.2.3.4.</span> <span class="nav-text">数组元素的类型 数组名 &#x3D; new 数组元素的类型[数组元素的个数];</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BF%99%E7%A7%8Di%E5%88%9B%E5%BB%BA%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B9%E6%B3%95%E6%98%AF%E5%B0%86%E6%95%B0%E7%BB%84%E7%9A%84%E5%A3%B0%E6%98%8E%E5%92%8C%E5%86%85%E5%AD%98%E7%9A%84%E5%88%86%E9%85%8D%E5%90%88%E5%9C%A8%E4%B8%80%E8%B5%B7%E6%89%A7%E8%A1%8C"><span class="nav-number">1.1.2.3.4.1.</span> <span class="nav-text">这种i创建数组的方法是将数组的声明和内存的分配合在一起执行</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="nav-number">1.1.3.</span> <span class="nav-text">初始化一维数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#int-arr-new-int-1-2-3-4-5"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">int arr[] &#x3D; new int[1,2,3,4,5];</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#int-arr-1-2-3-4-5"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">int arr[] &#x3D; {1,2,3,4,5};</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E7%9A%84%E5%88%9B%E5%BB%BA%E5%8F%8A%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.4.</span> <span class="nav-text">二维数组的创建及使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%90%84%E4%B8%AA%E5%85%83%E7%B4%A0%E4%BB%8D%E7%84%B6%E6%98%AF%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84-%E9%82%A3%E4%B9%88%E5%AE%83%E5%B0%B1%E6%98%AF%E4%B8%80%E4%B8%AA%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84-%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E4%BA%8E%E8%A1%A8%E7%A4%BA%E8%A1%A8-%E8%A1%A8%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E4%BB%A5%E8%A1%8C%E5%92%8C%E5%88%97%E7%9A%84%E5%BD%A2%E5%BC%8F%E7%BB%84%E7%BB%87-%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%B8%8B%E6%A0%87%E6%97%B6%E8%A1%8C-%E7%AC%AC%E4%BA%8C%E4%B8%AA%E6%98%AF%E5%88%97"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">如果一维数组中的各个元素仍然是一个数组,那么它就是一个二维数组.二维数组常用于表示表,表中的信息以行和列的形式组织,第一个下标时行,第二个是列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">二维数组的创建</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%B8%8E%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F%E5%B7%AE%E4%B8%8D%E5%A4%9A"><span class="nav-number">1.1.4.2.1.</span> <span class="nav-text">基本与一维数组创建方式差不多</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%E7%9A%84%E5%90%8C%E6%97%B6%E4%B8%BA%E6%95%B0%E7%BB%84%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98"><span class="nav-number">1.1.4.2.2.</span> <span class="nav-text">声明的同时为数组分配内存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%BF%99%E7%A7%8D%E6%96%B9%E5%BC%8F%E4%B8%BA%E6%95%B0%E7%BB%84%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98%E6%97%B6-%E9%A6%96%E5%85%88%E6%8C%87%E5%AE%9A%E6%9C%80%E5%B7%A6%E8%BE%B9%E7%BB%B4%E6%95%B0%E7%9A%84%E5%86%85%E5%AD%98-%E7%84%B6%E5%90%8E%E5%8D%95%E7%8B%AC%E5%9C%B0%E7%BB%99%E4%BD%99%E4%B8%8B%E7%9A%84%E7%BB%B4%E6%95%B0%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98"><span class="nav-number">1.1.4.2.3.</span> <span class="nav-text">使用这种方式为数组分配内存时,首先指定最左边维数的内存,然后单独地给余下的维数分配内存.</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.1.5.</span> <span class="nav-text">二维数组的初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%B8%8E%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E7%9B%B8%E5%90%8C"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">基本与一维数组相同</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E4%BA%8E%E6%95%B4%E5%9E%8B%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84-%E5%88%9B%E5%BB%BA%E6%88%90%E5%8A%9F%E4%B9%8B%E5%90%8E%E7%B3%BB%E7%BB%9F%E4%BC%9A%E8%B5%8B%E7%BB%99%E6%95%B0%E7%BB%84%E4%B8%AD%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E5%88%9D%E5%A7%8B%E5%80%BC%E4%B8%BA0"><span class="nav-number">1.1.5.2.</span> <span class="nav-text">对于整型二维数组,创建成功之后系统会赋给数组中每个元素初始值为0</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.</span> <span class="nav-text">数组的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#java-util%E5%8C%85%E7%9A%84Arrays%E7%B1%BB%E5%8C%85%E5%90%AB%E4%BA%86%E7%94%A8%E6%9D%A5%E6%93%8D%E4%BD%9C%E6%95%B0%E7%BB%84-%E5%A6%82%E6%8E%92%E5%BA%8F%E5%92%8C%E6%90%9C%E7%B4%A2-%E7%9A%84%E5%90%84%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">java.util包的Arrays类包含了用来操作数组(如排序和搜索)的各种方法.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E6%95%B0%E7%BB%84"><span class="nav-number">1.2.2.</span> <span class="nav-text">遍历数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E6%95%B0%E7%BB%84%E5%B0%B1%E6%98%AF%E8%8E%B7%E5%8F%96%E6%95%B0%E7%BB%84%E4%B8%AD%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0-%E9%80%9A%E5%B8%B8%E9%81%8D%E5%8E%86%E6%95%B0%E7%BB%84%E9%83%BD%E6%98%AF%E4%BD%BF%E7%94%A8for%E5%BE%AA%E7%8E%AF%E6%9D%A5%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">遍历数组就是获取数组中每个元素.通常遍历数组都是使用for循环来实现.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E9%9C%80%E8%A6%81%E7%94%A8%E5%88%B0%E5%8F%8C%E5%B1%82for%E5%BE%AA%E7%8E%AF-%E9%80%9A%E8%BF%87%E6%95%B0%E7%BB%84%E7%9A%84length%E5%B1%9E%E6%80%A7%E5%8F%AF%E8%8E%B7%E5%BE%97%E6%95%B0%E7%BB%84%E7%9A%84%E9%95%BF%E5%BA%A6"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">遍历二维数组需要用到双层for循环,通过数组的length属性可获得数组的长度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E6%95%B0%E7%BB%84%E6%97%B6%E4%BD%BF%E7%94%A8foreach%E8%AF%AD%E5%8F%A5%E5%8F%AF%E8%83%BD%E4%BC%9A%E6%9B%B4%E7%AE%80%E5%8D%95"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">遍历数组时使用foreach语句可能会更简单</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A1%AB%E5%85%85%E6%9B%BF%E6%8D%A2%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0"><span class="nav-number">1.2.3.</span> <span class="nav-text">填充替换数组元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0%E5%AE%9A%E4%B9%89%E5%AE%8C%E6%88%90%E5%90%8E-%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87Arrays%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95fill-%E6%9D%A5%E5%AF%B9%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0%E8%BF%9B%E8%A1%8C%E6%9B%BF%E6%8D%A2"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">数组中的元素定义完成后,可以通过Arrays类的静态方法fill()来对数组中的元素进行替换.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%A5%E6%96%B9%E6%B3%95%E9%80%9A%E8%BF%87%E5%90%84%E7%A7%8D%E9%87%8D%E8%BD%BD%E5%BD%A2%E5%BC%8F%E5%8F%AF%E5%AE%8C%E6%88%90%E5%AF%B9%E4%BB%BB%E6%84%8F%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9A%84%E6%9B%BF%E6%8D%A2"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">该方法通过各种重载形式可完成对任意类型的数组元素的替换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fill-int-a-int-value"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">fill(int[] a,int value);</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%A5%E6%96%B9%E6%B3%95%E5%8F%AF%E5%B0%86%E6%8C%87%E5%AE%9A%E7%9A%84int%E5%80%BC%E5%88%86%E9%85%8D%E7%BB%99int%E5%9E%8B%E6%95%B0%E7%BB%84%E7%9A%84%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">1.2.3.3.1.</span> <span class="nav-text">该方法可将指定的int值分配给int型数组的每个元素</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fill-int-a-int-fromIndex-int-toIndex-int-value"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">fill(int[] a,int fromIndex,int toIndex,int value);</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-%E8%A6%81%E5%A1%AB%E5%85%85%E7%9A%84%E6%95%B0%E7%BB%84"><span class="nav-number">1.2.3.4.1.</span> <span class="nav-text">a:要填充的数组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#fromIndex-%E8%A6%81%E4%BD%BF%E7%94%A8%E6%8C%87%E5%AE%9A%E5%80%BC%E5%A1%AB%E5%85%85%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E7%B4%A2%E5%BC%95-%E5%8C%85%E6%8B%AC"><span class="nav-number">1.2.3.4.2.</span> <span class="nav-text">fromIndex:要使用指定值填充的第一个元素的索引(包括)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#toIndex-%E8%A6%81%E4%BD%BF%E7%94%A8%E6%8C%87%E5%AE%9A%E5%80%BC%E5%A1%AB%E5%85%85%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E7%B4%A2%E5%BC%95-%E4%B8%8D%E5%8C%85%E6%8B%AC"><span class="nav-number">1.2.3.4.3.</span> <span class="nav-text">toIndex:要使用指定值填充的最后一个元素的索引(不包括)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#value-%E8%A6%81%E5%82%A8%E5%AD%98%E7%9A%84%E6%89%80%E6%9C%89%E7%9A%84%E5%85%83%E7%B4%A0%E7%9A%84%E5%80%BC"><span class="nav-number">1.2.3.4.4.</span> <span class="nav-text">value:要储存的所有的元素的值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%A5%E6%96%B9%E6%B3%95%E5%B0%86%E6%8C%87%E5%AE%9A%E7%9A%84int%E5%80%BC%E5%88%86%E9%85%8D%E7%BB%99int%E5%9E%8B%E6%95%B0%E7%BB%84%E6%8C%87%E5%AE%9A%E8%8C%83%E5%9B%B4%E4%B8%AD%E7%9A%84%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E3%80%82%E5%A1%AB%E5%85%85%E7%9A%84%E8%8C%83%E5%9B%B4%E4%BB%8E%E7%B4%A2%E5%BC%95fromIndex-%E5%8C%85%E6%8B%AC%EF%BC%89%E4%B8%80%E7%9B%B4%E5%88%B0%E7%B4%A2%E5%BC%95toIndex%EF%BC%88%E4%B8%8D%E5%8C%85%E6%8B%AC%EF%BC%89%E3%80%82%E5%A6%82%E6%9E%9CfromIndex-toIndex-%E5%88%99%E5%A1%AB%E5%85%85%E8%8C%83%E5%9B%B4%E4%B8%BA%E7%A9%BA"><span class="nav-number">1.2.3.4.5.</span> <span class="nav-text">该方法将指定的int值分配给int型数组指定范围中的每个元素。填充的范围从索引fromIndex(包括）一直到索引toIndex（不包括）。如果fromIndex&#x3D;&#x3D;toIndex,则填充范围为空</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E6%8C%87%E5%AE%9A%E7%9A%84%E7%B4%A2%E5%BC%95%E4%BD%8D%E7%BD%AE%E5%A4%A7%E4%BA%8E%E6%88%96%E7%AD%89%E4%BA%8E%E8%A6%81%E8%BF%9B%E8%A1%8C%E5%A1%AB%E5%85%85%E7%9A%84%E6%95%B0%E7%BB%84%E7%9A%84%E9%95%BF%E5%BA%A6%EF%BC%8C%E5%88%99%E4%BC%9A%E6%8A%A5%E5%87%BAArrayIndexOutOf-BoundsException-%E6%95%B0%E7%BB%84%E8%B6%8A%E7%95%8C%E5%BC%82%E5%B8%B8%EF%BC%89%E5%BC%82%E5%B8%B8%E3%80%82"><span class="nav-number">1.2.3.4.6.</span> <span class="nav-text">如果指定的索引位置大于或等于要进行填充的数组的长度，则会报出ArrayIndexOutOf,BoundsException(数组越界异常）异常。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%95%B0%E7%BB%84%E8%BF%9B%E8%A1%8C%E6%8E%92%E5%BA%8F"><span class="nav-number">1.2.4.</span> <span class="nav-text">对数组进行排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87Arrays%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95sort-%E6%96%B9%E6%B3%95%E5%8F%AF%E4%BB%A5%E5%AE%9E%E7%8E%B0%E5%AF%B9%E6%95%B0%E7%BB%84%E7%9A%84%E6%8E%92%E5%BA%8F"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">通过Arrays类的静态方法sort()方法可以实现对数组的排序.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sort-%E6%96%B9%E6%B3%95%E6%8F%90%E4%BE%9B%E4%BA%86%E5%A4%9A%E7%A7%8D%E9%87%8D%E8%BD%BD%E5%BD%A2%E5%BC%8F-%E5%8F%AF%E5%AF%B9%E4%BB%BB%E6%84%8F%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E7%BB%84%E8%BF%9B%E8%A1%8C%E5%8D%87%E5%BA%8F%E6%8E%92%E5%BA%8F"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">sort()方法提供了多种重载形式,可对任意类型的数组进行升序排序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Java%E4%B8%AD%E7%9A%84String%E7%B1%BB%E5%9E%8B%E6%95%B0%E7%BB%84%E7%9A%84%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%98%AF%E6%A0%B9%E6%8D%AE%E5%AD%97%E5%85%B8%E7%BC%96%E6%8E%92%E9%A1%BA%E5%BA%8F%E6%8E%92%E5%BA%8F%E7%9A%84-%E5%9B%A0%E6%AD%A4%E6%95%B0%E5%AD%97%E6%8E%92%E5%9C%A8%E5%AD%97%E6%AF%8D%E7%9A%84%E5%89%8D%E9%9D%A2-%E5%A4%A7%E5%86%99%E5%AD%97%E6%AF%8D%E6%8E%92%E5%9C%A8%E5%B0%8F%E5%86%99%E5%AD%97%E6%AF%8D%E7%9A%84%E5%89%8D%E9%9D%A2"><span class="nav-number">1.2.4.2.1.</span> <span class="nav-text">Java中的String类型数组的排序算法是根据字典编排顺序排序的,因此数字排在字母的前面,大写字母排在小写字母的前面.</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E6%95%B0%E7%BB%84"><span class="nav-number">1.2.5.</span> <span class="nav-text">复制数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Arrays%E7%B1%BB%E7%9A%84copyOf-%E6%96%B9%E6%B3%95%E4%B8%8EcopyOfRange-%E6%96%B9%E6%B3%95%E5%8F%AF%E4%BB%A5%E5%AE%9E%E7%8E%B0%E5%AF%B9%E6%95%B0%E7%BB%84%E7%9A%84%E5%A4%8D%E5%88%B6"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">Arrays类的copyOf()方法与copyOfRange()方法可以实现对数组的复制.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#copyOf-%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.5.2.</span> <span class="nav-text">copyOf()方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E6%95%B0%E7%BB%84%E8%87%B3%E6%8C%87%E5%AE%9A%E9%95%BF%E5%BA%A6"><span class="nav-number">1.2.5.2.1.</span> <span class="nav-text">复制数组至指定长度.</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8F%90%E4%BE%9B%E4%BA%86%E5%A4%9A%E7%A7%8D%E9%87%8D%E8%BD%BD%E5%BD%A2%E5%BC%8F-%E7%94%A8%E4%BA%8E%E6%BB%A1%E8%B6%B3%E4%B8%8D%E5%90%8C%E7%B1%BB%E5%9E%8B%E6%95%B0%E7%BB%84%E7%9A%84%E5%A4%8D%E5%88%B6"><span class="nav-number">1.2.5.2.2.</span> <span class="nav-text">提供了多种重载形式,用于满足不同类型数组的复制</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#copyOfRange-%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.5.3.</span> <span class="nav-text">copyOfRange()方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%86%E6%8C%87%E5%AE%9A%E6%95%B0%E7%BB%84%E7%9A%84%E6%8C%87%E5%AE%9A%E9%95%BF%E5%BA%A6%E5%A4%8D%E5%88%B6%E5%88%B0%E4%B8%80%E4%B8%AA%E6%96%B0%E6%95%B0%E7%BB%84%E4%B8%AD"><span class="nav-number">1.2.5.3.1.</span> <span class="nav-text">将指定数组的指定长度复制到一个新数组中</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%8C%E6%A0%B7%E6%8F%90%E4%BE%9B%E4%BA%86%E5%A4%9A%E7%A7%8D%E9%87%8D%E8%BD%BD%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.2.5.3.2.</span> <span class="nav-text">同样提供了多种重载形式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#copyOfRange-arr-iint-fromIndex-int-toIndex"><span class="nav-number">1.2.5.3.3.</span> <span class="nav-text">copyOfRange(arr,iint fromIndex,int toIndex)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#arr-%E8%A6%81%E8%BF%9B%E8%A1%8C%E5%A4%8D%E5%88%B6%E7%9A%84%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.2.5.3.3.1.</span> <span class="nav-text">arr:要进行复制的数组对象</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#formIndex-%E6%8C%87%E5%AE%9A%E5%BC%80%E5%A7%8B%E5%A4%8D%E5%88%B6%E6%95%B0%E7%BB%84%E7%9A%84%E7%B4%A2%E5%BC%95%E4%BD%8D%E7%BD%AE-formIndex%E5%BF%85%E9%A1%BB%E5%9C%A80%E8%87%B3%E6%95%B4%E4%B8%AA%E6%95%B0%E7%BB%84%E7%9A%84%E9%95%BF%E5%BA%A6%E4%B9%8B%E9%97%B4-%E6%96%B0%E6%95%B0%E7%BB%84%E5%8C%85%E6%8B%AC%E7%B4%A2%E5%BC%95%E6%98%AFformIndex%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-number">1.2.5.3.3.2.</span> <span class="nav-text">formIndex:指定开始复制数组的索引位置.formIndex必须在0至整个数组的长度之间.新数组包括索引是formIndex的元素</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#toIndex-%E8%A6%81%E5%A4%8D%E5%88%B6%E8%8C%83%E5%9B%B4%E7%9A%84%E6%9C%80%E5%90%8E%E7%B4%A2%E5%BC%95%E4%BD%8D%E7%BD%AE-%E5%8F%AF%E5%A4%A7%E4%BA%8E%E6%95%B0%E7%BB%84arr%E7%9A%84%E9%95%BF%E5%BA%A6-%E6%96%B0%E6%95%B0%E7%BB%84%E4%B8%8D%E5%8C%85%E5%90%AB%E7%B4%A2%E5%BC%95%E6%98%AFtoIndex%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-number">1.2.5.3.3.3.</span> <span class="nav-text">toIndex:要复制范围的最后索引位置.可大于数组arr的长度.新数组不包含索引是toIndex的元素.</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.2.6.</span> <span class="nav-text">数组查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Arrays%E7%B1%BB%E7%9A%84binarySearch-%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">Arrays类的binarySearch()方法,</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%A5%E6%96%B9%E6%B3%95%E5%8F%AF%E4%BD%BF%E7%94%A8%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2%E6%B3%95%E6%9D%A5%E6%90%9C%E7%B4%A2%E6%8C%87%E5%AE%9A%E6%95%B0%E7%BB%84%EF%BC%8C%E4%BB%A5%E8%8E%B7%E5%BE%97%E6%8C%87%E5%AE%9A%E5%AF%B9%E8%B1%A1%E3%80%82%E8%AF%A5%E6%96%B9%E6%B3%95%E8%BF%94%E5%9B%9E%E8%A6%81%E6%90%9C%E7%B4%A2%E5%85%83%E7%B4%A0%E7%9A%84%E7%B4%A2%E5%BC%95%E5%80%BC%E3%80%82"><span class="nav-number">1.2.6.2.</span> <span class="nav-text">该方法可使用二分搜索法来搜索指定数组，以获得指定对象。该方法返回要搜索元素的索引值。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%90%E4%BE%9B%E4%BA%86%E5%A4%9A%E7%A7%8D%E9%87%8D%E8%BD%BD%E5%BD%A2%E5%BC%8F-%E7%94%A8%E4%BA%8E%E6%BB%A1%E8%B6%B3%E5%90%84%E7%A7%8D%E7%B1%BB%E5%9E%8B%E6%95%B0%E7%BB%84%E7%9A%84%E6%9F%A5%E6%89%BE%E9%9C%80%E8%A6%81"><span class="nav-number">1.2.6.3.</span> <span class="nav-text">提供了多种重载形式,用于满足各种类型数组的查找需要.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%85%E9%A1%BB%E5%9C%A8%E8%BF%9B%E8%A1%8C%E6%AD%A4%E8%B0%83%E7%94%A8%E4%B9%8B%E5%89%8D%E5%AF%B9%E6%95%B0%E7%BB%84%E8%BF%9B%E8%A1%8C%E6%8E%92%E5%BA%8F%EF%BC%88%E9%80%9A%E8%BF%87sort-%E6%96%B9%E6%B3%95%EF%BC%89%E3%80%82%E5%A6%82%E6%9E%9C%E6%B2%A1%E6%9C%89%E5%AF%B9%E6%95%B0%E7%BB%84%E8%BF%9B%E8%A1%8C%E6%8E%92%E5%BA%8F%EF%BC%8C%E5%88%99%E7%BB%93%E6%9E%9C%E6%98%AF%E4%B8%8D%E7%A1%AE%E5%AE%9A%E7%9A%84%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%95%B0%E7%BB%84%E5%8C%85%E5%90%AB%E5%A4%9A%E4%B8%AA%E5%B8%A6%E6%9C%89%E6%8C%87%E5%AE%9A%E5%80%BC%E7%9A%84%E5%85%83%E7%B4%A0%EF%BC%8C%E5%88%99%E6%97%A0%E6%B3%95%E4%BF%9D%E8%AF%81%E6%89%BE%E5%88%B0%E7%9A%84%E6%98%AF%E5%93%AA%E4%B8%80%E4%B8%AA%E3%80%82"><span class="nav-number">1.2.6.4.</span> <span class="nav-text">必须在进行此调用之前对数组进行排序（通过sort()方法）。如果没有对数组进行排序，则结果是不确定的，如果数组包含多个带有指定值的元素，则无法保证找到的是哪一个。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%89%E4%B8%A4%E7%A7%8D%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.2.6.5.</span> <span class="nav-text">有两种参数类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#binarySearch-Object-Object-key"><span class="nav-number">1.2.6.5.1.</span> <span class="nav-text">binarySearch(Object[].Object key);</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A6%82%E6%9E%9Ckey%E5%8C%85%E5%90%AB%E5%9C%A8%E6%95%B0%E7%BB%84%E4%B8%AD-%E5%88%99%E8%BF%94%E5%9B%9E%E6%90%9C%E7%B4%A2%E5%80%BC%E7%9A%84%E7%B4%A2%E5%BC%95-%E5%90%A6%E5%88%99%E8%BF%94%E5%9B%9E-1%E6%88%96%E2%80%9D-%E2%80%9C-%E6%8F%92%E5%85%A5%E7%82%B9-%E6%8F%92%E5%85%A5%E7%82%B9%E6%98%AF%E6%90%9C%E7%B4%A2%E9%94%AE%E5%B0%86%E8%A6%81%E6%8F%92%E5%85%A5%E6%95%B0%E7%BB%84%E7%9A%84%E9%82%A3%E4%B8%80%E7%82%B9-%E5%8D%B3%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%A4%A7%E4%BA%8E%E6%AD%A4%E9%94%AE%E7%9A%84%E5%85%83%E7%B4%A0%E7%B4%A2%E5%BC%95"><span class="nav-number">1.2.6.5.1.1.</span> <span class="nav-text">如果key包含在数组中,则返回搜索值的索引;否则返回-1或”-“(插入点).插入点是搜索键将要插入数组的那一点,即第一个大于此键的元素索引.</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0%E9%83%BD%E5%B0%8F%E4%BA%8E%E6%8C%87%E5%AE%9A%E7%9A%84%E9%94%AE-%E5%88%99%E4%B8%BAa-length-%E6%B3%A8%E6%84%8F-%E8%BF%99%E4%BF%9D%E8%AF%81%E4%BA%86%E5%BD%93%E4%B8%94%E4%BB%85%E5%BD%93%E6%AD%A4%E9%94%AE%E8%A2%AB%E6%89%BE%E5%88%B0%E6%97%B6-%E8%BF%94%E5%9B%9E%E7%9A%84%E5%80%BC%E5%B0%86%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E%E9%9B%B6"><span class="nav-number">1.2.6.5.1.2.</span> <span class="nav-text">如果数组中的所有元素都小于指定的键,则为a.length(注意,这保证了当且仅当此键被找到时,返回的值将大于等于零)</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#binarySearch-Object-int-formIndex-int-toIndex-Object-key"><span class="nav-number">1.2.6.5.2.</span> <span class="nav-text">binarySearch(Object[],int formIndex,int toIndex,Object key);</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%AF%A5%E6%96%B9%E6%B3%95%E5%9C%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E8%8C%83%E5%9B%B4%E5%86%85%E6%A3%80%E7%B4%A2%E6%9F%90%E4%B8%80%E5%85%83%E7%B4%A0"><span class="nav-number">1.2.6.5.2.1.</span> <span class="nav-text">该方法在指定的范围内检索某一元素</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0%E9%83%BD%E5%B0%8F%E4%BA%8E%E6%8C%87%E5%AE%9A%E7%9A%84%E9%94%AE-%E5%88%99%E4%B8%BAtoIndex-%E6%B3%A8%E6%84%8F-%E8%BF%99%E4%BF%9D%E8%AF%81%E4%BA%86%E5%BD%93%E4%B8%94%E4%BB%85%E5%BD%93%E6%AD%A4%E9%94%AE%E8%A2%AB%E6%89%BE%E5%88%B0%E6%97%B6-%E8%BF%94%E5%9B%9E%E7%9A%84%E5%80%BC%E5%B0%86%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E%E9%9B%B6"><span class="nav-number">1.2.6.5.2.2.</span> <span class="nav-text">如果数组中的所有元素都小于指定的键,则为toIndex(注意,这保证了当且仅当此键被找到时,返回的值将大于等于零)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E6%8C%87%E5%AE%9A%E7%9A%84%E8%8C%83%E5%9B%B4%E5%A4%A7%E4%BA%8E%E6%88%96%E7%AD%89%E4%BA%8E%E6%95%B0%E7%BB%84%E7%9A%84%E9%95%BF%E5%BA%A6-%E5%88%99%E4%BC%9A%E7%88%86%E5%87%BAArraysIndexOutOfBoundsExceptiom%E5%BC%82%E5%B8%B8"><span class="nav-number">1.2.6.5.2.3.</span> <span class="nav-text">如果指定的范围大于或等于数组的长度,则会爆出ArraysIndexOutOfBoundsExceptiom异常</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">数组排序算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="nav-number">1.3.1.</span> <span class="nav-text">冒泡排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E6%98%AF%E6%9C%80%E5%B8%B8%E7%94%A8%E7%9A%84%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B9%8B%E4%B8%80-%E5%AE%83%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9A%84%E8%BF%87%E7%A8%8B%E6%80%BB%E6%98%AF%E5%B0%86%E5%B0%8F%E6%95%B0%E5%BE%80%E5%89%8D%E6%94%BE-%E5%A4%A7%E6%95%B0%E5%BE%80%E5%90%8E%E6%94%BE"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">定义:冒泡排序是最常用的数组排序算法之一,它排序数组元素的过程总是将小数往前放,大数往后放,</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3%E6%98%AF%E5%AF%B9%E6%AF%94%E7%9B%B8%E9%82%BB%E7%9A%84%E5%85%83%E7%B4%A0%E5%80%BC-%E5%A6%82%E6%9E%9C%E6%BB%A1%E8%B6%B3%E6%9D%A1%E4%BB%B6%E5%B0%B1%E4%BA%A4%E6%8D%A2%E5%85%83%E7%B4%A0%E5%80%BC-%E6%8A%8A%E8%BE%83%E5%B0%8F%E7%9A%84%E5%85%83%E7%B4%A0%E7%A7%BB%E5%8A%A8%E5%88%B0%E6%95%B0%E7%BB%84%E5%89%8D%E9%9D%A2-%E6%8A%8A%E5%A4%A7%E7%9A%84%E5%85%83%E7%B4%A0%E7%A7%BB%E5%8A%A8%E5%88%B0%E6%95%B0%E7%BB%84%E7%9A%84%E5%90%8E%E9%9D%A2-%E4%B9%9F%E5%B0%B1%E6%98%AF%E4%BA%A4%E6%8D%A2%E4%B8%A4%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E4%BD%8D%E7%BD%AE-%E8%BF%99%E6%A0%B7%E8%BE%83%E5%B0%8F%E7%9A%84%E5%85%83%E7%B4%A0%E5%B0%B1%E5%83%8F%E6%97%97%E8%A2%8D%E4%B8%80%E6%A0%B7%E4%BB%8E%E5%BA%95%E9%83%A8%E5%BE%80%E4%B8%8A%E5%8D%87"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">基本思想:冒泡排序的基本思想是对比相邻的元素值,如果满足条件就交换元素值,把较小的元素移动到数组前面,把大的元素移动到数组的后面(也就是交换两个元素的位置),这样较小的元素就像旗袍一样从底部往上升.</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%9A%E5%B8%B8%E4%BD%BF%E7%94%A8%E5%8F%8C%E5%B1%82%E5%BE%AA%E7%8E%AF%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.3.1.2.1.</span> <span class="nav-text">通常使用双层循环实现</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A4%96%E5%B1%82%E5%BE%AA%E7%8E%AF-%E7%94%A8%E4%BA%8E%E6%8E%A7%E5%88%B6%E6%8E%92%E5%BA%8F%E8%BD%AE%E6%95%B0-%E4%B8%80%E8%88%AC%E4%B8%BA%E8%A6%81%E6%8E%92%E5%BA%8F%E7%9A%84%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A6%E5%87%8F1%E6%AC%A1-%E5%9B%A0%E4%B8%BA%E6%9C%80%E5%90%8E%E5%8F%AA%E5%89%A9%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0-%E4%B8%8D%E9%9C%80%E8%A6%81%E5%AF%B9%E6%AF%94-%E5%90%8C%E6%97%B6%E6%95%B0%E7%BB%84%E5%B7%B2%E7%BB%8F%E5%AE%8C%E6%88%90%E6%8E%92%E5%BA%8F%E4%BA%86"><span class="nav-number">1.3.1.2.1.1.</span> <span class="nav-text">外层循环:用于控制排序轮数,一般为要排序的数组长度减1次,因为最后只剩下一个数组元素,不需要对比,同时数组已经完成排序了.</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%86%85%E5%B1%82%E5%BE%AA%E7%8E%AF-%E7%94%A8%E4%BA%8E%E5%AF%B9%E6%AF%94%E6%95%B0%E7%BB%84%E4%B8%AD%E6%AF%8F%E4%B8%AA%E4%B8%B4%E8%BF%91%E5%85%83%E7%B4%A0%E7%9A%84%E5%A4%A7%E5%B0%8F-%E4%BB%A5%E7%A1%AE%E5%AE%9A%E6%98%AF%E5%90%A6%E4%BA%A4%E6%8D%A2%E4%BD%8D%E7%BD%AE-%E5%AF%B9%E6%AF%94%E5%92%8C%E4%BA%A4%E6%8D%A2%E6%AC%A1%E6%95%B0%E9%9A%8F%E6%8E%92%E5%BA%8F%E7%9A%84%E8%BD%AE%E6%95%B0%E8%80%8C%E5%87%8F%E5%B0%91"><span class="nav-number">1.3.1.2.1.2.</span> <span class="nav-text">内层循环:用于对比数组中每个临近元素的大小,以确定是否交换位置,对比和交换次数随排序的轮数而减少.</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="nav-number">1.3.2.</span> <span class="nav-text">直接选择排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-%E5%B1%9E%E4%BA%8E%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%E7%9A%84%E4%B8%80%E7%A7%8D-%E5%AE%83%E7%9A%84%E6%8E%92%E5%BA%8F%E9%80%9F%E5%BA%A6%E8%A6%81%E6%AF%94%E5%86%92%E6%B3%A1%E5%BF%AB%E4%B8%80%E4%BA%9B-%E5%9B%A0%E4%B8%BA%E4%BA%A4%E6%8D%A2%E6%AC%A1%E6%95%B0%E5%B0%91-%E4%B9%9F%E6%98%AF%E5%B8%B8%E7%94%A8%E7%9A%84%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">定义:属于选择排序的一种,它的排序速度要比冒泡快一些,,因为交换次数少,也是常用的排序算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">基本思想</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%86%E6%8C%87%E5%AE%9A%E6%8E%92%E5%BA%8F%E4%BD%8D%E7%BD%AE%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E5%88%86%E5%88%AB%E8%BF%9B%E8%A1%8C%E5%AF%B9%E6%AF%94-%E5%A6%82%E6%9E%9C%E6%BB%A1%E8%B6%B3%E6%9D%A1%E4%BB%B6%E5%B0%B1%E4%BA%A4%E6%8D%A2%E5%85%83%E7%B4%A0%E5%80%BC-%E6%B3%A8%E6%84%8F%E8%BF%99%E9%87%8C%E5%8C%BA%E5%88%AB%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F-%E4%B8%8D%E6%98%AF%E4%BA%A4%E6%8D%A2%E7%9B%B8%E9%82%BB%E5%85%83%E7%B4%A0-%E8%80%8C%E6%98%AF%E6%8A%8A%E6%BB%A1%E8%B6%B3%E6%9D%A1%E4%BB%B6%E7%9A%84%E5%85%83%E7%B4%A0%E4%B8%8E%E6%8C%87%E5%AE%9A%E7%9A%84%E6%8E%92%E5%BA%8F%E4%BD%8D%E7%BD%AE%E4%BA%A4%E6%8D%A2-%E5%A6%82%E4%BB%8E%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E5%BC%80%E5%A7%8B%E6%8E%92%E5%BA%8F"><span class="nav-number">1.3.2.2.1.</span> <span class="nav-text">将指定排序位置与其他数组元素分别进行对比,如果满足条件就交换元素值,注意这里区别冒泡排序,不是交换相邻元素,而是把满足条件的元素与指定的排序位置交换(如从最后一个元素开始排序).</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AF%8F%E4%B8%80%E8%B6%9F%E4%BB%8E%E5%BE%85%E6%8E%92%E5%BA%8F%E7%9A%84%E6%95%B0%E6%8D%AE%E5%85%83%E7%B4%A0%E4%B8%AD%E9%80%89%E5%87%BA%E6%9C%80%E5%A4%A7%E6%88%96%E6%9C%80%E5%B0%8F-%E9%A1%BA%E5%BA%8F%E5%9C%B0%E6%94%BE%E5%9C%A8%E5%B7%B2%E6%8E%92%E5%A5%BD%E5%BA%8F%E7%9A%84%E6%95%B0%E5%88%97%E7%9A%84%E6%9C%80%E5%90%8E-%E7%9B%B4%E5%88%B0%E5%85%A8%E9%83%A8%E5%BE%85%E6%8E%92%E5%BA%8F%E7%9A%84%E6%95%B0%E6%8D%AE%E5%85%83%E7%B4%A0%E6%8E%92%E5%AE%8C"><span class="nav-number">1.3.2.2.2.</span> <span class="nav-text">每一趟从待排序的数据元素中选出最大或最小,顺序地放在已排好序的数列的最后,直到全部待排序的数据元素排完.</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E8%BD%AC%E6%8E%92%E5%BA%8F"><span class="nav-number">1.3.3.</span> <span class="nav-text">反转排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-%E4%BB%A5%E7%9B%B8%E5%8F%8D%E7%9A%84%E9%A1%BA%E5%BA%8F%E5%B0%86%E5%8E%9F%E6%9C%89%E6%95%B0%E7%BB%84%E7%9A%84%E5%86%85%E5%AE%B9%E9%87%8D%E6%96%B0%E6%8E%92%E5%BA%8F"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">定义:以相反的顺序将原有数组的内容重新排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3-%E5%8F%8D%E8%BD%AC%E6%8E%92%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3%E6%AF%94%E8%BE%83%E7%AE%80%E5%8D%95-%E4%B9%9F%E5%BE%88%E5%A5%BD%E7%90%86%E8%A7%A3-%E5%85%B6%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF%E5%B0%B1%E6%98%AF%E6%8A%8A%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E4%B8%8E%E9%83%BD%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E8%BF%9B%E8%A1%8C%E6%9B%BF%E6%8D%A2-%E6%89%80%E4%BB%A5%E5%8F%AA%E9%9C%80%E8%A6%81%E5%BE%AA%E7%8E%AF%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A6%E7%9A%84%E5%8D%8A%E6%95%B0%E6%AC%A1%E5%B0%B1%E5%8F%AF%E4%BB%A5"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">基本思想:反转排序的基本思想比较简单,也很好理解,其实现思路就是把数组的最后一个元素与都一个元素进行替换,所以只需要循环数组长度的半数次就可以.</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zhengtianhao"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">zhengtianhao</p>
+  <div class="site-description" itemprop="description">不忘初心,砥砺前行</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zombiezheng" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zombiezheng" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6256302575" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6256302575" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengtianhao</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+<div class="weather">
+  <!-- 《添加“心知天气”-->
+  
+    <div id="tp-weather-widget"></div>
+  <script>
+    (function(a,h,g,f,e,d,c,b){b=function(){d=h.createElement(g);c=h.getElementsByTagName(g)[0];d.src=e;d.charset="utf-8";d.async=1;c.parentNode.insertBefore(d,c)};a["SeniverseWeatherWidgetObject"]=f;a[f]||(a[f]=function(){(a[f].q=a[f].q||[]).push(arguments)});a[f].l=+new Date();if(a.attachEvent){a.attachEvent("onload",b)}else{a.addEventListener("load",b,false)}}(window,document,"script","SeniverseWeatherWidget","//cdn.sencdn.com/widget2/static/js/bundle.js?t="+parseInt((new Date().getTime() / 100000000).toString(),10)));
+    window.SeniverseWeatherWidget('show', {
+      flavor: "slim",
+      location: "WX4FBXXFKE4F",
+      geolocation: true,
+      language: "zh-Hans",
+      unit: "c",
+      theme: "auto",
+      token: "efb760e3-5326-4f08-839b-122738249a17",
+      hover: "enabled",
+      container: "tp-weather-widget"
+    })
+  </script>
+  
+  </div>
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

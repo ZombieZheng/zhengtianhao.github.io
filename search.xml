@@ -22,48 +22,18 @@
 <hr>
 <h1 id="超链接"><a href="#超链接" class="headerlink" title="超链接"></a>超链接</h1><h2 id="跳转页面-跳到当前页的某个位置"><a href="#跳转页面-跳到当前页的某个位置" class="headerlink" title="跳转页面,跳到当前页的某个位置"></a>跳转页面,跳到当前页的某个位置</h2><h3 id="使用-a-标签来定义超链接-行内元素-在a里除了它可以放任何元素"><a href="#使用-a-标签来定义超链接-行内元素-在a里除了它可以放任何元素" class="headerlink" title="使用 a 标签来定义超链接,行内元素,在a里除了它可以放任何元素"></a>使用 a 标签来定义超链接,行内元素,在a里除了它可以放任何元素</h3><h3 id="lt-a-href-quot-www-zhengtianhao-cn-quot-gt-博客-也可以跳自己编辑的页面-lt-a-gt"><a href="#lt-a-href-quot-www-zhengtianhao-cn-quot-gt-博客-也可以跳自己编辑的页面-lt-a-gt" class="headerlink" title="&lt;a href = &quot;www.zhengtianhao.cn&quot;&gt;博客//也可以跳自己编辑的页面&lt;/a&gt;"></a><code>&lt;a href = &quot;www.zhengtianhao.cn&quot;&gt;博客//也可以跳自己编辑的页面&lt;/a&gt;</code></h3><h3 id="当我们需要跳转到一个服务器内部的页面时-需要写相对路径-当前目录-可不写-上一级目录"><a href="#当我们需要跳转到一个服务器内部的页面时-需要写相对路径-当前目录-可不写-上一级目录" class="headerlink" title="当我们需要跳转到一个服务器内部的页面时,需要写相对路径(./当前目录(可不写);../上一级目录)"></a>当我们需要跳转到一个服务器内部的页面时,需要写相对路径(./当前目录(可不写);../上一级目录)</h3><h3 id="有target属性-用来指定超链打开的位置-可选值"><a href="#有target属性-用来指定超链打开的位置-可选值" class="headerlink" title="有target属性:用来指定超链打开的位置,可选值:"></a>有target属性:用来指定超链打开的位置,可选值:</h3><h3 id="self-默认值-在当前页面中打开超链接"><a href="#self-默认值-在当前页面中打开超链接" class="headerlink" title="_self 默认值 在当前页面中打开超链接;"></a>_self 默认值 在当前页面中打开超链接;</h3><h3 id="blank-在一个新的页面中代开链接"><a href="#blank-在一个新的页面中代开链接" class="headerlink" title="_blank:在一个新的页面中代开链接;"></a>_blank:在一个新的页面中代开链接;</h3><h3 id="可以直接将超链接的href属性设置为-这样点击超链接以后页面不会发生跳转-反而会到页面的顶部"><a href="#可以直接将超链接的href属性设置为-这样点击超链接以后页面不会发生跳转-反而会到页面的顶部" class="headerlink" title="可以直接将超链接的href属性设置为#,这样点击超链接以后页面不会发生跳转,反而会到页面的顶部,"></a>可以直接将超链接的href属性设置为#,这样点击超链接以后页面不会发生跳转,反而会到页面的顶部,</h3><h3 id="每一个属性都可以添加一个id属性-可以跳到页面的指定位置-只要将href属性设置为-目标元素的id值"><a href="#每一个属性都可以添加一个id属性-可以跳到页面的指定位置-只要将href属性设置为-目标元素的id值" class="headerlink" title="每一个属性都可以添加一个id属性,可以跳到页面的指定位置,只要将href属性设置为 #目标元素的id值"></a>每一个属性都可以添加一个id属性,可以跳到页面的指定位置,只要将href属性设置为 #目标元素的id值</h3><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">&lt;<span class="keyword">a</span> href = <span class="string">&quot;#zombie&quot;</span>&gt;去底部&lt;/<span class="keyword">a</span>&gt;</span><br><span class="line">.</span><br><span class="line"><span class="comment">.//javascript:;  什么都不会发生</span></span><br><span class="line">.</span><br><span class="line">&lt;<span class="keyword">a</span> id = <span class="string">&quot;botton&quot;</span> href = <span class="string">&quot;#&quot;</span>&gt;回到顶部&lt;/<span class="keyword">a</span>&gt;</span><br></pre></td></tr></table></figure>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<hr>
+<hr>
+<h1 id="图片标签"><a href="#图片标签" class="headerlink" title="图片标签"></a>图片标签</h1><h2 id="使用img标签来引入外部标签-img标签是一个自结果标签-属于替换元素"><a href="#使用img标签来引入外部标签-img标签是一个自结果标签-属于替换元素" class="headerlink" title="使用img标签来引入外部标签,img标签是一个自结果标签,属于替换元素"></a>使用img标签来引入外部标签,img标签是一个自结果标签,属于替换元素</h2><h3 id="src指定外部标签的路径-alt图片的描述-用于浏览器搜索引擎识别图片-类似id-id是唯一的-它是一类"><a href="#src指定外部标签的路径-alt图片的描述-用于浏览器搜索引擎识别图片-类似id-id是唯一的-它是一类" class="headerlink" title="src指定外部标签的路径;alt图片的描述,用于浏览器搜索引擎识别图片,类似id,id是唯一的,它是一类"></a>src指定外部标签的路径;alt图片的描述,用于浏览器搜索引擎识别图片,类似id,id是唯一的,它是一类</h3><h3 id="还有属性宽和高"><a href="#还有属性宽和高" class="headerlink" title="还有属性宽和高"></a>还有属性宽和高</h3><h3 id="lt-img-src-quot-图片地址-quot-alt-“图片描述”-gt"><a href="#lt-img-src-quot-图片地址-quot-alt-“图片描述”-gt" class="headerlink" title="&lt;img src = &quot;图片地址&quot; alt = “图片描述”&gt;"></a><code>&lt;img src = &quot;图片地址&quot;</code> alt = “图片描述”&gt;</h3><h2 id="图片的格式"><a href="#图片的格式" class="headerlink" title="图片的格式"></a>图片的格式</h2><h3 id="jpg-支持的颜色比较丰富-不支持动图和透明效果-一般用来显示照片"><a href="#jpg-支持的颜色比较丰富-不支持动图和透明效果-一般用来显示照片" class="headerlink" title="jpg:支持的颜色比较丰富,不支持动图和透明效果,一般用来显示照片"></a>jpg:支持的颜色比较丰富,不支持动图和透明效果,一般用来显示照片</h3><h3 id="gif-支持的颜色比较少-支持简单透明-支持动图-一般用于颜色单一的图片-动图"><a href="#gif-支持的颜色比较少-支持简单透明-支持动图-一般用于颜色单一的图片-动图" class="headerlink" title="gif:支持的颜色比较少,支持简单透明,支持动图,一般用于颜色单一的图片,动图"></a>gif:支持的颜色比较少,支持简单透明,支持动图,一般用于颜色单一的图片,动图</h3><h3 id="png-支持的颜色丰富-支持复杂透明-不支持动图-一般用于复杂透明和颜色丰富的图片"><a href="#png-支持的颜色丰富-支持复杂透明-不支持动图-一般用于复杂透明和颜色丰富的图片" class="headerlink" title="png:支持的颜色丰富,支持复杂透明,不支持动图,一般用于复杂透明和颜色丰富的图片"></a>png:支持的颜色丰富,支持复杂透明,不支持动图,一般用于复杂透明和颜色丰富的图片</h3><h3 id="webp-这种格式是谷歌新推出的专门用来表示网页图片的一种格式-小还具备以上有点"><a href="#webp-这种格式是谷歌新推出的专门用来表示网页图片的一种格式-小还具备以上有点" class="headerlink" title="webp:这种格式是谷歌新推出的专门用来表示网页图片的一种格式,小还具备以上有点"></a>webp:这种格式是谷歌新推出的专门用来表示网页图片的一种格式,小还具备以上有点</h3><h2 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h2><h3 id="将图片使用base64编码-这样可以将图片转换为字符-通过字符的形式将图片引入-用于图片与网页一起展现"><a href="#将图片使用base64编码-这样可以将图片转换为字符-通过字符的形式将图片引入-用于图片与网页一起展现" class="headerlink" title="将图片使用base64编码,这样可以将图片转换为字符,通过字符的形式将图片引入,用于图片与网页一起展现"></a>将图片使用base64编码,这样可以将图片转换为字符,通过字符的形式将图片引入,用于图片与网页一起展现</h3><hr>
+<hr>
+<h1 id="内联框架"><a href="#内联框架" class="headerlink" title="内联框架"></a>内联框架</h1><h2 id="用于向当前页面中引入一个页面-src-指定要引入的页面的路径-frameborder指定内联框架的边框"><a href="#用于向当前页面中引入一个页面-src-指定要引入的页面的路径-frameborder指定内联框架的边框" class="headerlink" title="用于向当前页面中引入一个页面 ; src 指定要引入的页面的路径;frameborder指定内联框架的边框"></a>用于向当前页面中引入一个页面 ; src 指定要引入的页面的路径;frameborder指定内联框架的边框</h2><h3 id="lt-iframe-src-quot-wwww-zhengtianhao-cn-quot-width-quot-500-quot-height-quot-500-quot-frameborder-quot-1-quot-gt-lt-iframe-gt"><a href="#lt-iframe-src-quot-wwww-zhengtianhao-cn-quot-width-quot-500-quot-height-quot-500-quot-frameborder-quot-1-quot-gt-lt-iframe-gt" class="headerlink" title="&lt;iframe src = &quot;wwww.zhengtianhao.cn&quot; width = &quot;500&quot; height = &quot;500&quot; frameborder=&quot;1&quot;&gt;&lt;/iframe&gt;"></a><code>&lt;iframe src = &quot;wwww.zhengtianhao.cn&quot; width = &quot;500&quot; height = &quot;500&quot; frameborder=&quot;1&quot;&gt;&lt;/iframe&gt;</code></h3><hr>
+<hr>
+<h1 id="音视频播放"><a href="#音视频播放" class="headerlink" title="音视频播放"></a>音视频播放</h1><h2 id="audio-标签用来向页面中引入一个外部的音频文件"><a href="#audio-标签用来向页面中引入一个外部的音频文件" class="headerlink" title="audio 标签用来向页面中引入一个外部的音频文件"></a>audio 标签用来向页面中引入一个外部的音频文件</h2><h2 id="音视频文件引入时-默认情况下不允许用户自己控制播放停止"><a href="#音视频文件引入时-默认情况下不允许用户自己控制播放停止" class="headerlink" title="音视频文件引入时,默认情况下不允许用户自己控制播放停止"></a>音视频文件引入时,默认情况下不允许用户自己控制播放停止</h2><h2 id="属性"><a href="#属性" class="headerlink" title="属性:"></a>属性:</h2><h2 id="controls是否允许用户控制播放"><a href="#controls是否允许用户控制播放" class="headerlink" title="controls是否允许用户控制播放;"></a>controls是否允许用户控制播放;</h2><h2 id="autoplay音频文件是否自动播放"><a href="#autoplay音频文件是否自动播放" class="headerlink" title="autoplay音频文件是否自动播放;"></a>autoplay音频文件是否自动播放;</h2><h2 id="loop循环播放"><a href="#loop循环播放" class="headerlink" title="loop循环播放;"></a>loop循环播放;</h2><h2 id="lt-audio-src-quot-相对路径-quot-controls-autoplay-gt-lt-audio-gt-有些不可以自动播放是浏览器的锅-大部分都对音乐取消自动播放"><a href="#lt-audio-src-quot-相对路径-quot-controls-autoplay-gt-lt-audio-gt-有些不可以自动播放是浏览器的锅-大部分都对音乐取消自动播放" class="headerlink" title="&lt;audio src = &quot;相对路径&quot; controls autoplay&gt;&lt;/audio&gt;//有些不可以自动播放是浏览器的锅(大部分都对音乐取消自动播放)"></a><code>&lt;audio src = &quot;相对路径&quot; controls autoplay&gt;&lt;/audio&gt;</code>//有些不可以自动播放是浏览器的锅(大部分都对音乐取消自动播放)</h2><h3 id="浏览器不支持mp3可以写ogg"><a href="#浏览器不支持mp3可以写ogg" class="headerlink" title="浏览器不支持mp3可以写ogg"></a>浏览器不支持mp3可以写ogg</h3><h2 id="video标签来向页面中引入一个视频"><a href="#video标签来向页面中引入一个视频" class="headerlink" title="video标签来向页面中引入一个视频"></a>video标签来向页面中引入一个视频</h2><h3 id="浏览器不支持mp4可以写webm"><a href="#浏览器不支持mp4可以写webm" class="headerlink" title="浏览器不支持mp4可以写webm"></a>浏览器不支持mp4可以写webm</h3><hr>
+<hr>
+<h1 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h1><hr>
+<hr>
+<h1 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h1><hr>
+<hr>
 ]]></content>
       <categories>
         <category>样式</category>

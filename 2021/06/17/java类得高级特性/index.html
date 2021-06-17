@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-atom.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="类的高级特性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java类得高级特性">
+<meta property="og:url" content="http://example.com/2021/06/17/java%E7%B1%BB%E5%BE%97%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/index.html">
+<meta property="og:site_name" content="Zombies">
+<meta property="og:description" content="类的高级特性">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-17T13:20:27.000Z">
+<meta property="article:modified_time" content="2021-06-17T13:39:13.789Z">
+<meta property="article:author" content="zhengtianhao">
+<meta property="article:tag" content="导航">
+<meta property="article:tag" content="分享">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/06/17/java%E7%B1%BB%E5%BE%97%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>java类得高级特性 | Zombies</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/rss2.xml" title="Zombies" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/zombiezheng" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zombies</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/17/java%E7%B1%BB%E5%BE%97%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengtianhao">
+      <meta itemprop="description" content="不忘初心,砥砺前行">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zombies">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          java类得高级特性
+        </h1>
+
+        <div class="post-meta">
+
+      
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-06-17 21:20:27 / 修改时间：21:39:13" itemprop="dateCreated datePublished" datetime="2021-06-17T21:20:27+08:00">2021-06-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="类的高级特性"><a href="#类的高级特性" class="headerlink" title="类的高级特性"></a>类的高级特性</h1><span id="more"></span>
+
+<h2 id="Java类包"><a href="#Java类包" class="headerlink" title="Java类包"></a>Java类包</h2><h3 id="一个完整的类名需要报名与类名的组合-每个类都隶属于一个类包-只要保证同一个类包中的类不同命-就可以有效地避免同名类冲突的情况"><a href="#一个完整的类名需要报名与类名的组合-每个类都隶属于一个类包-只要保证同一个类包中的类不同命-就可以有效地避免同名类冲突的情况" class="headerlink" title="一个完整的类名需要报名与类名的组合,每个类都隶属于一个类包,只要保证同一个类包中的类不同命,就可以有效地避免同名类冲突的情况"></a>一个完整的类名需要报名与类名的组合,每个类都隶属于一个类包,只要保证同一个类包中的类不同命,就可以有效地避免同名类冲突的情况</h3><h3 id="在Java中采用类包机制非常重要-类包不仅可以解决类名冲突问题-还可以在开发庞大的引用程序时-帮助开发人员管理庞大的应用和层序组件-方便软件复用"><a href="#在Java中采用类包机制非常重要-类包不仅可以解决类名冲突问题-还可以在开发庞大的引用程序时-帮助开发人员管理庞大的应用和层序组件-方便软件复用" class="headerlink" title="在Java中采用类包机制非常重要,类包不仅可以解决类名冲突问题,还可以在开发庞大的引用程序时,帮助开发人员管理庞大的应用和层序组件,方便软件复用."></a>在Java中采用类包机制非常重要,类包不仅可以解决类名冲突问题,还可以在开发庞大的引用程序时,帮助开发人员管理庞大的应用和层序组件,方便软件复用.</h3><h3 id="同一个包中的类相互访问时-可以不指定包名"><a href="#同一个包中的类相互访问时-可以不指定包名" class="headerlink" title="同一个包中的类相互访问时,可以不指定包名."></a>同一个包中的类相互访问时,可以不指定包名.</h3><h3 id="同一个包中的类不必存放在同一个位置"><a href="#同一个包中的类不必存放在同一个位置" class="headerlink" title="同一个包中的类不必存放在同一个位置."></a>同一个包中的类不必存放在同一个位置.</h3><h3 id="Java包的命名规则是全部使用小写字母"><a href="#Java包的命名规则是全部使用小写字母" class="headerlink" title="Java包的命名规则是全部使用小写字母"></a>Java包的命名规则是全部使用小写字母</h3><hr>
+<hr>
+<h2 id="final变量"><a href="#final变量" class="headerlink" title="final变量"></a>final变量</h2><h3 id="final关键字可用于变量声明，一旦该变量被设定，就不可以再改变该变量的值。通常，由final定义的变量为常量。"><a href="#final关键字可用于变量声明，一旦该变量被设定，就不可以再改变该变量的值。通常，由final定义的变量为常量。" class="headerlink" title="final关键字可用于变量声明，一旦该变量被设定，就不可以再改变该变量的值。通常，由final定义的变量为常量。"></a>final关键字可用于变量声明，一旦该变量被设定，就不可以再改变该变量的值。通常，由final定义的变量为常量。</h3><h3 id="final关键字定义的变量必须再声明时对其进行赋值操作。final除了可以修饰基本数据类型的常量，还可以修饰对象引用-由于数组也可以被看作一个对象来引用，所以final可以修饰数组。"><a href="#final关键字定义的变量必须再声明时对其进行赋值操作。final除了可以修饰基本数据类型的常量，还可以修饰对象引用-由于数组也可以被看作一个对象来引用，所以final可以修饰数组。" class="headerlink" title="final关键字定义的变量必须再声明时对其进行赋值操作。final除了可以修饰基本数据类型的常量，还可以修饰对象引用,由于数组也可以被看作一个对象来引用，所以final可以修饰数组。"></a>final关键字定义的变量必须再声明时对其进行赋值操作。final除了可以修饰基本数据类型的常量，还可以修饰对象引用,由于数组也可以被看作一个对象来引用，所以final可以修饰数组。</h3><h3 id="一旦一个对象引用被修饰为final后，它只能恒定指向一个对象。"><a href="#一旦一个对象引用被修饰为final后，它只能恒定指向一个对象。" class="headerlink" title="一旦一个对象引用被修饰为final后，它只能恒定指向一个对象。"></a>一旦一个对象引用被修饰为final后，它只能恒定指向一个对象。</h3><h3 id="一个既是static又是final的字段只占据一段不能改变的存储空间"><a href="#一个既是static又是final的字段只占据一段不能改变的存储空间" class="headerlink" title="一个既是static又是final的字段只占据一段不能改变的存储空间."></a>一个既是static又是final的字段只占据一段不能改变的存储空间.</h3><h3 id="被定义为final的常量定义时需要使用大写字母命名，并且中间使用下划线进行连接，这是Java中的编码规则"><a href="#被定义为final的常量定义时需要使用大写字母命名，并且中间使用下划线进行连接，这是Java中的编码规则" class="headerlink" title="被定义为final的常量定义时需要使用大写字母命名，并且中间使用下划线进行连接，这是Java中的编码规则"></a>被定义为final的常量定义时需要使用大写字母命名，并且中间使用下划线进行连接，这是Java中的编码规则</h3><h3 id="同时，定义为final的数据无论是常量、对象引用还是数组，在主函数中都不可以被改变"><a href="#同时，定义为final的数据无论是常量、对象引用还是数组，在主函数中都不可以被改变" class="headerlink" title="同时，定义为final的数据无论是常量、对象引用还是数组，在主函数中都不可以被改变"></a>同时，定义为final的数据无论是常量、对象引用还是数组，在主函数中都不可以被改变</h3><h3 id="我们知道一个被定义为final的对象引用只能指向唯一一个对象，不可以将它再指向其他对象，但是一个对象本身的值确使可以改变的，那么为了使一个常量真正做到不可更改，可以将常量声明为static-final"><a href="#我们知道一个被定义为final的对象引用只能指向唯一一个对象，不可以将它再指向其他对象，但是一个对象本身的值确使可以改变的，那么为了使一个常量真正做到不可更改，可以将常量声明为static-final" class="headerlink" title="我们知道一个被定义为final的对象引用只能指向唯一一个对象，不可以将它再指向其他对象，但是一个对象本身的值确使可以改变的，那么为了使一个常量真正做到不可更改，可以将常量声明为static final"></a>我们知道一个被定义为final的对象引用只能指向唯一一个对象，不可以将它再指向其他对象，但是一个对象本身的值确使可以改变的，那么为了使一个常量真正做到不可更改，可以将常量声明为static final</h3><h3 id="在Java中定义全局常量，通常使用public-static-final修饰，这样的常量只能在定义是被赋值"><a href="#在Java中定义全局常量，通常使用public-static-final修饰，这样的常量只能在定义是被赋值" class="headerlink" title="在Java中定义全局常量，通常使用public static final修饰，这样的常量只能在定义是被赋值"></a>在Java中定义全局常量，通常使用public static final修饰，这样的常量只能在定义是被赋值</h3><h3 id="可以将方法的参数定义为final类型，这预示着无法为方法中更改参数引用所指向的对象"><a href="#可以将方法的参数定义为final类型，这预示着无法为方法中更改参数引用所指向的对象" class="headerlink" title="可以将方法的参数定义为final类型，这预示着无法为方法中更改参数引用所指向的对象"></a>可以将方法的参数定义为final类型，这预示着无法为方法中更改参数引用所指向的对象</h3><hr>
+<hr>
+<h2 id="final方法"><a href="#final方法" class="headerlink" title="final方法"></a>final方法</h2><h3 id="将方法定义为final类型可以防止子类修改该类的定义与实现方式，同时定义为final的方法的执行效率要高于非final方法，所以一个定义为private的方法隐式被指定为final类型"><a href="#将方法定义为final类型可以防止子类修改该类的定义与实现方式，同时定义为final的方法的执行效率要高于非final方法，所以一个定义为private的方法隐式被指定为final类型" class="headerlink" title="将方法定义为final类型可以防止子类修改该类的定义与实现方式，同时定义为final的方法的执行效率要高于非final方法，所以一个定义为private的方法隐式被指定为final类型"></a>将方法定义为final类型可以防止子类修改该类的定义与实现方式，同时定义为final的方法的执行效率要高于非final方法，所以一个定义为private的方法隐式被指定为final类型</h3><hr>
+<hr>
+<h2 id="final类"><a href="#final类" class="headerlink" title="final类"></a>final类</h2><h3 id="定义为final的类不能继承"><a href="#定义为final的类不能继承" class="headerlink" title="定义为final的类不能继承"></a>定义为final的类不能继承</h3><h3 id="如果希望一个类不允许任何类继承，并且不允许其他人对这个类进行任何改动，可以将这个类设置为final形式，则类中的所有方法都被隐式设置为final，但是final类中的成员变量可以被定义为final或非final形式"><a href="#如果希望一个类不允许任何类继承，并且不允许其他人对这个类进行任何改动，可以将这个类设置为final形式，则类中的所有方法都被隐式设置为final，但是final类中的成员变量可以被定义为final或非final形式" class="headerlink" title="如果希望一个类不允许任何类继承，并且不允许其他人对这个类进行任何改动，可以将这个类设置为final形式，则类中的所有方法都被隐式设置为final，但是final类中的成员变量可以被定义为final或非final形式"></a>如果希望一个类不允许任何类继承，并且不允许其他人对这个类进行任何改动，可以将这个类设置为final形式，则类中的所有方法都被隐式设置为final，但是final类中的成员变量可以被定义为final或非final形式</h3><hr>
+<hr>
+<h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><h3 id="成员内部类简介"><a href="#成员内部类简介" class="headerlink" title="成员内部类简介"></a>成员内部类简介</h3><h4 id="内部类可以分为成员内部类、局部内部类以及匿名类。"><a href="#内部类可以分为成员内部类、局部内部类以及匿名类。" class="headerlink" title="内部类可以分为成员内部类、局部内部类以及匿名类。"></a>内部类可以分为成员内部类、局部内部类以及匿名类。</h4><h4 id="在一个类中使用内部类，可以在内部类中直接存取其所在类的私有成员变量"><a href="#在一个类中使用内部类，可以在内部类中直接存取其所在类的私有成员变量" class="headerlink" title="在一个类中使用内部类，可以在内部类中直接存取其所在类的私有成员变量"></a>在一个类中使用内部类，可以在内部类中直接存取其所在类的私有成员变量</h4><h4 id="在内部类中可以随意使用外部类的成员方法以及成员变量，尽管这些类成员被修饰为private。"><a href="#在内部类中可以随意使用外部类的成员方法以及成员变量，尽管这些类成员被修饰为private。" class="headerlink" title="在内部类中可以随意使用外部类的成员方法以及成员变量，尽管这些类成员被修饰为private。"></a>在内部类中可以随意使用外部类的成员方法以及成员变量，尽管这些类成员被修饰为private。</h4><h4 id="内部类的实例一定要绑定在外部类的实例上，如果从外部类中初始化一个内部类对象，那么内部类对象就会绑定在外部类对象上。内部类初始化方式与其他类初始化方式相同，都是使用new关键字"><a href="#内部类的实例一定要绑定在外部类的实例上，如果从外部类中初始化一个内部类对象，那么内部类对象就会绑定在外部类对象上。内部类初始化方式与其他类初始化方式相同，都是使用new关键字" class="headerlink" title="内部类的实例一定要绑定在外部类的实例上，如果从外部类中初始化一个内部类对象，那么内部类对象就会绑定在外部类对象上。内部类初始化方式与其他类初始化方式相同，都是使用new关键字"></a>内部类的实例一定要绑定在外部类的实例上，如果从外部类中初始化一个内部类对象，那么内部类对象就会绑定在外部类对象上。内部类初始化方式与其他类初始化方式相同，都是使用new关键字</h4><h5 id="innerClass-in-new-innerClass-在外部类实例化内部类对象引用"><a href="#innerClass-in-new-innerClass-在外部类实例化内部类对象引用" class="headerlink" title="innerClass in = new innerClass();在外部类实例化内部类对象引用"></a>innerClass in = new innerClass();在外部类实例化内部类对象引用</h5><h5 id="外部类不可以直接访问内布类成员变量"><a href="#外部类不可以直接访问内布类成员变量" class="headerlink" title="外部类不可以直接访问内布类成员变量"></a>外部类不可以直接访问内布类成员变量</h5><h5 id="内部类的对象实例化操作必须在外部类或外部类的非静态方法中实现"><a href="#内部类的对象实例化操作必须在外部类或外部类的非静态方法中实现" class="headerlink" title="内部类的对象实例化操作必须在外部类或外部类的非静态方法中实现"></a>内部类的对象实例化操作必须在外部类或外部类的非静态方法中实现</h5><h4 id="内部类可以访问它的外部类成员，但内部类的成员只有在内部类的范围之内是可知的，不能被外部类使用"><a href="#内部类可以访问它的外部类成员，但内部类的成员只有在内部类的范围之内是可知的，不能被外部类使用" class="headerlink" title="内部类可以访问它的外部类成员，但内部类的成员只有在内部类的范围之内是可知的，不能被外部类使用"></a>内部类可以访问它的外部类成员，但内部类的成员只有在内部类的范围之内是可知的，不能被外部类使用</h4><h4 id="内部类对象与外部类对象关系非常紧密，内外可以交互使用彼此类中定义的变量"><a href="#内部类对象与外部类对象关系非常紧密，内外可以交互使用彼此类中定义的变量" class="headerlink" title="内部类对象与外部类对象关系非常紧密，内外可以交互使用彼此类中定义的变量"></a>内部类对象与外部类对象关系非常紧密，内外可以交互使用彼此类中定义的变量</h4><h4 id="如果在外部类和非静态方法之外实例化内部类对象，需要使用外部类。内部类的形式指定该对象的类型"><a href="#如果在外部类和非静态方法之外实例化内部类对象，需要使用外部类。内部类的形式指定该对象的类型" class="headerlink" title="如果在外部类和非静态方法之外实例化内部类对象，需要使用外部类。内部类的形式指定该对象的类型"></a>如果在外部类和非静态方法之外实例化内部类对象，需要使用外部类。内部类的形式指定该对象的类型</h4><h4 id="如果不使用doit-方法返回内部类对象引用，可以直接使用内部类实例化内部类对象，但由于是在主方法中实例化内部类对象，必须在new操作符之前提供一个外部类的引用。"><a href="#如果不使用doit-方法返回内部类对象引用，可以直接使用内部类实例化内部类对象，但由于是在主方法中实例化内部类对象，必须在new操作符之前提供一个外部类的引用。" class="headerlink" title="如果不使用doit()方法返回内部类对象引用，可以直接使用内部类实例化内部类对象，但由于是在主方法中实例化内部类对象，必须在new操作符之前提供一个外部类的引用。"></a>如果不使用doit()方法返回内部类对象引用，可以直接使用内部类实例化内部类对象，但由于是在主方法中实例化内部类对象，必须在new操作符之前提供一个外部类的引用。</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">	OuterClass out = <span class="keyword">new</span> OuterClass();</span><br><span class="line">	OuterClass.innerClass in = out.doit();</span><br><span class="line">	OuterClass.innerClass in2 = out.<span class="function">new <span class="title">innerClass</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="内部类对象会依赖于外部类对象，除非已经存在一个外部类对象，否则类中不会出现内部类对象"><a href="#内部类对象会依赖于外部类对象，除非已经存在一个外部类对象，否则类中不会出现内部类对象" class="headerlink" title="内部类对象会依赖于外部类对象，除非已经存在一个外部类对象，否则类中不会出现内部类对象"></a>内部类对象会依赖于外部类对象，除非已经存在一个外部类对象，否则类中不会出现内部类对象</h4><hr>
+<h3 id="内部类向上转型为接口"><a href="#内部类向上转型为接口" class="headerlink" title="内部类向上转型为接口"></a>内部类向上转型为接口</h3><h4 id="如果将一个权限修饰符为private的内部类向上转型为其父类对象，或者直接向上转型为一个接口，在程序中就可以完全隐藏内部类的具体实现过程"><a href="#如果将一个权限修饰符为private的内部类向上转型为其父类对象，或者直接向上转型为一个接口，在程序中就可以完全隐藏内部类的具体实现过程" class="headerlink" title="如果将一个权限修饰符为private的内部类向上转型为其父类对象，或者直接向上转型为一个接口，在程序中就可以完全隐藏内部类的具体实现过程"></a>如果将一个权限修饰符为private的内部类向上转型为其父类对象，或者直接向上转型为一个接口，在程序中就可以完全隐藏内部类的具体实现过程</h4><h5 id="可以在外部提供一个接口，在接口中声明一个方法。如果在实现该接口的内部类中实现该接口的方法，"><a href="#可以在外部提供一个接口，在接口中声明一个方法。如果在实现该接口的内部类中实现该接口的方法，" class="headerlink" title="可以在外部提供一个接口，在接口中声明一个方法。如果在实现该接口的内部类中实现该接口的方法，"></a>可以在外部提供一个接口，在接口中声明一个方法。如果在实现该接口的内部类中实现该接口的方法，</h5><h5 id="就可以定义多个内部类以不同的方式实现接口中的同一个方法，而在一般的类中是不能多次实现接口中同一个方法的"><a href="#就可以定义多个内部类以不同的方式实现接口中的同一个方法，而在一般的类中是不能多次实现接口中同一个方法的" class="headerlink" title="就可以定义多个内部类以不同的方式实现接口中的同一个方法，而在一般的类中是不能多次实现接口中同一个方法的"></a>就可以定义多个内部类以不同的方式实现接口中的同一个方法，而在一般的类中是不能多次实现接口中同一个方法的</h5><h4 id="非内部类不能被声明为private或protected访问类型"><a href="#非内部类不能被声明为private或protected访问类型" class="headerlink" title="非内部类不能被声明为private或protected访问类型"></a>非内部类不能被声明为private或protected访问类型</h4><h3 id="使用this关键字获取内部类与外部类的引用"><a href="#使用this关键字获取内部类与外部类的引用" class="headerlink" title="使用this关键字获取内部类与外部类的引用"></a>使用this关键字获取内部类与外部类的引用</h3><h4 id="this：在外部类中定义的成员变量与内部类的成员变量名称相同"><a href="#this：在外部类中定义的成员变量与内部类的成员变量名称相同" class="headerlink" title="this：在外部类中定义的成员变量与内部类的成员变量名称相同"></a>this：在外部类中定义的成员变量与内部类的成员变量名称相同</h4><h4 id="this-x调用内部类的属性x，外部类名称-this-x调用外部类的属性x-即使用外部类名称后跟一个点操作符和this关键字便可获取外部类的一个引用"><a href="#this-x调用内部类的属性x，外部类名称-this-x调用外部类的属性x-即使用外部类名称后跟一个点操作符和this关键字便可获取外部类的一个引用" class="headerlink" title="this.x调用内部类的属性x，外部类名称.this.x调用外部类的属性x,即使用外部类名称后跟一个点操作符和this关键字便可获取外部类的一个引用"></a>this.x调用内部类的属性x，外部类名称.this.x调用外部类的属性x,即使用外部类名称后跟一个点操作符和this关键字便可获取外部类的一个引用</h4><h4 id="在内存中所有对象均被放置在堆中，方法以及方法中的形参或局部变量放置在栈中。"><a href="#在内存中所有对象均被放置在堆中，方法以及方法中的形参或局部变量放置在栈中。" class="headerlink" title="在内存中所有对象均被放置在堆中，方法以及方法中的形参或局部变量放置在栈中。"></a>在内存中所有对象均被放置在堆中，方法以及方法中的形参或局部变量放置在栈中。</h4><h4 id="内部类的对象与外部类的对象是相互依赖的，Outer-this对象指向外部类对象"><a href="#内部类的对象与外部类的对象是相互依赖的，Outer-this对象指向外部类对象" class="headerlink" title="内部类的对象与外部类的对象是相互依赖的，Outer.this对象指向外部类对象"></a>内部类的对象与外部类的对象是相互依赖的，Outer.this对象指向外部类对象</h4><hr>
+<h3 id="局部内部类"><a href="#局部内部类" class="headerlink" title="局部内部类"></a>局部内部类</h3><h4 id="内部类不仅可以在类中进行定义，也可以在类的局部位置定义，如在类的方法或任意的作用域中均可定义内部类"><a href="#内部类不仅可以在类中进行定义，也可以在类的局部位置定义，如在类的方法或任意的作用域中均可定义内部类" class="headerlink" title="内部类不仅可以在类中进行定义，也可以在类的局部位置定义，如在类的方法或任意的作用域中均可定义内部类"></a>内部类不仅可以在类中进行定义，也可以在类的局部位置定义，如在类的方法或任意的作用域中均可定义内部类</h4><h4 id="实质上这种内部类的作用就是创建一个实现于OutInterface2接口的匿名类的对象"><a href="#实质上这种内部类的作用就是创建一个实现于OutInterface2接口的匿名类的对象" class="headerlink" title="实质上这种内部类的作用就是创建一个实现于OutInterface2接口的匿名类的对象"></a>实质上这种内部类的作用就是创建一个实现于OutInterface2接口的匿名类的对象</h4><h5 id="由于匿名内部类没有名称，所有匿名内部类使用默认构造方法来生成OutInterface2对象。"><a href="#由于匿名内部类没有名称，所有匿名内部类使用默认构造方法来生成OutInterface2对象。" class="headerlink" title="由于匿名内部类没有名称，所有匿名内部类使用默认构造方法来生成OutInterface2对象。"></a>由于匿名内部类没有名称，所有匿名内部类使用默认构造方法来生成OutInterface2对象。</h5><h5 id="在匿名内部类定义结束后，需要加分号标识，这个分号并不是代表定义内部类结束的标识，而是代表创建OutInterface2引用表达式的标识"><a href="#在匿名内部类定义结束后，需要加分号标识，这个分号并不是代表定义内部类结束的标识，而是代表创建OutInterface2引用表达式的标识" class="headerlink" title="在匿名内部类定义结束后，需要加分号标识，这个分号并不是代表定义内部类结束的标识，而是代表创建OutInterface2引用表达式的标识"></a>在匿名内部类定义结束后，需要加分号标识，这个分号并不是代表定义内部类结束的标识，而是代表创建OutInterface2引用表达式的标识</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> A()&#123;</span><br><span class="line">...<span class="comment">//内部类体</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="匿名内部类编译过后，会产生以“外部类名-序号”为名称的-class文件，序号以1-n排列，分别代表1-n个匿名内部类"><a href="#匿名内部类编译过后，会产生以“外部类名-序号”为名称的-class文件，序号以1-n排列，分别代表1-n个匿名内部类" class="headerlink" title="匿名内部类编译过后，会产生以“外部类名$序号”为名称的.class文件，序号以1-n排列，分别代表1-n个匿名内部类"></a>匿名内部类编译过后，会产生以“外部类名$序号”为名称的.class文件，序号以1-n排列，分别代表1-n个匿名内部类</h5><hr>
+<h3 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h3><h4 id="一个静态内部类中可以声明static成员，但是在非静态内部类中不可以声明静态成员。"><a href="#一个静态内部类中可以声明static成员，但是在非静态内部类中不可以声明静态成员。" class="headerlink" title="一个静态内部类中可以声明static成员，但是在非静态内部类中不可以声明静态成员。"></a>一个静态内部类中可以声明static成员，但是在非静态内部类中不可以声明静态成员。</h4><h4 id="静态内部类最大的特点，就是不可以使用外部类的非静态成员，所以静态内部类在程序开发中比较少见"><a href="#静态内部类最大的特点，就是不可以使用外部类的非静态成员，所以静态内部类在程序开发中比较少见" class="headerlink" title="静态内部类最大的特点，就是不可以使用外部类的非静态成员，所以静态内部类在程序开发中比较少见"></a>静态内部类最大的特点，就是不可以使用外部类的非静态成员，所以静态内部类在程序开发中比较少见</h4><h4 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h4><h5 id="如果创建静态内部类的对象，不需要其外部类的对象"><a href="#如果创建静态内部类的对象，不需要其外部类的对象" class="headerlink" title="如果创建静态内部类的对象，不需要其外部类的对象"></a>如果创建静态内部类的对象，不需要其外部类的对象</h5><h5 id="不能从静态内部类的对象中访问非静态外部类的对象"><a href="#不能从静态内部类的对象中访问非静态外部类的对象" class="headerlink" title="不能从静态内部类的对象中访问非静态外部类的对象"></a>不能从静态内部类的对象中访问非静态外部类的对象</h5><h4 id="进行程序测试时，如果在每一个Java文件中都设置一个主方法，将出现很多额外代码，而程序本身并不需要这些主方法，为了解决这个问题，可以将主方法写入静态内部类中"><a href="#进行程序测试时，如果在每一个Java文件中都设置一个主方法，将出现很多额外代码，而程序本身并不需要这些主方法，为了解决这个问题，可以将主方法写入静态内部类中" class="headerlink" title="进行程序测试时，如果在每一个Java文件中都设置一个主方法，将出现很多额外代码，而程序本身并不需要这些主方法，为了解决这个问题，可以将主方法写入静态内部类中"></a>进行程序测试时，如果在每一个Java文件中都设置一个主方法，将出现很多额外代码，而程序本身并不需要这些主方法，为了解决这个问题，可以将主方法写入静态内部类中</h4><h4 id="将生成一个名称为StaticInnerClass-Inner的独立类和一个StaticInnerClass类，只要使用java-StaticInnerClassInner-就可以运行主方法中的内容，这样当完成测试，需要将所有-class文件打包时，只要删除StaticInnerClassInner独立类即可"><a href="#将生成一个名称为StaticInnerClass-Inner的独立类和一个StaticInnerClass类，只要使用java-StaticInnerClassInner-就可以运行主方法中的内容，这样当完成测试，需要将所有-class文件打包时，只要删除StaticInnerClassInner独立类即可" class="headerlink" title="将生成一个名称为StaticInnerClass$Inner的独立类和一个StaticInnerClass类，只要使用java StaticInnerClassInner,就可以运行主方法中的内容，这样当完成测试，需要将所有.class文件打包时，只要删除StaticInnerClassInner独立类即可"></a>将生成一个名称为StaticInnerClass$Inner的独立类和一个StaticInnerClass类，只要使用java StaticInnerClassInner,就可以运行主方法中的内容，这样当完成测试，需要将所有.class文件打包时，只要删除StaticInnerClassInner独立类即可</h4><hr>
+<h3 id="内部类的继承"><a href="#内部类的继承" class="headerlink" title="内部类的继承"></a>内部类的继承</h3><h4 id="内部类和其他普通类一样可以被继承，但是继承内部类比继承普通类复杂，需要设置专门的语法来完成"><a href="#内部类和其他普通类一样可以被继承，但是继承内部类比继承普通类复杂，需要设置专门的语法来完成" class="headerlink" title="内部类和其他普通类一样可以被继承，但是继承内部类比继承普通类复杂，需要设置专门的语法来完成"></a>内部类和其他普通类一样可以被继承，但是继承内部类比继承普通类复杂，需要设置专门的语法来完成</h4><h4 id="在某个类继承内部类时，必须硬性给予这个类一个带参数的构造方法，并且该构造方法的参数为需要继承内布列的外部类的引用，同时在构造方法体中使用a-super（）语句，这样才为继承提供了必要的对象引用"><a href="#在某个类继承内部类时，必须硬性给予这个类一个带参数的构造方法，并且该构造方法的参数为需要继承内布列的外部类的引用，同时在构造方法体中使用a-super（）语句，这样才为继承提供了必要的对象引用" class="headerlink" title="在某个类继承内部类时，必须硬性给予这个类一个带参数的构造方法，并且该构造方法的参数为需要继承内布列的外部类的引用，同时在构造方法体中使用a.super（）语句，这样才为继承提供了必要的对象引用"></a>在某个类继承内部类时，必须硬性给予这个类一个带参数的构造方法，并且该构造方法的参数为需要继承内布列的外部类的引用，同时在构造方法体中使用a.super（）语句，这样才为继承提供了必要的对象引用</h4><hr>
+
+    </div>
+
+    
+    
+    
+
+    
+   <div>
+     <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+   </div>
+ 
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="zhengtianhao 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="zhengtianhao 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>zhengtianhao
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2021/06/17/java%E7%B1%BB%E5%BE%97%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/" title="java类得高级特性">http://example.com/2021/06/17/java类得高级特性/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/wechat_channel.jpg">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">微信</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AF%BC%E8%88%AA/" rel="tag"># 导航</a>
+              <a href="/tags/%E5%88%86%E4%BA%AB/" rel="tag"># 分享</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/16/java%E6%8E%A5%E5%8F%A3%E7%BB%A7%E6%89%BF%E5%92%8C%E5%A4%9A%E6%80%81/" rel="prev" title="java接口继承和多态">
+      <i class="fa fa-chevron-left"></i> java接口继承和多态
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">类的高级特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E7%B1%BB%E5%8C%85"><span class="nav-number">1.1.</span> <span class="nav-text">Java类包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E7%9A%84%E7%B1%BB%E5%90%8D%E9%9C%80%E8%A6%81%E6%8A%A5%E5%90%8D%E4%B8%8E%E7%B1%BB%E5%90%8D%E7%9A%84%E7%BB%84%E5%90%88-%E6%AF%8F%E4%B8%AA%E7%B1%BB%E9%83%BD%E9%9A%B6%E5%B1%9E%E4%BA%8E%E4%B8%80%E4%B8%AA%E7%B1%BB%E5%8C%85-%E5%8F%AA%E8%A6%81%E4%BF%9D%E8%AF%81%E5%90%8C%E4%B8%80%E4%B8%AA%E7%B1%BB%E5%8C%85%E4%B8%AD%E7%9A%84%E7%B1%BB%E4%B8%8D%E5%90%8C%E5%91%BD-%E5%B0%B1%E5%8F%AF%E4%BB%A5%E6%9C%89%E6%95%88%E5%9C%B0%E9%81%BF%E5%85%8D%E5%90%8C%E5%90%8D%E7%B1%BB%E5%86%B2%E7%AA%81%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">1.1.1.</span> <span class="nav-text">一个完整的类名需要报名与类名的组合,每个类都隶属于一个类包,只要保证同一个类包中的类不同命,就可以有效地避免同名类冲突的情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8Java%E4%B8%AD%E9%87%87%E7%94%A8%E7%B1%BB%E5%8C%85%E6%9C%BA%E5%88%B6%E9%9D%9E%E5%B8%B8%E9%87%8D%E8%A6%81-%E7%B1%BB%E5%8C%85%E4%B8%8D%E4%BB%85%E5%8F%AF%E4%BB%A5%E8%A7%A3%E5%86%B3%E7%B1%BB%E5%90%8D%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98-%E8%BF%98%E5%8F%AF%E4%BB%A5%E5%9C%A8%E5%BC%80%E5%8F%91%E5%BA%9E%E5%A4%A7%E7%9A%84%E5%BC%95%E7%94%A8%E7%A8%8B%E5%BA%8F%E6%97%B6-%E5%B8%AE%E5%8A%A9%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E7%AE%A1%E7%90%86%E5%BA%9E%E5%A4%A7%E7%9A%84%E5%BA%94%E7%94%A8%E5%92%8C%E5%B1%82%E5%BA%8F%E7%BB%84%E4%BB%B6-%E6%96%B9%E4%BE%BF%E8%BD%AF%E4%BB%B6%E5%A4%8D%E7%94%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">在Java中采用类包机制非常重要,类包不仅可以解决类名冲突问题,还可以在开发庞大的引用程序时,帮助开发人员管理庞大的应用和层序组件,方便软件复用.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8C%E4%B8%80%E4%B8%AA%E5%8C%85%E4%B8%AD%E7%9A%84%E7%B1%BB%E7%9B%B8%E4%BA%92%E8%AE%BF%E9%97%AE%E6%97%B6-%E5%8F%AF%E4%BB%A5%E4%B8%8D%E6%8C%87%E5%AE%9A%E5%8C%85%E5%90%8D"><span class="nav-number">1.1.3.</span> <span class="nav-text">同一个包中的类相互访问时,可以不指定包名.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8C%E4%B8%80%E4%B8%AA%E5%8C%85%E4%B8%AD%E7%9A%84%E7%B1%BB%E4%B8%8D%E5%BF%85%E5%AD%98%E6%94%BE%E5%9C%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.1.4.</span> <span class="nav-text">同一个包中的类不必存放在同一个位置.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java%E5%8C%85%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99%E6%98%AF%E5%85%A8%E9%83%A8%E4%BD%BF%E7%94%A8%E5%B0%8F%E5%86%99%E5%AD%97%E6%AF%8D"><span class="nav-number">1.1.5.</span> <span class="nav-text">Java包的命名规则是全部使用小写字母</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#final%E5%8F%98%E9%87%8F"><span class="nav-number">1.2.</span> <span class="nav-text">final变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#final%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%AF%E7%94%A8%E4%BA%8E%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%EF%BC%8C%E4%B8%80%E6%97%A6%E8%AF%A5%E5%8F%98%E9%87%8F%E8%A2%AB%E8%AE%BE%E5%AE%9A%EF%BC%8C%E5%B0%B1%E4%B8%8D%E5%8F%AF%E4%BB%A5%E5%86%8D%E6%94%B9%E5%8F%98%E8%AF%A5%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC%E3%80%82%E9%80%9A%E5%B8%B8%EF%BC%8C%E7%94%B1final%E5%AE%9A%E4%B9%89%E7%9A%84%E5%8F%98%E9%87%8F%E4%B8%BA%E5%B8%B8%E9%87%8F%E3%80%82"><span class="nav-number">1.2.1.</span> <span class="nav-text">final关键字可用于变量声明，一旦该变量被设定，就不可以再改变该变量的值。通常，由final定义的变量为常量。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#final%E5%85%B3%E9%94%AE%E5%AD%97%E5%AE%9A%E4%B9%89%E7%9A%84%E5%8F%98%E9%87%8F%E5%BF%85%E9%A1%BB%E5%86%8D%E5%A3%B0%E6%98%8E%E6%97%B6%E5%AF%B9%E5%85%B6%E8%BF%9B%E8%A1%8C%E8%B5%8B%E5%80%BC%E6%93%8D%E4%BD%9C%E3%80%82final%E9%99%A4%E4%BA%86%E5%8F%AF%E4%BB%A5%E4%BF%AE%E9%A5%B0%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%B8%B8%E9%87%8F%EF%BC%8C%E8%BF%98%E5%8F%AF%E4%BB%A5%E4%BF%AE%E9%A5%B0%E5%AF%B9%E8%B1%A1%E5%BC%95%E7%94%A8-%E7%94%B1%E4%BA%8E%E6%95%B0%E7%BB%84%E4%B9%9F%E5%8F%AF%E4%BB%A5%E8%A2%AB%E7%9C%8B%E4%BD%9C%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%9D%A5%E5%BC%95%E7%94%A8%EF%BC%8C%E6%89%80%E4%BB%A5final%E5%8F%AF%E4%BB%A5%E4%BF%AE%E9%A5%B0%E6%95%B0%E7%BB%84%E3%80%82"><span class="nav-number">1.2.2.</span> <span class="nav-text">final关键字定义的变量必须再声明时对其进行赋值操作。final除了可以修饰基本数据类型的常量，还可以修饰对象引用,由于数组也可以被看作一个对象来引用，所以final可以修饰数组。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E6%97%A6%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E5%BC%95%E7%94%A8%E8%A2%AB%E4%BF%AE%E9%A5%B0%E4%B8%BAfinal%E5%90%8E%EF%BC%8C%E5%AE%83%E5%8F%AA%E8%83%BD%E6%81%92%E5%AE%9A%E6%8C%87%E5%90%91%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E3%80%82"><span class="nav-number">1.2.3.</span> <span class="nav-text">一旦一个对象引用被修饰为final后，它只能恒定指向一个对象。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E6%97%A2%E6%98%AFstatic%E5%8F%88%E6%98%AFfinal%E7%9A%84%E5%AD%97%E6%AE%B5%E5%8F%AA%E5%8D%A0%E6%8D%AE%E4%B8%80%E6%AE%B5%E4%B8%8D%E8%83%BD%E6%94%B9%E5%8F%98%E7%9A%84%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4"><span class="nav-number">1.2.4.</span> <span class="nav-text">一个既是static又是final的字段只占据一段不能改变的存储空间.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A2%AB%E5%AE%9A%E4%B9%89%E4%B8%BAfinal%E7%9A%84%E5%B8%B8%E9%87%8F%E5%AE%9A%E4%B9%89%E6%97%B6%E9%9C%80%E8%A6%81%E4%BD%BF%E7%94%A8%E5%A4%A7%E5%86%99%E5%AD%97%E6%AF%8D%E5%91%BD%E5%90%8D%EF%BC%8C%E5%B9%B6%E4%B8%94%E4%B8%AD%E9%97%B4%E4%BD%BF%E7%94%A8%E4%B8%8B%E5%88%92%E7%BA%BF%E8%BF%9B%E8%A1%8C%E8%BF%9E%E6%8E%A5%EF%BC%8C%E8%BF%99%E6%98%AFJava%E4%B8%AD%E7%9A%84%E7%BC%96%E7%A0%81%E8%A7%84%E5%88%99"><span class="nav-number">1.2.5.</span> <span class="nav-text">被定义为final的常量定义时需要使用大写字母命名，并且中间使用下划线进行连接，这是Java中的编码规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8C%E6%97%B6%EF%BC%8C%E5%AE%9A%E4%B9%89%E4%B8%BAfinal%E7%9A%84%E6%95%B0%E6%8D%AE%E6%97%A0%E8%AE%BA%E6%98%AF%E5%B8%B8%E9%87%8F%E3%80%81%E5%AF%B9%E8%B1%A1%E5%BC%95%E7%94%A8%E8%BF%98%E6%98%AF%E6%95%B0%E7%BB%84%EF%BC%8C%E5%9C%A8%E4%B8%BB%E5%87%BD%E6%95%B0%E4%B8%AD%E9%83%BD%E4%B8%8D%E5%8F%AF%E4%BB%A5%E8%A2%AB%E6%94%B9%E5%8F%98"><span class="nav-number">1.2.6.</span> <span class="nav-text">同时，定义为final的数据无论是常量、对象引用还是数组，在主函数中都不可以被改变</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%91%E4%BB%AC%E7%9F%A5%E9%81%93%E4%B8%80%E4%B8%AA%E8%A2%AB%E5%AE%9A%E4%B9%89%E4%B8%BAfinal%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%BC%95%E7%94%A8%E5%8F%AA%E8%83%BD%E6%8C%87%E5%90%91%E5%94%AF%E4%B8%80%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%EF%BC%8C%E4%B8%8D%E5%8F%AF%E4%BB%A5%E5%B0%86%E5%AE%83%E5%86%8D%E6%8C%87%E5%90%91%E5%85%B6%E4%BB%96%E5%AF%B9%E8%B1%A1%EF%BC%8C%E4%BD%86%E6%98%AF%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%9C%AC%E8%BA%AB%E7%9A%84%E5%80%BC%E7%A1%AE%E4%BD%BF%E5%8F%AF%E4%BB%A5%E6%94%B9%E5%8F%98%E7%9A%84%EF%BC%8C%E9%82%A3%E4%B9%88%E4%B8%BA%E4%BA%86%E4%BD%BF%E4%B8%80%E4%B8%AA%E5%B8%B8%E9%87%8F%E7%9C%9F%E6%AD%A3%E5%81%9A%E5%88%B0%E4%B8%8D%E5%8F%AF%E6%9B%B4%E6%94%B9%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%B0%86%E5%B8%B8%E9%87%8F%E5%A3%B0%E6%98%8E%E4%B8%BAstatic-final"><span class="nav-number">1.2.7.</span> <span class="nav-text">我们知道一个被定义为final的对象引用只能指向唯一一个对象，不可以将它再指向其他对象，但是一个对象本身的值确使可以改变的，那么为了使一个常量真正做到不可更改，可以将常量声明为static final</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8Java%E4%B8%AD%E5%AE%9A%E4%B9%89%E5%85%A8%E5%B1%80%E5%B8%B8%E9%87%8F%EF%BC%8C%E9%80%9A%E5%B8%B8%E4%BD%BF%E7%94%A8public-static-final%E4%BF%AE%E9%A5%B0%EF%BC%8C%E8%BF%99%E6%A0%B7%E7%9A%84%E5%B8%B8%E9%87%8F%E5%8F%AA%E8%83%BD%E5%9C%A8%E5%AE%9A%E4%B9%89%E6%98%AF%E8%A2%AB%E8%B5%8B%E5%80%BC"><span class="nav-number">1.2.8.</span> <span class="nav-text">在Java中定义全局常量，通常使用public static final修饰，这样的常量只能在定义是被赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E4%BB%A5%E5%B0%86%E6%96%B9%E6%B3%95%E7%9A%84%E5%8F%82%E6%95%B0%E5%AE%9A%E4%B9%89%E4%B8%BAfinal%E7%B1%BB%E5%9E%8B%EF%BC%8C%E8%BF%99%E9%A2%84%E7%A4%BA%E7%9D%80%E6%97%A0%E6%B3%95%E4%B8%BA%E6%96%B9%E6%B3%95%E4%B8%AD%E6%9B%B4%E6%94%B9%E5%8F%82%E6%95%B0%E5%BC%95%E7%94%A8%E6%89%80%E6%8C%87%E5%90%91%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.2.9.</span> <span class="nav-text">可以将方法的参数定义为final类型，这预示着无法为方法中更改参数引用所指向的对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#final%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">final方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E6%96%B9%E6%B3%95%E5%AE%9A%E4%B9%89%E4%B8%BAfinal%E7%B1%BB%E5%9E%8B%E5%8F%AF%E4%BB%A5%E9%98%B2%E6%AD%A2%E5%AD%90%E7%B1%BB%E4%BF%AE%E6%94%B9%E8%AF%A5%E7%B1%BB%E7%9A%84%E5%AE%9A%E4%B9%89%E4%B8%8E%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%EF%BC%8C%E5%90%8C%E6%97%B6%E5%AE%9A%E4%B9%89%E4%B8%BAfinal%E7%9A%84%E6%96%B9%E6%B3%95%E7%9A%84%E6%89%A7%E8%A1%8C%E6%95%88%E7%8E%87%E8%A6%81%E9%AB%98%E4%BA%8E%E9%9D%9Efinal%E6%96%B9%E6%B3%95%EF%BC%8C%E6%89%80%E4%BB%A5%E4%B8%80%E4%B8%AA%E5%AE%9A%E4%B9%89%E4%B8%BAprivate%E7%9A%84%E6%96%B9%E6%B3%95%E9%9A%90%E5%BC%8F%E8%A2%AB%E6%8C%87%E5%AE%9A%E4%B8%BAfinal%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.3.1.</span> <span class="nav-text">将方法定义为final类型可以防止子类修改该类的定义与实现方式，同时定义为final的方法的执行效率要高于非final方法，所以一个定义为private的方法隐式被指定为final类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#final%E7%B1%BB"><span class="nav-number">1.4.</span> <span class="nav-text">final类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%BAfinal%E7%9A%84%E7%B1%BB%E4%B8%8D%E8%83%BD%E7%BB%A7%E6%89%BF"><span class="nav-number">1.4.1.</span> <span class="nav-text">定义为final的类不能继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E5%B8%8C%E6%9C%9B%E4%B8%80%E4%B8%AA%E7%B1%BB%E4%B8%8D%E5%85%81%E8%AE%B8%E4%BB%BB%E4%BD%95%E7%B1%BB%E7%BB%A7%E6%89%BF%EF%BC%8C%E5%B9%B6%E4%B8%94%E4%B8%8D%E5%85%81%E8%AE%B8%E5%85%B6%E4%BB%96%E4%BA%BA%E5%AF%B9%E8%BF%99%E4%B8%AA%E7%B1%BB%E8%BF%9B%E8%A1%8C%E4%BB%BB%E4%BD%95%E6%94%B9%E5%8A%A8%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%B0%86%E8%BF%99%E4%B8%AA%E7%B1%BB%E8%AE%BE%E7%BD%AE%E4%B8%BAfinal%E5%BD%A2%E5%BC%8F%EF%BC%8C%E5%88%99%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E6%96%B9%E6%B3%95%E9%83%BD%E8%A2%AB%E9%9A%90%E5%BC%8F%E8%AE%BE%E7%BD%AE%E4%B8%BAfinal%EF%BC%8C%E4%BD%86%E6%98%AFfinal%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%8F%AF%E4%BB%A5%E8%A2%AB%E5%AE%9A%E4%B9%89%E4%B8%BAfinal%E6%88%96%E9%9D%9Efinal%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.4.2.</span> <span class="nav-text">如果希望一个类不允许任何类继承，并且不允许其他人对这个类进行任何改动，可以将这个类设置为final形式，则类中的所有方法都被隐式设置为final，但是final类中的成员变量可以被定义为final或非final形式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-number">1.5.</span> <span class="nav-text">内部类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%90%E5%91%98%E5%86%85%E9%83%A8%E7%B1%BB%E7%AE%80%E4%BB%8B"><span class="nav-number">1.5.1.</span> <span class="nav-text">成员内部类简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB%E5%8F%AF%E4%BB%A5%E5%88%86%E4%B8%BA%E6%88%90%E5%91%98%E5%86%85%E9%83%A8%E7%B1%BB%E3%80%81%E5%B1%80%E9%83%A8%E5%86%85%E9%83%A8%E7%B1%BB%E4%BB%A5%E5%8F%8A%E5%8C%BF%E5%90%8D%E7%B1%BB%E3%80%82"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">内部类可以分为成员内部类、局部内部类以及匿名类。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E4%B8%80%E4%B8%AA%E7%B1%BB%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%86%85%E9%83%A8%E7%B1%BB%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%9C%A8%E5%86%85%E9%83%A8%E7%B1%BB%E4%B8%AD%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%8F%96%E5%85%B6%E6%89%80%E5%9C%A8%E7%B1%BB%E7%9A%84%E7%A7%81%E6%9C%89%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">在一个类中使用内部类，可以在内部类中直接存取其所在类的私有成员变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E5%86%85%E9%83%A8%E7%B1%BB%E4%B8%AD%E5%8F%AF%E4%BB%A5%E9%9A%8F%E6%84%8F%E4%BD%BF%E7%94%A8%E5%A4%96%E9%83%A8%E7%B1%BB%E7%9A%84%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95%E4%BB%A5%E5%8F%8A%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%EF%BC%8C%E5%B0%BD%E7%AE%A1%E8%BF%99%E4%BA%9B%E7%B1%BB%E6%88%90%E5%91%98%E8%A2%AB%E4%BF%AE%E9%A5%B0%E4%B8%BAprivate%E3%80%82"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">在内部类中可以随意使用外部类的成员方法以及成员变量，尽管这些类成员被修饰为private。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B%E4%B8%80%E5%AE%9A%E8%A6%81%E7%BB%91%E5%AE%9A%E5%9C%A8%E5%A4%96%E9%83%A8%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B%E4%B8%8A%EF%BC%8C%E5%A6%82%E6%9E%9C%E4%BB%8E%E5%A4%96%E9%83%A8%E7%B1%BB%E4%B8%AD%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%80%E4%B8%AA%E5%86%85%E9%83%A8%E7%B1%BB%E5%AF%B9%E8%B1%A1%EF%BC%8C%E9%82%A3%E4%B9%88%E5%86%85%E9%83%A8%E7%B1%BB%E5%AF%B9%E8%B1%A1%E5%B0%B1%E4%BC%9A%E7%BB%91%E5%AE%9A%E5%9C%A8%E5%A4%96%E9%83%A8%E7%B1%BB%E5%AF%B9%E8%B1%A1%E4%B8%8A%E3%80%82%E5%86%85%E9%83%A8%E7%B1%BB%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E5%BC%8F%E4%B8%8E%E5%85%B6%E4%BB%96%E7%B1%BB%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E5%BC%8F%E7%9B%B8%E5%90%8C%EF%BC%8C%E9%83%BD%E6%98%AF%E4%BD%BF%E7%94%A8new%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.5.1.4.</span> <span class="nav-text">内部类的实例一定要绑定在外部类的实例上，如果从外部类中初始化一个内部类对象，那么内部类对象就会绑定在外部类对象上。内部类初始化方式与其他类初始化方式相同，都是使用new关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#innerClass-in-new-innerClass-%E5%9C%A8%E5%A4%96%E9%83%A8%E7%B1%BB%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%86%85%E9%83%A8%E7%B1%BB%E5%AF%B9%E8%B1%A1%E5%BC%95%E7%94%A8"><span class="nav-number">1.5.1.4.1.</span> <span class="nav-text">innerClass in &#x3D; new innerClass();在外部类实例化内部类对象引用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E7%B1%BB%E4%B8%8D%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E8%AE%BF%E9%97%AE%E5%86%85%E5%B8%83%E7%B1%BB%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F"><span class="nav-number">1.5.1.4.2.</span> <span class="nav-text">外部类不可以直接访问内布类成员变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E5%8C%96%E6%93%8D%E4%BD%9C%E5%BF%85%E9%A1%BB%E5%9C%A8%E5%A4%96%E9%83%A8%E7%B1%BB%E6%88%96%E5%A4%96%E9%83%A8%E7%B1%BB%E7%9A%84%E9%9D%9E%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E4%B8%AD%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.5.1.4.3.</span> <span class="nav-text">内部类的对象实例化操作必须在外部类或外部类的非静态方法中实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB%E5%8F%AF%E4%BB%A5%E8%AE%BF%E9%97%AE%E5%AE%83%E7%9A%84%E5%A4%96%E9%83%A8%E7%B1%BB%E6%88%90%E5%91%98%EF%BC%8C%E4%BD%86%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E6%88%90%E5%91%98%E5%8F%AA%E6%9C%89%E5%9C%A8%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E8%8C%83%E5%9B%B4%E4%B9%8B%E5%86%85%E6%98%AF%E5%8F%AF%E7%9F%A5%E7%9A%84%EF%BC%8C%E4%B8%8D%E8%83%BD%E8%A2%AB%E5%A4%96%E9%83%A8%E7%B1%BB%E4%BD%BF%E7%94%A8"><span class="nav-number">1.5.1.5.</span> <span class="nav-text">内部类可以访问它的外部类成员，但内部类的成员只有在内部类的范围之内是可知的，不能被外部类使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB%E5%AF%B9%E8%B1%A1%E4%B8%8E%E5%A4%96%E9%83%A8%E7%B1%BB%E5%AF%B9%E8%B1%A1%E5%85%B3%E7%B3%BB%E9%9D%9E%E5%B8%B8%E7%B4%A7%E5%AF%86%EF%BC%8C%E5%86%85%E5%A4%96%E5%8F%AF%E4%BB%A5%E4%BA%A4%E4%BA%92%E4%BD%BF%E7%94%A8%E5%BD%BC%E6%AD%A4%E7%B1%BB%E4%B8%AD%E5%AE%9A%E4%B9%89%E7%9A%84%E5%8F%98%E9%87%8F"><span class="nav-number">1.5.1.6.</span> <span class="nav-text">内部类对象与外部类对象关系非常紧密，内外可以交互使用彼此类中定义的变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E5%9C%A8%E5%A4%96%E9%83%A8%E7%B1%BB%E5%92%8C%E9%9D%9E%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E4%B9%8B%E5%A4%96%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%86%85%E9%83%A8%E7%B1%BB%E5%AF%B9%E8%B1%A1%EF%BC%8C%E9%9C%80%E8%A6%81%E4%BD%BF%E7%94%A8%E5%A4%96%E9%83%A8%E7%B1%BB%E3%80%82%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E5%BD%A2%E5%BC%8F%E6%8C%87%E5%AE%9A%E8%AF%A5%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.5.1.7.</span> <span class="nav-text">如果在外部类和非静态方法之外实例化内部类对象，需要使用外部类。内部类的形式指定该对象的类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E4%B8%8D%E4%BD%BF%E7%94%A8doit-%E6%96%B9%E6%B3%95%E8%BF%94%E5%9B%9E%E5%86%85%E9%83%A8%E7%B1%BB%E5%AF%B9%E8%B1%A1%E5%BC%95%E7%94%A8%EF%BC%8C%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E5%86%85%E9%83%A8%E7%B1%BB%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%86%85%E9%83%A8%E7%B1%BB%E5%AF%B9%E8%B1%A1%EF%BC%8C%E4%BD%86%E7%94%B1%E4%BA%8E%E6%98%AF%E5%9C%A8%E4%B8%BB%E6%96%B9%E6%B3%95%E4%B8%AD%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%86%85%E9%83%A8%E7%B1%BB%E5%AF%B9%E8%B1%A1%EF%BC%8C%E5%BF%85%E9%A1%BB%E5%9C%A8new%E6%93%8D%E4%BD%9C%E7%AC%A6%E4%B9%8B%E5%89%8D%E6%8F%90%E4%BE%9B%E4%B8%80%E4%B8%AA%E5%A4%96%E9%83%A8%E7%B1%BB%E7%9A%84%E5%BC%95%E7%94%A8%E3%80%82"><span class="nav-number">1.5.1.8.</span> <span class="nav-text">如果不使用doit()方法返回内部类对象引用，可以直接使用内部类实例化内部类对象，但由于是在主方法中实例化内部类对象，必须在new操作符之前提供一个外部类的引用。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB%E5%AF%B9%E8%B1%A1%E4%BC%9A%E4%BE%9D%E8%B5%96%E4%BA%8E%E5%A4%96%E9%83%A8%E7%B1%BB%E5%AF%B9%E8%B1%A1%EF%BC%8C%E9%99%A4%E9%9D%9E%E5%B7%B2%E7%BB%8F%E5%AD%98%E5%9C%A8%E4%B8%80%E4%B8%AA%E5%A4%96%E9%83%A8%E7%B1%BB%E5%AF%B9%E8%B1%A1%EF%BC%8C%E5%90%A6%E5%88%99%E7%B1%BB%E4%B8%AD%E4%B8%8D%E4%BC%9A%E5%87%BA%E7%8E%B0%E5%86%85%E9%83%A8%E7%B1%BB%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.5.1.9.</span> <span class="nav-text">内部类对象会依赖于外部类对象，除非已经存在一个外部类对象，否则类中不会出现内部类对象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB%E5%90%91%E4%B8%8A%E8%BD%AC%E5%9E%8B%E4%B8%BA%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.5.2.</span> <span class="nav-text">内部类向上转型为接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E5%B0%86%E4%B8%80%E4%B8%AA%E6%9D%83%E9%99%90%E4%BF%AE%E9%A5%B0%E7%AC%A6%E4%B8%BAprivate%E7%9A%84%E5%86%85%E9%83%A8%E7%B1%BB%E5%90%91%E4%B8%8A%E8%BD%AC%E5%9E%8B%E4%B8%BA%E5%85%B6%E7%88%B6%E7%B1%BB%E5%AF%B9%E8%B1%A1%EF%BC%8C%E6%88%96%E8%80%85%E7%9B%B4%E6%8E%A5%E5%90%91%E4%B8%8A%E8%BD%AC%E5%9E%8B%E4%B8%BA%E4%B8%80%E4%B8%AA%E6%8E%A5%E5%8F%A3%EF%BC%8C%E5%9C%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%AE%8C%E5%85%A8%E9%9A%90%E8%97%8F%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">如果将一个权限修饰符为private的内部类向上转型为其父类对象，或者直接向上转型为一个接口，在程序中就可以完全隐藏内部类的具体实现过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%AF%E4%BB%A5%E5%9C%A8%E5%A4%96%E9%83%A8%E6%8F%90%E4%BE%9B%E4%B8%80%E4%B8%AA%E6%8E%A5%E5%8F%A3%EF%BC%8C%E5%9C%A8%E6%8E%A5%E5%8F%A3%E4%B8%AD%E5%A3%B0%E6%98%8E%E4%B8%80%E4%B8%AA%E6%96%B9%E6%B3%95%E3%80%82%E5%A6%82%E6%9E%9C%E5%9C%A8%E5%AE%9E%E7%8E%B0%E8%AF%A5%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%86%85%E9%83%A8%E7%B1%BB%E4%B8%AD%E5%AE%9E%E7%8E%B0%E8%AF%A5%E6%8E%A5%E5%8F%A3%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%8C"><span class="nav-number">1.5.2.1.1.</span> <span class="nav-text">可以在外部提供一个接口，在接口中声明一个方法。如果在实现该接口的内部类中实现该接口的方法，</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%AE%9A%E4%B9%89%E5%A4%9A%E4%B8%AA%E5%86%85%E9%83%A8%E7%B1%BB%E4%BB%A5%E4%B8%8D%E5%90%8C%E7%9A%84%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E6%8E%A5%E5%8F%A3%E4%B8%AD%E7%9A%84%E5%90%8C%E4%B8%80%E4%B8%AA%E6%96%B9%E6%B3%95%EF%BC%8C%E8%80%8C%E5%9C%A8%E4%B8%80%E8%88%AC%E7%9A%84%E7%B1%BB%E4%B8%AD%E6%98%AF%E4%B8%8D%E8%83%BD%E5%A4%9A%E6%AC%A1%E5%AE%9E%E7%8E%B0%E6%8E%A5%E5%8F%A3%E4%B8%AD%E5%90%8C%E4%B8%80%E4%B8%AA%E6%96%B9%E6%B3%95%E7%9A%84"><span class="nav-number">1.5.2.1.2.</span> <span class="nav-text">就可以定义多个内部类以不同的方式实现接口中的同一个方法，而在一般的类中是不能多次实现接口中同一个方法的</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E5%86%85%E9%83%A8%E7%B1%BB%E4%B8%8D%E8%83%BD%E8%A2%AB%E5%A3%B0%E6%98%8E%E4%B8%BAprivate%E6%88%96protected%E8%AE%BF%E9%97%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">非内部类不能被声明为private或protected访问类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8this%E5%85%B3%E9%94%AE%E5%AD%97%E8%8E%B7%E5%8F%96%E5%86%85%E9%83%A8%E7%B1%BB%E4%B8%8E%E5%A4%96%E9%83%A8%E7%B1%BB%E7%9A%84%E5%BC%95%E7%94%A8"><span class="nav-number">1.5.3.</span> <span class="nav-text">使用this关键字获取内部类与外部类的引用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#this%EF%BC%9A%E5%9C%A8%E5%A4%96%E9%83%A8%E7%B1%BB%E4%B8%AD%E5%AE%9A%E4%B9%89%E7%9A%84%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E4%B8%8E%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%90%8D%E7%A7%B0%E7%9B%B8%E5%90%8C"><span class="nav-number">1.5.3.1.</span> <span class="nav-text">this：在外部类中定义的成员变量与内部类的成员变量名称相同</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#this-x%E8%B0%83%E7%94%A8%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E5%B1%9E%E6%80%A7x%EF%BC%8C%E5%A4%96%E9%83%A8%E7%B1%BB%E5%90%8D%E7%A7%B0-this-x%E8%B0%83%E7%94%A8%E5%A4%96%E9%83%A8%E7%B1%BB%E7%9A%84%E5%B1%9E%E6%80%A7x-%E5%8D%B3%E4%BD%BF%E7%94%A8%E5%A4%96%E9%83%A8%E7%B1%BB%E5%90%8D%E7%A7%B0%E5%90%8E%E8%B7%9F%E4%B8%80%E4%B8%AA%E7%82%B9%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8Cthis%E5%85%B3%E9%94%AE%E5%AD%97%E4%BE%BF%E5%8F%AF%E8%8E%B7%E5%8F%96%E5%A4%96%E9%83%A8%E7%B1%BB%E7%9A%84%E4%B8%80%E4%B8%AA%E5%BC%95%E7%94%A8"><span class="nav-number">1.5.3.2.</span> <span class="nav-text">this.x调用内部类的属性x，外部类名称.this.x调用外部类的属性x,即使用外部类名称后跟一个点操作符和this关键字便可获取外部类的一个引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E6%89%80%E6%9C%89%E5%AF%B9%E8%B1%A1%E5%9D%87%E8%A2%AB%E6%94%BE%E7%BD%AE%E5%9C%A8%E5%A0%86%E4%B8%AD%EF%BC%8C%E6%96%B9%E6%B3%95%E4%BB%A5%E5%8F%8A%E6%96%B9%E6%B3%95%E4%B8%AD%E7%9A%84%E5%BD%A2%E5%8F%82%E6%88%96%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%94%BE%E7%BD%AE%E5%9C%A8%E6%A0%88%E4%B8%AD%E3%80%82"><span class="nav-number">1.5.3.3.</span> <span class="nav-text">在内存中所有对象均被放置在堆中，方法以及方法中的形参或局部变量放置在栈中。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E5%AF%B9%E8%B1%A1%E4%B8%8E%E5%A4%96%E9%83%A8%E7%B1%BB%E7%9A%84%E5%AF%B9%E8%B1%A1%E6%98%AF%E7%9B%B8%E4%BA%92%E4%BE%9D%E8%B5%96%E7%9A%84%EF%BC%8COuter-this%E5%AF%B9%E8%B1%A1%E6%8C%87%E5%90%91%E5%A4%96%E9%83%A8%E7%B1%BB%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.5.3.4.</span> <span class="nav-text">内部类的对象与外部类的对象是相互依赖的，Outer.this对象指向外部类对象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-number">1.5.4.</span> <span class="nav-text">局部内部类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB%E4%B8%8D%E4%BB%85%E5%8F%AF%E4%BB%A5%E5%9C%A8%E7%B1%BB%E4%B8%AD%E8%BF%9B%E8%A1%8C%E5%AE%9A%E4%B9%89%EF%BC%8C%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%9C%A8%E7%B1%BB%E7%9A%84%E5%B1%80%E9%83%A8%E4%BD%8D%E7%BD%AE%E5%AE%9A%E4%B9%89%EF%BC%8C%E5%A6%82%E5%9C%A8%E7%B1%BB%E7%9A%84%E6%96%B9%E6%B3%95%E6%88%96%E4%BB%BB%E6%84%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%AD%E5%9D%87%E5%8F%AF%E5%AE%9A%E4%B9%89%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-number">1.5.4.1.</span> <span class="nav-text">内部类不仅可以在类中进行定义，也可以在类的局部位置定义，如在类的方法或任意的作用域中均可定义内部类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E8%B4%A8%E4%B8%8A%E8%BF%99%E7%A7%8D%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E4%BD%9C%E7%94%A8%E5%B0%B1%E6%98%AF%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%AE%9E%E7%8E%B0%E4%BA%8EOutInterface2%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%BF%E5%90%8D%E7%B1%BB%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.5.4.2.</span> <span class="nav-text">实质上这种内部类的作用就是创建一个实现于OutInterface2接口的匿名类的对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%B1%E4%BA%8E%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB%E6%B2%A1%E6%9C%89%E5%90%8D%E7%A7%B0%EF%BC%8C%E6%89%80%E6%9C%89%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB%E4%BD%BF%E7%94%A8%E9%BB%98%E8%AE%A4%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E6%9D%A5%E7%94%9F%E6%88%90OutInterface2%E5%AF%B9%E8%B1%A1%E3%80%82"><span class="nav-number">1.5.4.2.1.</span> <span class="nav-text">由于匿名内部类没有名称，所有匿名内部类使用默认构造方法来生成OutInterface2对象。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9C%A8%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB%E5%AE%9A%E4%B9%89%E7%BB%93%E6%9D%9F%E5%90%8E%EF%BC%8C%E9%9C%80%E8%A6%81%E5%8A%A0%E5%88%86%E5%8F%B7%E6%A0%87%E8%AF%86%EF%BC%8C%E8%BF%99%E4%B8%AA%E5%88%86%E5%8F%B7%E5%B9%B6%E4%B8%8D%E6%98%AF%E4%BB%A3%E8%A1%A8%E5%AE%9A%E4%B9%89%E5%86%85%E9%83%A8%E7%B1%BB%E7%BB%93%E6%9D%9F%E7%9A%84%E6%A0%87%E8%AF%86%EF%BC%8C%E8%80%8C%E6%98%AF%E4%BB%A3%E8%A1%A8%E5%88%9B%E5%BB%BAOutInterface2%E5%BC%95%E7%94%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E6%A0%87%E8%AF%86"><span class="nav-number">1.5.4.2.2.</span> <span class="nav-text">在匿名内部类定义结束后，需要加分号标识，这个分号并不是代表定义内部类结束的标识，而是代表创建OutInterface2引用表达式的标识</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB%E7%BC%96%E8%AF%91%E8%BF%87%E5%90%8E%EF%BC%8C%E4%BC%9A%E4%BA%A7%E7%94%9F%E4%BB%A5%E2%80%9C%E5%A4%96%E9%83%A8%E7%B1%BB%E5%90%8D-%E5%BA%8F%E5%8F%B7%E2%80%9D%E4%B8%BA%E5%90%8D%E7%A7%B0%E7%9A%84-class%E6%96%87%E4%BB%B6%EF%BC%8C%E5%BA%8F%E5%8F%B7%E4%BB%A51-n%E6%8E%92%E5%88%97%EF%BC%8C%E5%88%86%E5%88%AB%E4%BB%A3%E8%A1%A81-n%E4%B8%AA%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-number">1.5.4.2.3.</span> <span class="nav-text">匿名内部类编译过后，会产生以“外部类名$序号”为名称的.class文件，序号以1-n排列，分别代表1-n个匿名内部类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-number">1.5.5.</span> <span class="nav-text">静态内部类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB%E4%B8%AD%E5%8F%AF%E4%BB%A5%E5%A3%B0%E6%98%8Estatic%E6%88%90%E5%91%98%EF%BC%8C%E4%BD%86%E6%98%AF%E5%9C%A8%E9%9D%9E%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB%E4%B8%AD%E4%B8%8D%E5%8F%AF%E4%BB%A5%E5%A3%B0%E6%98%8E%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E3%80%82"><span class="nav-number">1.5.5.1.</span> <span class="nav-text">一个静态内部类中可以声明static成员，但是在非静态内部类中不可以声明静态成员。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB%E6%9C%80%E5%A4%A7%E7%9A%84%E7%89%B9%E7%82%B9%EF%BC%8C%E5%B0%B1%E6%98%AF%E4%B8%8D%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E5%A4%96%E9%83%A8%E7%B1%BB%E7%9A%84%E9%9D%9E%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%EF%BC%8C%E6%89%80%E4%BB%A5%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB%E5%9C%A8%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E6%AF%94%E8%BE%83%E5%B0%91%E8%A7%81"><span class="nav-number">1.5.5.2.</span> <span class="nav-text">静态内部类最大的特点，就是不可以使用外部类的非静态成员，所以静态内部类在程序开发中比较少见</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9%EF%BC%9A"><span class="nav-number">1.5.5.3.</span> <span class="nav-text">特点：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E5%88%9B%E5%BB%BA%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E5%AF%B9%E8%B1%A1%EF%BC%8C%E4%B8%8D%E9%9C%80%E8%A6%81%E5%85%B6%E5%A4%96%E9%83%A8%E7%B1%BB%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.5.5.3.1.</span> <span class="nav-text">如果创建静态内部类的对象，不需要其外部类的对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8D%E8%83%BD%E4%BB%8E%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E5%AF%B9%E8%B1%A1%E4%B8%AD%E8%AE%BF%E9%97%AE%E9%9D%9E%E9%9D%99%E6%80%81%E5%A4%96%E9%83%A8%E7%B1%BB%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.5.5.3.2.</span> <span class="nav-text">不能从静态内部类的对象中访问非静态外部类的对象</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E8%A1%8C%E7%A8%8B%E5%BA%8F%E6%B5%8B%E8%AF%95%E6%97%B6%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%9C%A8%E6%AF%8F%E4%B8%80%E4%B8%AAJava%E6%96%87%E4%BB%B6%E4%B8%AD%E9%83%BD%E8%AE%BE%E7%BD%AE%E4%B8%80%E4%B8%AA%E4%B8%BB%E6%96%B9%E6%B3%95%EF%BC%8C%E5%B0%86%E5%87%BA%E7%8E%B0%E5%BE%88%E5%A4%9A%E9%A2%9D%E5%A4%96%E4%BB%A3%E7%A0%81%EF%BC%8C%E8%80%8C%E7%A8%8B%E5%BA%8F%E6%9C%AC%E8%BA%AB%E5%B9%B6%E4%B8%8D%E9%9C%80%E8%A6%81%E8%BF%99%E4%BA%9B%E4%B8%BB%E6%96%B9%E6%B3%95%EF%BC%8C%E4%B8%BA%E4%BA%86%E8%A7%A3%E5%86%B3%E8%BF%99%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%B0%86%E4%B8%BB%E6%96%B9%E6%B3%95%E5%86%99%E5%85%A5%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB%E4%B8%AD"><span class="nav-number">1.5.5.4.</span> <span class="nav-text">进行程序测试时，如果在每一个Java文件中都设置一个主方法，将出现很多额外代码，而程序本身并不需要这些主方法，为了解决这个问题，可以将主方法写入静态内部类中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%86%E7%94%9F%E6%88%90%E4%B8%80%E4%B8%AA%E5%90%8D%E7%A7%B0%E4%B8%BAStaticInnerClass-Inner%E7%9A%84%E7%8B%AC%E7%AB%8B%E7%B1%BB%E5%92%8C%E4%B8%80%E4%B8%AAStaticInnerClass%E7%B1%BB%EF%BC%8C%E5%8F%AA%E8%A6%81%E4%BD%BF%E7%94%A8java-StaticInnerClassInner-%E5%B0%B1%E5%8F%AF%E4%BB%A5%E8%BF%90%E8%A1%8C%E4%B8%BB%E6%96%B9%E6%B3%95%E4%B8%AD%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%8C%E8%BF%99%E6%A0%B7%E5%BD%93%E5%AE%8C%E6%88%90%E6%B5%8B%E8%AF%95%EF%BC%8C%E9%9C%80%E8%A6%81%E5%B0%86%E6%89%80%E6%9C%89-class%E6%96%87%E4%BB%B6%E6%89%93%E5%8C%85%E6%97%B6%EF%BC%8C%E5%8F%AA%E8%A6%81%E5%88%A0%E9%99%A4StaticInnerClassInner%E7%8B%AC%E7%AB%8B%E7%B1%BB%E5%8D%B3%E5%8F%AF"><span class="nav-number">1.5.5.5.</span> <span class="nav-text">将生成一个名称为StaticInnerClass$Inner的独立类和一个StaticInnerClass类，只要使用java StaticInnerClassInner,就可以运行主方法中的内容，这样当完成测试，需要将所有.class文件打包时，只要删除StaticInnerClassInner独立类即可</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF"><span class="nav-number">1.5.6.</span> <span class="nav-text">内部类的继承</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB%E5%92%8C%E5%85%B6%E4%BB%96%E6%99%AE%E9%80%9A%E7%B1%BB%E4%B8%80%E6%A0%B7%E5%8F%AF%E4%BB%A5%E8%A2%AB%E7%BB%A7%E6%89%BF%EF%BC%8C%E4%BD%86%E6%98%AF%E7%BB%A7%E6%89%BF%E5%86%85%E9%83%A8%E7%B1%BB%E6%AF%94%E7%BB%A7%E6%89%BF%E6%99%AE%E9%80%9A%E7%B1%BB%E5%A4%8D%E6%9D%82%EF%BC%8C%E9%9C%80%E8%A6%81%E8%AE%BE%E7%BD%AE%E4%B8%93%E9%97%A8%E7%9A%84%E8%AF%AD%E6%B3%95%E6%9D%A5%E5%AE%8C%E6%88%90"><span class="nav-number">1.5.6.1.</span> <span class="nav-text">内部类和其他普通类一样可以被继承，但是继承内部类比继承普通类复杂，需要设置专门的语法来完成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E6%9F%90%E4%B8%AA%E7%B1%BB%E7%BB%A7%E6%89%BF%E5%86%85%E9%83%A8%E7%B1%BB%E6%97%B6%EF%BC%8C%E5%BF%85%E9%A1%BB%E7%A1%AC%E6%80%A7%E7%BB%99%E4%BA%88%E8%BF%99%E4%B8%AA%E7%B1%BB%E4%B8%80%E4%B8%AA%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%EF%BC%8C%E5%B9%B6%E4%B8%94%E8%AF%A5%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E7%9A%84%E5%8F%82%E6%95%B0%E4%B8%BA%E9%9C%80%E8%A6%81%E7%BB%A7%E6%89%BF%E5%86%85%E5%B8%83%E5%88%97%E7%9A%84%E5%A4%96%E9%83%A8%E7%B1%BB%E7%9A%84%E5%BC%95%E7%94%A8%EF%BC%8C%E5%90%8C%E6%97%B6%E5%9C%A8%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E4%BD%93%E4%B8%AD%E4%BD%BF%E7%94%A8a-super%EF%BC%88%EF%BC%89%E8%AF%AD%E5%8F%A5%EF%BC%8C%E8%BF%99%E6%A0%B7%E6%89%8D%E4%B8%BA%E7%BB%A7%E6%89%BF%E6%8F%90%E4%BE%9B%E4%BA%86%E5%BF%85%E8%A6%81%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%BC%95%E7%94%A8"><span class="nav-number">1.5.6.2.</span> <span class="nav-text">在某个类继承内部类时，必须硬性给予这个类一个带参数的构造方法，并且该构造方法的参数为需要继承内布列的外部类的引用，同时在构造方法体中使用a.super（）语句，这样才为继承提供了必要的对象引用</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zhengtianhao"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">zhengtianhao</p>
+  <div class="site-description" itemprop="description">不忘初心,砥砺前行</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zombiezheng" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zombiezheng" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6256302575" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6256302575" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengtianhao</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+<div class="weather">
+  <!-- 《添加“心知天气”-->
+  
+    <div id="tp-weather-widget"></div>
+  <script>
+    (function(a,h,g,f,e,d,c,b){b=function(){d=h.createElement(g);c=h.getElementsByTagName(g)[0];d.src=e;d.charset="utf-8";d.async=1;c.parentNode.insertBefore(d,c)};a["SeniverseWeatherWidgetObject"]=f;a[f]||(a[f]=function(){(a[f].q=a[f].q||[]).push(arguments)});a[f].l=+new Date();if(a.attachEvent){a.attachEvent("onload",b)}else{a.addEventListener("load",b,false)}}(window,document,"script","SeniverseWeatherWidget","//cdn.sencdn.com/widget2/static/js/bundle.js?t="+parseInt((new Date().getTime() / 100000000).toString(),10)));
+    window.SeniverseWeatherWidget('show', {
+      flavor: "slim",
+      location: "WX4FBXXFKE4F",
+      geolocation: true,
+      language: "zh-Hans",
+      unit: "c",
+      theme: "auto",
+      token: "efb760e3-5326-4f08-839b-122738249a17",
+      hover: "enabled",
+      container: "tp-weather-widget"
+    })
+  </script>
+  
+  </div>
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

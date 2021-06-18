@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-atom.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="异常处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java异常处理">
+<meta property="og:url" content="http://example.com/2021/06/18/java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/index.html">
+<meta property="og:site_name" content="Zombies">
+<meta property="og:description" content="异常处理">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-18T07:26:27.000Z">
+<meta property="article:modified_time" content="2021-06-18T08:14:26.921Z">
+<meta property="article:author" content="zhengtianhao">
+<meta property="article:tag" content="导航">
+<meta property="article:tag" content="分享">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/06/18/java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>java异常处理 | Zombies</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/rss2.xml" title="Zombies" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/zombiezheng" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zombies</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/18/java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhengtianhao">
+      <meta itemprop="description" content="不忘初心,砥砺前行">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zombies">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          java异常处理
+        </h1>
+
+        <div class="post-meta">
+
+      
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-06-18 15:26:27 / 修改时间：16:14:26" itemprop="dateCreated datePublished" datetime="2021-06-18T15:26:27+08:00">2021-06-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h1><span id="more"></span>
+
+<h2 id="异常概述"><a href="#异常概述" class="headerlink" title="异常概述"></a>异常概述</h2><h3 id="异常是一个在程序执行期间发生的事件，它中断了正在执行的程序的正常指令流"><a href="#异常是一个在程序执行期间发生的事件，它中断了正在执行的程序的正常指令流" class="headerlink" title="异常是一个在程序执行期间发生的事件，它中断了正在执行的程序的正常指令流"></a>异常是一个在程序执行期间发生的事件，它中断了正在执行的程序的正常指令流</h3><h3 id="程序运行的结果报告发生了算数异常ArithmeticException-系统不再执行下去，提前结束。"><a href="#程序运行的结果报告发生了算数异常ArithmeticException-系统不再执行下去，提前结束。" class="headerlink" title="程序运行的结果报告发生了算数异常ArithmeticException,系统不再执行下去，提前结束。"></a>程序运行的结果报告发生了算数异常ArithmeticException,系统不再执行下去，提前结束。</h3><h3 id="Java语言是一门面向对象的编程语言，因此，异常在Java语言中也是作为类的实例的形式出现的。当某一方法中发生错误时，这个方法会创建一个对象，并且把它传递给正在运行的系统。"><a href="#Java语言是一门面向对象的编程语言，因此，异常在Java语言中也是作为类的实例的形式出现的。当某一方法中发生错误时，这个方法会创建一个对象，并且把它传递给正在运行的系统。" class="headerlink" title="Java语言是一门面向对象的编程语言，因此，异常在Java语言中也是作为类的实例的形式出现的。当某一方法中发生错误时，这个方法会创建一个对象，并且把它传递给正在运行的系统。"></a>Java语言是一门面向对象的编程语言，因此，异常在Java语言中也是作为类的实例的形式出现的。当某一方法中发生错误时，这个方法会创建一个对象，并且把它传递给正在运行的系统。</h3><h3 id="这个对象就是异常对象。通过异常处理机制，可以将非正常情况下的处理代码与程序的主逻辑分离，即在编写代码主流程的同时在其他地方处理异常。"><a href="#这个对象就是异常对象。通过异常处理机制，可以将非正常情况下的处理代码与程序的主逻辑分离，即在编写代码主流程的同时在其他地方处理异常。" class="headerlink" title="这个对象就是异常对象。通过异常处理机制，可以将非正常情况下的处理代码与程序的主逻辑分离，即在编写代码主流程的同时在其他地方处理异常。"></a>这个对象就是异常对象。通过异常处理机制，可以将非正常情况下的处理代码与程序的主逻辑分离，即在编写代码主流程的同时在其他地方处理异常。</h3><hr>
+<h2 id="处理程序异常错误"><a href="#处理程序异常错误" class="headerlink" title="处理程序异常错误"></a>处理程序异常错误</h2><h3 id="为了保证程序有效地执行，需要对发生的异常进行相应的处理。"><a href="#为了保证程序有效地执行，需要对发生的异常进行相应的处理。" class="headerlink" title="为了保证程序有效地执行，需要对发生的异常进行相应的处理。"></a>为了保证程序有效地执行，需要对发生的异常进行相应的处理。</h3><h3 id="在Java中，如果某个方法抛出异常，既可以在当前方法中进行捕捉，然后处理该异常，也可以将异常向上抛出，由方法调用者来处理。"><a href="#在Java中，如果某个方法抛出异常，既可以在当前方法中进行捕捉，然后处理该异常，也可以将异常向上抛出，由方法调用者来处理。" class="headerlink" title="在Java中，如果某个方法抛出异常，既可以在当前方法中进行捕捉，然后处理该异常，也可以将异常向上抛出，由方法调用者来处理。"></a>在Java中，如果某个方法抛出异常，既可以在当前方法中进行捕捉，然后处理该异常，也可以将异常向上抛出，由方法调用者来处理。</h3><h3 id="错误-异常产生后，如果不做任何处理，程序就会被终止"><a href="#错误-异常产生后，如果不做任何处理，程序就会被终止" class="headerlink" title="错误:异常产生后，如果不做任何处理，程序就会被终止"></a>错误:异常产生后，如果不做任何处理，程序就会被终止</h3><h3 id="捕捉异常"><a href="#捕捉异常" class="headerlink" title="捕捉异常"></a>捕捉异常</h3><h4 id="Java语言的异常捕获结构由try、catch和finally-3部分组成-异常处理器"><a href="#Java语言的异常捕获结构由try、catch和finally-3部分组成-异常处理器" class="headerlink" title="Java语言的异常捕获结构由try、catch和finally 3部分组成 异常处理器"></a>Java语言的异常捕获结构由try、catch和finally 3部分组成 异常处理器</h4><h4 id="其中try语句块存放的是可能发生异常的Java语句；"><a href="#其中try语句块存放的是可能发生异常的Java语句；" class="headerlink" title="其中try语句块存放的是可能发生异常的Java语句；"></a>其中try语句块存放的是可能发生异常的Java语句；</h4><h4 id="catch程序块在try语句块之后，用来激发被捕获的异常；finally语句块是异常处理结构的最后执行部分，无论try语句块中的代码如何退出，都将执行finally语句块"><a href="#catch程序块在try语句块之后，用来激发被捕获的异常；finally语句块是异常处理结构的最后执行部分，无论try语句块中的代码如何退出，都将执行finally语句块" class="headerlink" title="catch程序块在try语句块之后，用来激发被捕获的异常；finally语句块是异常处理结构的最后执行部分，无论try语句块中的代码如何退出，都将执行finally语句块"></a>catch程序块在try语句块之后，用来激发被捕获的异常；finally语句块是异常处理结构的最后执行部分，无论try语句块中的代码如何退出，都将执行finally语句块</h4><h4 id="Java的异常处理是结构化的，不会因为一个异常影响整个程序的执行"><a href="#Java的异常处理是结构化的，不会因为一个异常影响整个程序的执行" class="headerlink" title="Java的异常处理是结构化的，不会因为一个异常影响整个程序的执行"></a>Java的异常处理是结构化的，不会因为一个异常影响整个程序的执行</h4><h4 id="Exception是try代码块传递给catch代码块的变量类型，e是变量名。catch代码块中语句”e-getMessage-”用于输出错误性质，通常，异常处理常用以下三个函数来获取异常的有关信息。"><a href="#Exception是try代码块传递给catch代码块的变量类型，e是变量名。catch代码块中语句”e-getMessage-”用于输出错误性质，通常，异常处理常用以下三个函数来获取异常的有关信息。" class="headerlink" title="Exception是try代码块传递给catch代码块的变量类型，e是变量名。catch代码块中语句”e.getMessage()”用于输出错误性质，通常，异常处理常用以下三个函数来获取异常的有关信息。"></a>Exception是try代码块传递给catch代码块的变量类型，e是变量名。catch代码块中语句”e.getMessage()”用于输出错误性质，通常，异常处理常用以下三个函数来获取异常的有关信息。</h4><h5 id="getMessage-函数：输出错误性质"><a href="#getMessage-函数：输出错误性质" class="headerlink" title="getMessage()函数：输出错误性质"></a>getMessage()函数：输出错误性质</h5><h5 id="toString-函数：给出异常的类型和性质"><a href="#toString-函数：给出异常的类型和性质" class="headerlink" title="toString()函数：给出异常的类型和性质"></a>toString()函数：给出异常的类型和性质</h5><h5 id="printStackTrace-函数：指出异常的类型、性值、栈层次及出现在程序中的位置"><a href="#printStackTrace-函数：指出异常的类型、性值、栈层次及出现在程序中的位置" class="headerlink" title="printStackTrace()函数：指出异常的类型、性值、栈层次及出现在程序中的位置"></a>printStackTrace()函数：指出异常的类型、性值、栈层次及出现在程序中的位置</h5><h4 id="finally语句块"><a href="#finally语句块" class="headerlink" title="finally语句块"></a>finally语句块</h4><h5 id="完整的异常处理语句一定要包含finally语句，无论程序中有无异常发生，并且无论之间的try-catch是否顺利执行完毕，都会执行finally语句"><a href="#完整的异常处理语句一定要包含finally语句，无论程序中有无异常发生，并且无论之间的try-catch是否顺利执行完毕，都会执行finally语句" class="headerlink" title="完整的异常处理语句一定要包含finally语句，无论程序中有无异常发生，并且无论之间的try-catch是否顺利执行完毕，都会执行finally语句"></a>完整的异常处理语句一定要包含finally语句，无论程序中有无异常发生，并且无论之间的try-catch是否顺利执行完毕，都会执行finally语句</h5><h5 id="在以下四种特殊情况下，finally块不会被执行"><a href="#在以下四种特殊情况下，finally块不会被执行" class="headerlink" title="在以下四种特殊情况下，finally块不会被执行"></a>在以下四种特殊情况下，finally块不会被执行</h5><h6 id="在finally语句块发生了异常"><a href="#在finally语句块发生了异常" class="headerlink" title="在finally语句块发生了异常"></a>在finally语句块发生了异常</h6><h6 id="在前面的代码中使用了System-exit-退出程序"><a href="#在前面的代码中使用了System-exit-退出程序" class="headerlink" title="在前面的代码中使用了System.exit()退出程序"></a>在前面的代码中使用了System.exit()退出程序</h6><h6 id="程序所在的线程死亡"><a href="#程序所在的线程死亡" class="headerlink" title="程序所在的线程死亡"></a>程序所在的线程死亡</h6><h6 id="关闭CPU"><a href="#关闭CPU" class="headerlink" title="关闭CPU"></a>关闭CPU</h6><hr>
+<h2 id="Java常见异常"><a href="#Java常见异常" class="headerlink" title="Java常见异常"></a>Java常见异常</h2><h3 id="有的需要程序员进行捕获处理或声明抛出-有的是有Java虚拟机自动进行捕获处理的"><a href="#有的需要程序员进行捕获处理或声明抛出-有的是有Java虚拟机自动进行捕获处理的" class="headerlink" title="有的需要程序员进行捕获处理或声明抛出,有的是有Java虚拟机自动进行捕获处理的."></a>有的需要程序员进行捕获处理或声明抛出,有的是有Java虚拟机自动进行捕获处理的.</h3><h4 id="ClassCastException-类型转换异常"><a href="#ClassCastException-类型转换异常" class="headerlink" title="ClassCastException:类型转换异常"></a>ClassCastException:类型转换异常</h4><h4 id="ClassNotFoundException-未找到相应类异常"><a href="#ClassNotFoundException-未找到相应类异常" class="headerlink" title="ClassNotFoundException:未找到相应类异常"></a>ClassNotFoundException:未找到相应类异常</h4><h4 id="ArithmeticException-算数异常"><a href="#ArithmeticException-算数异常" class="headerlink" title="ArithmeticException:算数异常"></a>ArithmeticException:算数异常</h4><h4 id="ArrayIndexOutOfBoundsException-数组下标越界异常"><a href="#ArrayIndexOutOfBoundsException-数组下标越界异常" class="headerlink" title="ArrayIndexOutOfBoundsException:数组下标越界异常"></a>ArrayIndexOutOfBoundsException:数组下标越界异常</h4><h4 id="ArrayStoreException-数组中包含不兼容的值抛出的异常"><a href="#ArrayStoreException-数组中包含不兼容的值抛出的异常" class="headerlink" title="ArrayStoreException:数组中包含不兼容的值抛出的异常"></a>ArrayStoreException:数组中包含不兼容的值抛出的异常</h4><h4 id="SQLException-操作数据库异常类-NullPointerException-空指针异常"><a href="#SQLException-操作数据库异常类-NullPointerException-空指针异常" class="headerlink" title="SQLException:操作数据库异常类* NullPointerException:空指针异常"></a>SQLException:操作数据库异常类* NullPointerException:空指针异常</h4><h4 id="NoSuchMethodException-方法未找到抛出异常"><a href="#NoSuchMethodException-方法未找到抛出异常" class="headerlink" title="NoSuchMethodException:方法未找到抛出异常"></a>NoSuchMethodException:方法未找到抛出异常</h4><h4 id="NoSuchFieldException-字段未找到异常"><a href="#NoSuchFieldException-字段未找到异常" class="headerlink" title="NoSuchFieldException:字段未找到异常"></a>NoSuchFieldException:字段未找到异常</h4><h4 id="NumberFormatException-字符串转换为数字抛出的异常"><a href="#NumberFormatException-字符串转换为数字抛出的异常" class="headerlink" title="NumberFormatException:字符串转换为数字抛出的异常"></a>NumberFormatException:字符串转换为数字抛出的异常</h4><h4 id="NegativeArraySizeException-数组元素而概述为符数抛出的异常"><a href="#NegativeArraySizeException-数组元素而概述为符数抛出的异常" class="headerlink" title="NegativeArraySizeException:数组元素而概述为符数抛出的异常"></a>NegativeArraySizeException:数组元素而概述为符数抛出的异常</h4><h4 id="StringIndexOutOfBoundsException-字符串索引超出范围抛出的异常"><a href="#StringIndexOutOfBoundsException-字符串索引超出范围抛出的异常" class="headerlink" title="StringIndexOutOfBoundsException:字符串索引超出范围抛出的异常"></a>StringIndexOutOfBoundsException:字符串索引超出范围抛出的异常</h4><h4 id="IOException-输入输出异常"><a href="#IOException-输入输出异常" class="headerlink" title="IOException:输入输出异常"></a>IOException:输入输出异常</h4><h4 id="IllegalAccessException-不允许访问某类异常"><a href="#IllegalAccessException-不允许访问某类异常" class="headerlink" title="IllegalAccessException:不允许访问某类异常"></a>IllegalAccessException:不允许访问某类异常</h4><h4 id="InstantiationException-当应用程序试图使用Class类中的newInstance-方法创建一个类的实例，而指定的类对象无法被实例化时，抛出该异常"><a href="#InstantiationException-当应用程序试图使用Class类中的newInstance-方法创建一个类的实例，而指定的类对象无法被实例化时，抛出该异常" class="headerlink" title="InstantiationException:当应用程序试图使用Class类中的newInstance()方法创建一个类的实例，而指定的类对象无法被实例化时，抛出该异常"></a>InstantiationException:当应用程序试图使用Class类中的newInstance()方法创建一个类的实例，而指定的类对象无法被实例化时，抛出该异常</h4><h4 id="EOFException-文件已结束异常"><a href="#EOFException-文件已结束异常" class="headerlink" title="EOFException:文件已结束异常"></a>EOFException:文件已结束异常</h4><h4 id="FileNotFoundException-文件为找到异常"><a href="#FileNotFoundException-文件为找到异常" class="headerlink" title="FileNotFoundException:文件为找到异常"></a>FileNotFoundException:文件为找到异常</h4><hr>
+<h2 id="自定义异常"><a href="#自定义异常" class="headerlink" title="自定义异常"></a>自定义异常</h2><h3 id="使用Java内置的异常类可以描述在编程时出现的大部分异常情况。除此之外，用户只需继承Exception类即可自定义异常类"><a href="#使用Java内置的异常类可以描述在编程时出现的大部分异常情况。除此之外，用户只需继承Exception类即可自定义异常类" class="headerlink" title="使用Java内置的异常类可以描述在编程时出现的大部分异常情况。除此之外，用户只需继承Exception类即可自定义异常类"></a>使用Java内置的异常类可以描述在编程时出现的大部分异常情况。除此之外，用户只需继承Exception类即可自定义异常类</h3><h4 id="在程序中使用自定义异常类，大体可以分为以下几个步骤："><a href="#在程序中使用自定义异常类，大体可以分为以下几个步骤：" class="headerlink" title="在程序中使用自定义异常类，大体可以分为以下几个步骤："></a>在程序中使用自定义异常类，大体可以分为以下几个步骤：</h4><h5 id="1-创建自定义异常类"><a href="#1-创建自定义异常类" class="headerlink" title="1.创建自定义异常类"></a>1.创建自定义异常类</h5><h5 id="2-在方法中通过throw关键字抛出异常对象。"><a href="#2-在方法中通过throw关键字抛出异常对象。" class="headerlink" title="2.在方法中通过throw关键字抛出异常对象。"></a>2.在方法中通过throw关键字抛出异常对象。</h5><h5 id="3-如果在当前抛出异常的方法中处理异常，可以使用try-catch语句块捕获并处理，否则在方法的声明处通过throws关键字知名要抛出给方法调用者的异常，继续进行下一步操作"><a href="#3-如果在当前抛出异常的方法中处理异常，可以使用try-catch语句块捕获并处理，否则在方法的声明处通过throws关键字知名要抛出给方法调用者的异常，继续进行下一步操作" class="headerlink" title="3.如果在当前抛出异常的方法中处理异常，可以使用try-catch语句块捕获并处理，否则在方法的声明处通过throws关键字知名要抛出给方法调用者的异常，继续进行下一步操作"></a>3.如果在当前抛出异常的方法中处理异常，可以使用try-catch语句块捕获并处理，否则在方法的声明处通过throws关键字知名要抛出给方法调用者的异常，继续进行下一步操作</h5><h5 id="4-在出现异常方法的调用者中捕获并处理异常"><a href="#4-在出现异常方法的调用者中捕获并处理异常" class="headerlink" title="4.在出现异常方法的调用者中捕获并处理异常"></a>4.在出现异常方法的调用者中捕获并处理异常</h5><h5 id="若想抛出用户自定义的异常对象，要使用throw关键字"><a href="#若想抛出用户自定义的异常对象，要使用throw关键字" class="headerlink" title="若想抛出用户自定义的异常对象，要使用throw关键字"></a>若想抛出用户自定义的异常对象，要使用throw关键字</h5><hr>
+<h2 id="在方法中抛出异常"><a href="#在方法中抛出异常" class="headerlink" title="在方法中抛出异常"></a>在方法中抛出异常</h2><h3 id="若某个方法可能会发生异常，但不想在当前方法中处理这个异常，则可以使用throws、throw关键字在方法中抛出异常"><a href="#若某个方法可能会发生异常，但不想在当前方法中处理这个异常，则可以使用throws、throw关键字在方法中抛出异常" class="headerlink" title="若某个方法可能会发生异常，但不想在当前方法中处理这个异常，则可以使用throws、throw关键字在方法中抛出异常"></a>若某个方法可能会发生异常，但不想在当前方法中处理这个异常，则可以使用throws、throw关键字在方法中抛出异常</h3><h3 id="使用throws关键字抛出异常"><a href="#使用throws关键字抛出异常" class="headerlink" title="使用throws关键字抛出异常"></a>使用throws关键字抛出异常</h3><h4 id="throws关键字通常被应用在声明方法时，用来指定方法可能抛出的异常。多个异常可使用逗号分隔"><a href="#throws关键字通常被应用在声明方法时，用来指定方法可能抛出的异常。多个异常可使用逗号分隔" class="headerlink" title="throws关键字通常被应用在声明方法时，用来指定方法可能抛出的异常。多个异常可使用逗号分隔"></a>throws关键字通常被应用在声明方法时，用来指定方法可能抛出的异常。多个异常可使用逗号分隔</h4><h4 id="使用throws关键字将异常抛给上一级后，如果不想处理该异常，可以继续向上抛出，但最终要有能够处理该异常的代码"><a href="#使用throws关键字将异常抛给上一级后，如果不想处理该异常，可以继续向上抛出，但最终要有能够处理该异常的代码" class="headerlink" title="使用throws关键字将异常抛给上一级后，如果不想处理该异常，可以继续向上抛出，但最终要有能够处理该异常的代码"></a>使用throws关键字将异常抛给上一级后，如果不想处理该异常，可以继续向上抛出，但最终要有能够处理该异常的代码</h4><h4 id="如果是Error、RuntimeException或它们的子类，可以不使用throws关键字来声明要抛出的异常，编译仍能顺利-通过，但在运行时会被系统抛出"><a href="#如果是Error、RuntimeException或它们的子类，可以不使用throws关键字来声明要抛出的异常，编译仍能顺利-通过，但在运行时会被系统抛出" class="headerlink" title="如果是Error、RuntimeException或它们的子类，可以不使用throws关键字来声明要抛出的异常，编译仍能顺利 通过，但在运行时会被系统抛出"></a>如果是Error、RuntimeException或它们的子类，可以不使用throws关键字来声明要抛出的异常，编译仍能顺利 通过，但在运行时会被系统抛出</h4><h3 id="使用throw关键字抛出异常"><a href="#使用throw关键字抛出异常" class="headerlink" title="使用throw关键字抛出异常"></a>使用throw关键字抛出异常</h3><h4 id="throws关键字通常用于方法体中，并且抛出一个异常对象。程序在执行到throws语句时立即终止，它后面的语句都不执行"><a href="#throws关键字通常用于方法体中，并且抛出一个异常对象。程序在执行到throws语句时立即终止，它后面的语句都不执行" class="headerlink" title="throws关键字通常用于方法体中，并且抛出一个异常对象。程序在执行到throws语句时立即终止，它后面的语句都不执行"></a>throws关键字通常用于方法体中，并且抛出一个异常对象。程序在执行到throws语句时立即终止，它后面的语句都不执行</h4><h4 id="通过throw抛出异常后，如果想在上一级代码中来捕获并处理异常，则需要在抛出异常的方法中使用throws关键字在方法的生命中指明要抛出的异常；"><a href="#通过throw抛出异常后，如果想在上一级代码中来捕获并处理异常，则需要在抛出异常的方法中使用throws关键字在方法的生命中指明要抛出的异常；" class="headerlink" title="通过throw抛出异常后，如果想在上一级代码中来捕获并处理异常，则需要在抛出异常的方法中使用throws关键字在方法的生命中指明要抛出的异常；"></a>通过throw抛出异常后，如果想在上一级代码中来捕获并处理异常，则需要在抛出异常的方法中使用throws关键字在方法的生命中指明要抛出的异常；</h4><h4 id="如果要捕捉throws抛出的异常，则必须使用try-catch语句块"><a href="#如果要捕捉throws抛出的异常，则必须使用try-catch语句块" class="headerlink" title="如果要捕捉throws抛出的异常，则必须使用try-catch语句块"></a>如果要捕捉throws抛出的异常，则必须使用try-catch语句块</h4><h4 id="throws-通常用来抛出用户自定义异常"><a href="#throws-通常用来抛出用户自定义异常" class="headerlink" title="throws 通常用来抛出用户自定义异常"></a>throws 通常用来抛出用户自定义异常</h4><hr>
+<h2 id="运行时异常"><a href="#运行时异常" class="headerlink" title="运行时异常"></a>运行时异常</h2><h3 id="RuntimeException异常是程序运行过程中产生的异常。Java类库的每个包中都定义了异常类，所有这些类都是Throwable类的子类。"><a href="#RuntimeException异常是程序运行过程中产生的异常。Java类库的每个包中都定义了异常类，所有这些类都是Throwable类的子类。" class="headerlink" title="RuntimeException异常是程序运行过程中产生的异常。Java类库的每个包中都定义了异常类，所有这些类都是Throwable类的子类。"></a>RuntimeException异常是程序运行过程中产生的异常。Java类库的每个包中都定义了异常类，所有这些类都是Throwable类的子类。</h3><h3 id="Throwable类派生了两个子类，分别是Exception和Error类。"><a href="#Throwable类派生了两个子类，分别是Exception和Error类。" class="headerlink" title="Throwable类派生了两个子类，分别是Exception和Error类。"></a>Throwable类派生了两个子类，分别是Exception和Error类。</h3><h3 id="Error类及其子类用来描述Java运行系统中的内部错误以及资源耗尽的错误，这类错误比较严重。"><a href="#Error类及其子类用来描述Java运行系统中的内部错误以及资源耗尽的错误，这类错误比较严重。" class="headerlink" title="Error类及其子类用来描述Java运行系统中的内部错误以及资源耗尽的错误，这类错误比较严重。"></a>Error类及其子类用来描述Java运行系统中的内部错误以及资源耗尽的错误，这类错误比较严重。</h3><h3 id="Exception类称为非致命性类，可以通过捕捉处理使程序继续执行。Exception类又根据错误发生的原因分为RuntimeException异常和除RuntimeException之外的异常"><a href="#Exception类称为非致命性类，可以通过捕捉处理使程序继续执行。Exception类又根据错误发生的原因分为RuntimeException异常和除RuntimeException之外的异常" class="headerlink" title="Exception类称为非致命性类，可以通过捕捉处理使程序继续执行。Exception类又根据错误发生的原因分为RuntimeException异常和除RuntimeException之外的异常"></a>Exception类称为非致命性类，可以通过捕捉处理使程序继续执行。Exception类又根据错误发生的原因分为RuntimeException异常和除RuntimeException之外的异常</h3><h3 id="java中提供了常见的RuntimeException异常，这些异常可通过try-catch语句捕获"><a href="#java中提供了常见的RuntimeException异常，这些异常可通过try-catch语句捕获" class="headerlink" title="java中提供了常见的RuntimeException异常，这些异常可通过try-catch语句捕获"></a>java中提供了常见的RuntimeException异常，这些异常可通过try-catch语句捕获</h3><h4 id="RuntimeException异常的种类"><a href="#RuntimeException异常的种类" class="headerlink" title="RuntimeException异常的种类"></a>RuntimeException异常的种类</h4><h4 id="NullPointerException-空指针异常"><a href="#NullPointerException-空指针异常" class="headerlink" title="NullPointerException:空指针异常"></a>NullPointerException:空指针异常</h4><h4 id="ArrayIndexOutOfBoundsException-数组下标越界异常-1"><a href="#ArrayIndexOutOfBoundsException-数组下标越界异常-1" class="headerlink" title="ArrayIndexOutOfBoundsException:数组下标越界异常"></a>ArrayIndexOutOfBoundsException:数组下标越界异常</h4><h4 id="ArithmeticException-算术异常"><a href="#ArithmeticException-算术异常" class="headerlink" title="ArithmeticException:算术异常"></a>ArithmeticException:算术异常</h4><h4 id="ArrayStoreException-数组中包含不兼容的值抛出的异常-1"><a href="#ArrayStoreException-数组中包含不兼容的值抛出的异常-1" class="headerlink" title="ArrayStoreException:数组中包含不兼容的值抛出的异常"></a>ArrayStoreException:数组中包含不兼容的值抛出的异常</h4><h4 id="IllegalArgumentException-非法参数异常"><a href="#IllegalArgumentException-非法参数异常" class="headerlink" title="IllegalArgumentException:非法参数异常"></a>IllegalArgumentException:非法参数异常</h4><h4 id="SecurityException-安全性异常"><a href="#SecurityException-安全性异常" class="headerlink" title="SecurityException:安全性异常"></a>SecurityException:安全性异常</h4><h4 id="NegativeArraySizeException-数组长度为负异常"><a href="#NegativeArraySizeException-数组长度为负异常" class="headerlink" title="NegativeArraySizeException:数组长度为负异常"></a>NegativeArraySizeException:数组长度为负异常</h4><hr>
+
+    </div>
+
+    
+    
+    
+
+    
+   <div>
+     <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+   </div>
+ 
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="zhengtianhao 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="zhengtianhao 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>zhengtianhao
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2021/06/18/java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" title="java异常处理">http://example.com/2021/06/18/java异常处理/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/wechat_channel.jpg">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">微信</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AF%BC%E8%88%AA/" rel="tag"># 导航</a>
+              <a href="/tags/%E5%88%86%E4%BA%AB/" rel="tag"># 分享</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/17/java%E7%B1%BB%E5%BE%97%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/" rel="prev" title="java类得高级特性">
+      <i class="fa fa-chevron-left"></i> java类得高级特性
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">异常概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E6%98%AF%E4%B8%80%E4%B8%AA%E5%9C%A8%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C%E6%9C%9F%E9%97%B4%E5%8F%91%E7%94%9F%E7%9A%84%E4%BA%8B%E4%BB%B6%EF%BC%8C%E5%AE%83%E4%B8%AD%E6%96%AD%E4%BA%86%E6%AD%A3%E5%9C%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%AD%A3%E5%B8%B8%E6%8C%87%E4%BB%A4%E6%B5%81"><span class="nav-number">1.1.1.</span> <span class="nav-text">异常是一个在程序执行期间发生的事件，它中断了正在执行的程序的正常指令流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%9A%84%E7%BB%93%E6%9E%9C%E6%8A%A5%E5%91%8A%E5%8F%91%E7%94%9F%E4%BA%86%E7%AE%97%E6%95%B0%E5%BC%82%E5%B8%B8ArithmeticException-%E7%B3%BB%E7%BB%9F%E4%B8%8D%E5%86%8D%E6%89%A7%E8%A1%8C%E4%B8%8B%E5%8E%BB%EF%BC%8C%E6%8F%90%E5%89%8D%E7%BB%93%E6%9D%9F%E3%80%82"><span class="nav-number">1.1.2.</span> <span class="nav-text">程序运行的结果报告发生了算数异常ArithmeticException,系统不再执行下去，提前结束。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java%E8%AF%AD%E8%A8%80%E6%98%AF%E4%B8%80%E9%97%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%EF%BC%8C%E5%9B%A0%E6%AD%A4%EF%BC%8C%E5%BC%82%E5%B8%B8%E5%9C%A8Java%E8%AF%AD%E8%A8%80%E4%B8%AD%E4%B9%9F%E6%98%AF%E4%BD%9C%E4%B8%BA%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B%E7%9A%84%E5%BD%A2%E5%BC%8F%E5%87%BA%E7%8E%B0%E7%9A%84%E3%80%82%E5%BD%93%E6%9F%90%E4%B8%80%E6%96%B9%E6%B3%95%E4%B8%AD%E5%8F%91%E7%94%9F%E9%94%99%E8%AF%AF%E6%97%B6%EF%BC%8C%E8%BF%99%E4%B8%AA%E6%96%B9%E6%B3%95%E4%BC%9A%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%EF%BC%8C%E5%B9%B6%E4%B8%94%E6%8A%8A%E5%AE%83%E4%BC%A0%E9%80%92%E7%BB%99%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E7%B3%BB%E7%BB%9F%E3%80%82"><span class="nav-number">1.1.3.</span> <span class="nav-text">Java语言是一门面向对象的编程语言，因此，异常在Java语言中也是作为类的实例的形式出现的。当某一方法中发生错误时，这个方法会创建一个对象，并且把它传递给正在运行的系统。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%99%E4%B8%AA%E5%AF%B9%E8%B1%A1%E5%B0%B1%E6%98%AF%E5%BC%82%E5%B8%B8%E5%AF%B9%E8%B1%A1%E3%80%82%E9%80%9A%E8%BF%87%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%B0%86%E9%9D%9E%E6%AD%A3%E5%B8%B8%E6%83%85%E5%86%B5%E4%B8%8B%E7%9A%84%E5%A4%84%E7%90%86%E4%BB%A3%E7%A0%81%E4%B8%8E%E7%A8%8B%E5%BA%8F%E7%9A%84%E4%B8%BB%E9%80%BB%E8%BE%91%E5%88%86%E7%A6%BB%EF%BC%8C%E5%8D%B3%E5%9C%A8%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81%E4%B8%BB%E6%B5%81%E7%A8%8B%E7%9A%84%E5%90%8C%E6%97%B6%E5%9C%A8%E5%85%B6%E4%BB%96%E5%9C%B0%E6%96%B9%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8%E3%80%82"><span class="nav-number">1.1.4.</span> <span class="nav-text">这个对象就是异常对象。通过异常处理机制，可以将非正常情况下的处理代码与程序的主逻辑分离，即在编写代码主流程的同时在其他地方处理异常。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E5%BC%82%E5%B8%B8%E9%94%99%E8%AF%AF"><span class="nav-number">1.2.</span> <span class="nav-text">处理程序异常错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BA%86%E4%BF%9D%E8%AF%81%E7%A8%8B%E5%BA%8F%E6%9C%89%E6%95%88%E5%9C%B0%E6%89%A7%E8%A1%8C%EF%BC%8C%E9%9C%80%E8%A6%81%E5%AF%B9%E5%8F%91%E7%94%9F%E7%9A%84%E5%BC%82%E5%B8%B8%E8%BF%9B%E8%A1%8C%E7%9B%B8%E5%BA%94%E7%9A%84%E5%A4%84%E7%90%86%E3%80%82"><span class="nav-number">1.2.1.</span> <span class="nav-text">为了保证程序有效地执行，需要对发生的异常进行相应的处理。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8Java%E4%B8%AD%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%9F%90%E4%B8%AA%E6%96%B9%E6%B3%95%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8%EF%BC%8C%E6%97%A2%E5%8F%AF%E4%BB%A5%E5%9C%A8%E5%BD%93%E5%89%8D%E6%96%B9%E6%B3%95%E4%B8%AD%E8%BF%9B%E8%A1%8C%E6%8D%95%E6%8D%89%EF%BC%8C%E7%84%B6%E5%90%8E%E5%A4%84%E7%90%86%E8%AF%A5%E5%BC%82%E5%B8%B8%EF%BC%8C%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%B0%86%E5%BC%82%E5%B8%B8%E5%90%91%E4%B8%8A%E6%8A%9B%E5%87%BA%EF%BC%8C%E7%94%B1%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E8%80%85%E6%9D%A5%E5%A4%84%E7%90%86%E3%80%82"><span class="nav-number">1.2.2.</span> <span class="nav-text">在Java中，如果某个方法抛出异常，既可以在当前方法中进行捕捉，然后处理该异常，也可以将异常向上抛出，由方法调用者来处理。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E8%AF%AF-%E5%BC%82%E5%B8%B8%E4%BA%A7%E7%94%9F%E5%90%8E%EF%BC%8C%E5%A6%82%E6%9E%9C%E4%B8%8D%E5%81%9A%E4%BB%BB%E4%BD%95%E5%A4%84%E7%90%86%EF%BC%8C%E7%A8%8B%E5%BA%8F%E5%B0%B1%E4%BC%9A%E8%A2%AB%E7%BB%88%E6%AD%A2"><span class="nav-number">1.2.3.</span> <span class="nav-text">错误:异常产生后，如果不做任何处理，程序就会被终止</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8D%95%E6%8D%89%E5%BC%82%E5%B8%B8"><span class="nav-number">1.2.4.</span> <span class="nav-text">捕捉异常</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java%E8%AF%AD%E8%A8%80%E7%9A%84%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7%E7%BB%93%E6%9E%84%E7%94%B1try%E3%80%81catch%E5%92%8Cfinally-3%E9%83%A8%E5%88%86%E7%BB%84%E6%88%90-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">Java语言的异常捕获结构由try、catch和finally 3部分组成 异常处理器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%B8%ADtry%E8%AF%AD%E5%8F%A5%E5%9D%97%E5%AD%98%E6%94%BE%E7%9A%84%E6%98%AF%E5%8F%AF%E8%83%BD%E5%8F%91%E7%94%9F%E5%BC%82%E5%B8%B8%E7%9A%84Java%E8%AF%AD%E5%8F%A5%EF%BC%9B"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">其中try语句块存放的是可能发生异常的Java语句；</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#catch%E7%A8%8B%E5%BA%8F%E5%9D%97%E5%9C%A8try%E8%AF%AD%E5%8F%A5%E5%9D%97%E4%B9%8B%E5%90%8E%EF%BC%8C%E7%94%A8%E6%9D%A5%E6%BF%80%E5%8F%91%E8%A2%AB%E6%8D%95%E8%8E%B7%E7%9A%84%E5%BC%82%E5%B8%B8%EF%BC%9Bfinally%E8%AF%AD%E5%8F%A5%E5%9D%97%E6%98%AF%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E7%BB%93%E6%9E%84%E7%9A%84%E6%9C%80%E5%90%8E%E6%89%A7%E8%A1%8C%E9%83%A8%E5%88%86%EF%BC%8C%E6%97%A0%E8%AE%BAtry%E8%AF%AD%E5%8F%A5%E5%9D%97%E4%B8%AD%E7%9A%84%E4%BB%A3%E7%A0%81%E5%A6%82%E4%BD%95%E9%80%80%E5%87%BA%EF%BC%8C%E9%83%BD%E5%B0%86%E6%89%A7%E8%A1%8Cfinally%E8%AF%AD%E5%8F%A5%E5%9D%97"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">catch程序块在try语句块之后，用来激发被捕获的异常；finally语句块是异常处理结构的最后执行部分，无论try语句块中的代码如何退出，都将执行finally语句块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%98%AF%E7%BB%93%E6%9E%84%E5%8C%96%E7%9A%84%EF%BC%8C%E4%B8%8D%E4%BC%9A%E5%9B%A0%E4%B8%BA%E4%B8%80%E4%B8%AA%E5%BC%82%E5%B8%B8%E5%BD%B1%E5%93%8D%E6%95%B4%E4%B8%AA%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%89%A7%E8%A1%8C"><span class="nav-number">1.2.4.4.</span> <span class="nav-text">Java的异常处理是结构化的，不会因为一个异常影响整个程序的执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Exception%E6%98%AFtry%E4%BB%A3%E7%A0%81%E5%9D%97%E4%BC%A0%E9%80%92%E7%BB%99catch%E4%BB%A3%E7%A0%81%E5%9D%97%E7%9A%84%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B%EF%BC%8Ce%E6%98%AF%E5%8F%98%E9%87%8F%E5%90%8D%E3%80%82catch%E4%BB%A3%E7%A0%81%E5%9D%97%E4%B8%AD%E8%AF%AD%E5%8F%A5%E2%80%9De-getMessage-%E2%80%9D%E7%94%A8%E4%BA%8E%E8%BE%93%E5%87%BA%E9%94%99%E8%AF%AF%E6%80%A7%E8%B4%A8%EF%BC%8C%E9%80%9A%E5%B8%B8%EF%BC%8C%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E4%BB%A5%E4%B8%8B%E4%B8%89%E4%B8%AA%E5%87%BD%E6%95%B0%E6%9D%A5%E8%8E%B7%E5%8F%96%E5%BC%82%E5%B8%B8%E7%9A%84%E6%9C%89%E5%85%B3%E4%BF%A1%E6%81%AF%E3%80%82"><span class="nav-number">1.2.4.5.</span> <span class="nav-text">Exception是try代码块传递给catch代码块的变量类型，e是变量名。catch代码块中语句”e.getMessage()”用于输出错误性质，通常，异常处理常用以下三个函数来获取异常的有关信息。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#getMessage-%E5%87%BD%E6%95%B0%EF%BC%9A%E8%BE%93%E5%87%BA%E9%94%99%E8%AF%AF%E6%80%A7%E8%B4%A8"><span class="nav-number">1.2.4.5.1.</span> <span class="nav-text">getMessage()函数：输出错误性质</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#toString-%E5%87%BD%E6%95%B0%EF%BC%9A%E7%BB%99%E5%87%BA%E5%BC%82%E5%B8%B8%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%92%8C%E6%80%A7%E8%B4%A8"><span class="nav-number">1.2.4.5.2.</span> <span class="nav-text">toString()函数：给出异常的类型和性质</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#printStackTrace-%E5%87%BD%E6%95%B0%EF%BC%9A%E6%8C%87%E5%87%BA%E5%BC%82%E5%B8%B8%E7%9A%84%E7%B1%BB%E5%9E%8B%E3%80%81%E6%80%A7%E5%80%BC%E3%80%81%E6%A0%88%E5%B1%82%E6%AC%A1%E5%8F%8A%E5%87%BA%E7%8E%B0%E5%9C%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.2.4.5.3.</span> <span class="nav-text">printStackTrace()函数：指出异常的类型、性值、栈层次及出现在程序中的位置</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#finally%E8%AF%AD%E5%8F%A5%E5%9D%97"><span class="nav-number">1.2.4.6.</span> <span class="nav-text">finally语句块</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E8%AF%AD%E5%8F%A5%E4%B8%80%E5%AE%9A%E8%A6%81%E5%8C%85%E5%90%ABfinally%E8%AF%AD%E5%8F%A5%EF%BC%8C%E6%97%A0%E8%AE%BA%E7%A8%8B%E5%BA%8F%E4%B8%AD%E6%9C%89%E6%97%A0%E5%BC%82%E5%B8%B8%E5%8F%91%E7%94%9F%EF%BC%8C%E5%B9%B6%E4%B8%94%E6%97%A0%E8%AE%BA%E4%B9%8B%E9%97%B4%E7%9A%84try-catch%E6%98%AF%E5%90%A6%E9%A1%BA%E5%88%A9%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%AF%95%EF%BC%8C%E9%83%BD%E4%BC%9A%E6%89%A7%E8%A1%8Cfinally%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.2.4.6.1.</span> <span class="nav-text">完整的异常处理语句一定要包含finally语句，无论程序中有无异常发生，并且无论之间的try-catch是否顺利执行完毕，都会执行finally语句</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9C%A8%E4%BB%A5%E4%B8%8B%E5%9B%9B%E7%A7%8D%E7%89%B9%E6%AE%8A%E6%83%85%E5%86%B5%E4%B8%8B%EF%BC%8Cfinally%E5%9D%97%E4%B8%8D%E4%BC%9A%E8%A2%AB%E6%89%A7%E8%A1%8C"><span class="nav-number">1.2.4.6.2.</span> <span class="nav-text">在以下四种特殊情况下，finally块不会被执行</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%9C%A8finally%E8%AF%AD%E5%8F%A5%E5%9D%97%E5%8F%91%E7%94%9F%E4%BA%86%E5%BC%82%E5%B8%B8"><span class="nav-number">1.2.4.6.2.1.</span> <span class="nav-text">在finally语句块发生了异常</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%9C%A8%E5%89%8D%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E4%B8%AD%E4%BD%BF%E7%94%A8%E4%BA%86System-exit-%E9%80%80%E5%87%BA%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.2.4.6.2.2.</span> <span class="nav-text">在前面的代码中使用了System.exit()退出程序</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%89%80%E5%9C%A8%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%AD%BB%E4%BA%A1"><span class="nav-number">1.2.4.6.2.3.</span> <span class="nav-text">程序所在的线程死亡</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%85%B3%E9%97%ADCPU"><span class="nav-number">1.2.4.6.2.4.</span> <span class="nav-text">关闭CPU</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8"><span class="nav-number">1.3.</span> <span class="nav-text">Java常见异常</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E7%9A%84%E9%9C%80%E8%A6%81%E7%A8%8B%E5%BA%8F%E5%91%98%E8%BF%9B%E8%A1%8C%E6%8D%95%E8%8E%B7%E5%A4%84%E7%90%86%E6%88%96%E5%A3%B0%E6%98%8E%E6%8A%9B%E5%87%BA-%E6%9C%89%E7%9A%84%E6%98%AF%E6%9C%89Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%87%AA%E5%8A%A8%E8%BF%9B%E8%A1%8C%E6%8D%95%E8%8E%B7%E5%A4%84%E7%90%86%E7%9A%84"><span class="nav-number">1.3.1.</span> <span class="nav-text">有的需要程序员进行捕获处理或声明抛出,有的是有Java虚拟机自动进行捕获处理的.</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ClassCastException-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E5%BC%82%E5%B8%B8"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">ClassCastException:类型转换异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ClassNotFoundException-%E6%9C%AA%E6%89%BE%E5%88%B0%E7%9B%B8%E5%BA%94%E7%B1%BB%E5%BC%82%E5%B8%B8"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">ClassNotFoundException:未找到相应类异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ArithmeticException-%E7%AE%97%E6%95%B0%E5%BC%82%E5%B8%B8"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">ArithmeticException:算数异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ArrayIndexOutOfBoundsException-%E6%95%B0%E7%BB%84%E4%B8%8B%E6%A0%87%E8%B6%8A%E7%95%8C%E5%BC%82%E5%B8%B8"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">ArrayIndexOutOfBoundsException:数组下标越界异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ArrayStoreException-%E6%95%B0%E7%BB%84%E4%B8%AD%E5%8C%85%E5%90%AB%E4%B8%8D%E5%85%BC%E5%AE%B9%E7%9A%84%E5%80%BC%E6%8A%9B%E5%87%BA%E7%9A%84%E5%BC%82%E5%B8%B8"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">ArrayStoreException:数组中包含不兼容的值抛出的异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQLException-%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%82%E5%B8%B8%E7%B1%BB-NullPointerException-%E7%A9%BA%E6%8C%87%E9%92%88%E5%BC%82%E5%B8%B8"><span class="nav-number">1.3.1.6.</span> <span class="nav-text">SQLException:操作数据库异常类* NullPointerException:空指针异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NoSuchMethodException-%E6%96%B9%E6%B3%95%E6%9C%AA%E6%89%BE%E5%88%B0%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8"><span class="nav-number">1.3.1.7.</span> <span class="nav-text">NoSuchMethodException:方法未找到抛出异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NoSuchFieldException-%E5%AD%97%E6%AE%B5%E6%9C%AA%E6%89%BE%E5%88%B0%E5%BC%82%E5%B8%B8"><span class="nav-number">1.3.1.8.</span> <span class="nav-text">NoSuchFieldException:字段未找到异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NumberFormatException-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E4%B8%BA%E6%95%B0%E5%AD%97%E6%8A%9B%E5%87%BA%E7%9A%84%E5%BC%82%E5%B8%B8"><span class="nav-number">1.3.1.9.</span> <span class="nav-text">NumberFormatException:字符串转换为数字抛出的异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NegativeArraySizeException-%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E8%80%8C%E6%A6%82%E8%BF%B0%E4%B8%BA%E7%AC%A6%E6%95%B0%E6%8A%9B%E5%87%BA%E7%9A%84%E5%BC%82%E5%B8%B8"><span class="nav-number">1.3.1.10.</span> <span class="nav-text">NegativeArraySizeException:数组元素而概述为符数抛出的异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#StringIndexOutOfBoundsException-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B4%A2%E5%BC%95%E8%B6%85%E5%87%BA%E8%8C%83%E5%9B%B4%E6%8A%9B%E5%87%BA%E7%9A%84%E5%BC%82%E5%B8%B8"><span class="nav-number">1.3.1.11.</span> <span class="nav-text">StringIndexOutOfBoundsException:字符串索引超出范围抛出的异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IOException-%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E5%BC%82%E5%B8%B8"><span class="nav-number">1.3.1.12.</span> <span class="nav-text">IOException:输入输出异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IllegalAccessException-%E4%B8%8D%E5%85%81%E8%AE%B8%E8%AE%BF%E9%97%AE%E6%9F%90%E7%B1%BB%E5%BC%82%E5%B8%B8"><span class="nav-number">1.3.1.13.</span> <span class="nav-text">IllegalAccessException:不允许访问某类异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#InstantiationException-%E5%BD%93%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%AF%95%E5%9B%BE%E4%BD%BF%E7%94%A8Class%E7%B1%BB%E4%B8%AD%E7%9A%84newInstance-%E6%96%B9%E6%B3%95%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B%EF%BC%8C%E8%80%8C%E6%8C%87%E5%AE%9A%E7%9A%84%E7%B1%BB%E5%AF%B9%E8%B1%A1%E6%97%A0%E6%B3%95%E8%A2%AB%E5%AE%9E%E4%BE%8B%E5%8C%96%E6%97%B6%EF%BC%8C%E6%8A%9B%E5%87%BA%E8%AF%A5%E5%BC%82%E5%B8%B8"><span class="nav-number">1.3.1.14.</span> <span class="nav-text">InstantiationException:当应用程序试图使用Class类中的newInstance()方法创建一个类的实例，而指定的类对象无法被实例化时，抛出该异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EOFException-%E6%96%87%E4%BB%B6%E5%B7%B2%E7%BB%93%E6%9D%9F%E5%BC%82%E5%B8%B8"><span class="nav-number">1.3.1.15.</span> <span class="nav-text">EOFException:文件已结束异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FileNotFoundException-%E6%96%87%E4%BB%B6%E4%B8%BA%E6%89%BE%E5%88%B0%E5%BC%82%E5%B8%B8"><span class="nav-number">1.3.1.16.</span> <span class="nav-text">FileNotFoundException:文件为找到异常</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8"><span class="nav-number">1.4.</span> <span class="nav-text">自定义异常</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Java%E5%86%85%E7%BD%AE%E7%9A%84%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%8F%AF%E4%BB%A5%E6%8F%8F%E8%BF%B0%E5%9C%A8%E7%BC%96%E7%A8%8B%E6%97%B6%E5%87%BA%E7%8E%B0%E7%9A%84%E5%A4%A7%E9%83%A8%E5%88%86%E5%BC%82%E5%B8%B8%E6%83%85%E5%86%B5%E3%80%82%E9%99%A4%E6%AD%A4%E4%B9%8B%E5%A4%96%EF%BC%8C%E7%94%A8%E6%88%B7%E5%8F%AA%E9%9C%80%E7%BB%A7%E6%89%BFException%E7%B1%BB%E5%8D%B3%E5%8F%AF%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E7%B1%BB"><span class="nav-number">1.4.1.</span> <span class="nav-text">使用Java内置的异常类可以描述在编程时出现的大部分异常情况。除此之外，用户只需继承Exception类即可自定义异常类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E7%B1%BB%EF%BC%8C%E5%A4%A7%E4%BD%93%E5%8F%AF%E4%BB%A5%E5%88%86%E4%B8%BA%E4%BB%A5%E4%B8%8B%E5%87%A0%E4%B8%AA%E6%AD%A5%E9%AA%A4%EF%BC%9A"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">在程序中使用自定义异常类，大体可以分为以下几个步骤：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E7%B1%BB"><span class="nav-number">1.4.1.1.1.</span> <span class="nav-text">1.创建自定义异常类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E5%9C%A8%E6%96%B9%E6%B3%95%E4%B8%AD%E9%80%9A%E8%BF%87throw%E5%85%B3%E9%94%AE%E5%AD%97%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8%E5%AF%B9%E8%B1%A1%E3%80%82"><span class="nav-number">1.4.1.1.2.</span> <span class="nav-text">2.在方法中通过throw关键字抛出异常对象。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E5%A6%82%E6%9E%9C%E5%9C%A8%E5%BD%93%E5%89%8D%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8%E7%9A%84%E6%96%B9%E6%B3%95%E4%B8%AD%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8%EF%BC%8C%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8try-catch%E8%AF%AD%E5%8F%A5%E5%9D%97%E6%8D%95%E8%8E%B7%E5%B9%B6%E5%A4%84%E7%90%86%EF%BC%8C%E5%90%A6%E5%88%99%E5%9C%A8%E6%96%B9%E6%B3%95%E7%9A%84%E5%A3%B0%E6%98%8E%E5%A4%84%E9%80%9A%E8%BF%87throws%E5%85%B3%E9%94%AE%E5%AD%97%E7%9F%A5%E5%90%8D%E8%A6%81%E6%8A%9B%E5%87%BA%E7%BB%99%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E8%80%85%E7%9A%84%E5%BC%82%E5%B8%B8%EF%BC%8C%E7%BB%A7%E7%BB%AD%E8%BF%9B%E8%A1%8C%E4%B8%8B%E4%B8%80%E6%AD%A5%E6%93%8D%E4%BD%9C"><span class="nav-number">1.4.1.1.3.</span> <span class="nav-text">3.如果在当前抛出异常的方法中处理异常，可以使用try-catch语句块捕获并处理，否则在方法的声明处通过throws关键字知名要抛出给方法调用者的异常，继续进行下一步操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E5%9C%A8%E5%87%BA%E7%8E%B0%E5%BC%82%E5%B8%B8%E6%96%B9%E6%B3%95%E7%9A%84%E8%B0%83%E7%94%A8%E8%80%85%E4%B8%AD%E6%8D%95%E8%8E%B7%E5%B9%B6%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8"><span class="nav-number">1.4.1.1.4.</span> <span class="nav-text">4.在出现异常方法的调用者中捕获并处理异常</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%8B%A5%E6%83%B3%E6%8A%9B%E5%87%BA%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E5%BC%82%E5%B8%B8%E5%AF%B9%E8%B1%A1%EF%BC%8C%E8%A6%81%E4%BD%BF%E7%94%A8throw%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.4.1.1.5.</span> <span class="nav-text">若想抛出用户自定义的异常对象，要使用throw关键字</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E6%96%B9%E6%B3%95%E4%B8%AD%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8"><span class="nav-number">1.5.</span> <span class="nav-text">在方法中抛出异常</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8B%A5%E6%9F%90%E4%B8%AA%E6%96%B9%E6%B3%95%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%8F%91%E7%94%9F%E5%BC%82%E5%B8%B8%EF%BC%8C%E4%BD%86%E4%B8%8D%E6%83%B3%E5%9C%A8%E5%BD%93%E5%89%8D%E6%96%B9%E6%B3%95%E4%B8%AD%E5%A4%84%E7%90%86%E8%BF%99%E4%B8%AA%E5%BC%82%E5%B8%B8%EF%BC%8C%E5%88%99%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8throws%E3%80%81throw%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8%E6%96%B9%E6%B3%95%E4%B8%AD%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8"><span class="nav-number">1.5.1.</span> <span class="nav-text">若某个方法可能会发生异常，但不想在当前方法中处理这个异常，则可以使用throws、throw关键字在方法中抛出异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8throws%E5%85%B3%E9%94%AE%E5%AD%97%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8"><span class="nav-number">1.5.2.</span> <span class="nav-text">使用throws关键字抛出异常</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#throws%E5%85%B3%E9%94%AE%E5%AD%97%E9%80%9A%E5%B8%B8%E8%A2%AB%E5%BA%94%E7%94%A8%E5%9C%A8%E5%A3%B0%E6%98%8E%E6%96%B9%E6%B3%95%E6%97%B6%EF%BC%8C%E7%94%A8%E6%9D%A5%E6%8C%87%E5%AE%9A%E6%96%B9%E6%B3%95%E5%8F%AF%E8%83%BD%E6%8A%9B%E5%87%BA%E7%9A%84%E5%BC%82%E5%B8%B8%E3%80%82%E5%A4%9A%E4%B8%AA%E5%BC%82%E5%B8%B8%E5%8F%AF%E4%BD%BF%E7%94%A8%E9%80%97%E5%8F%B7%E5%88%86%E9%9A%94"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">throws关键字通常被应用在声明方法时，用来指定方法可能抛出的异常。多个异常可使用逗号分隔</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8throws%E5%85%B3%E9%94%AE%E5%AD%97%E5%B0%86%E5%BC%82%E5%B8%B8%E6%8A%9B%E7%BB%99%E4%B8%8A%E4%B8%80%E7%BA%A7%E5%90%8E%EF%BC%8C%E5%A6%82%E6%9E%9C%E4%B8%8D%E6%83%B3%E5%A4%84%E7%90%86%E8%AF%A5%E5%BC%82%E5%B8%B8%EF%BC%8C%E5%8F%AF%E4%BB%A5%E7%BB%A7%E7%BB%AD%E5%90%91%E4%B8%8A%E6%8A%9B%E5%87%BA%EF%BC%8C%E4%BD%86%E6%9C%80%E7%BB%88%E8%A6%81%E6%9C%89%E8%83%BD%E5%A4%9F%E5%A4%84%E7%90%86%E8%AF%A5%E5%BC%82%E5%B8%B8%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">使用throws关键字将异常抛给上一级后，如果不想处理该异常，可以继续向上抛出，但最终要有能够处理该异常的代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E6%98%AFError%E3%80%81RuntimeException%E6%88%96%E5%AE%83%E4%BB%AC%E7%9A%84%E5%AD%90%E7%B1%BB%EF%BC%8C%E5%8F%AF%E4%BB%A5%E4%B8%8D%E4%BD%BF%E7%94%A8throws%E5%85%B3%E9%94%AE%E5%AD%97%E6%9D%A5%E5%A3%B0%E6%98%8E%E8%A6%81%E6%8A%9B%E5%87%BA%E7%9A%84%E5%BC%82%E5%B8%B8%EF%BC%8C%E7%BC%96%E8%AF%91%E4%BB%8D%E8%83%BD%E9%A1%BA%E5%88%A9-%E9%80%9A%E8%BF%87%EF%BC%8C%E4%BD%86%E5%9C%A8%E8%BF%90%E8%A1%8C%E6%97%B6%E4%BC%9A%E8%A2%AB%E7%B3%BB%E7%BB%9F%E6%8A%9B%E5%87%BA"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">如果是Error、RuntimeException或它们的子类，可以不使用throws关键字来声明要抛出的异常，编译仍能顺利 通过，但在运行时会被系统抛出</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8throw%E5%85%B3%E9%94%AE%E5%AD%97%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8"><span class="nav-number">1.5.3.</span> <span class="nav-text">使用throw关键字抛出异常</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#throws%E5%85%B3%E9%94%AE%E5%AD%97%E9%80%9A%E5%B8%B8%E7%94%A8%E4%BA%8E%E6%96%B9%E6%B3%95%E4%BD%93%E4%B8%AD%EF%BC%8C%E5%B9%B6%E4%B8%94%E6%8A%9B%E5%87%BA%E4%B8%80%E4%B8%AA%E5%BC%82%E5%B8%B8%E5%AF%B9%E8%B1%A1%E3%80%82%E7%A8%8B%E5%BA%8F%E5%9C%A8%E6%89%A7%E8%A1%8C%E5%88%B0throws%E8%AF%AD%E5%8F%A5%E6%97%B6%E7%AB%8B%E5%8D%B3%E7%BB%88%E6%AD%A2%EF%BC%8C%E5%AE%83%E5%90%8E%E9%9D%A2%E7%9A%84%E8%AF%AD%E5%8F%A5%E9%83%BD%E4%B8%8D%E6%89%A7%E8%A1%8C"><span class="nav-number">1.5.3.1.</span> <span class="nav-text">throws关键字通常用于方法体中，并且抛出一个异常对象。程序在执行到throws语句时立即终止，它后面的语句都不执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87throw%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8%E5%90%8E%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%83%B3%E5%9C%A8%E4%B8%8A%E4%B8%80%E7%BA%A7%E4%BB%A3%E7%A0%81%E4%B8%AD%E6%9D%A5%E6%8D%95%E8%8E%B7%E5%B9%B6%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8%EF%BC%8C%E5%88%99%E9%9C%80%E8%A6%81%E5%9C%A8%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8%E7%9A%84%E6%96%B9%E6%B3%95%E4%B8%AD%E4%BD%BF%E7%94%A8throws%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8%E6%96%B9%E6%B3%95%E7%9A%84%E7%94%9F%E5%91%BD%E4%B8%AD%E6%8C%87%E6%98%8E%E8%A6%81%E6%8A%9B%E5%87%BA%E7%9A%84%E5%BC%82%E5%B8%B8%EF%BC%9B"><span class="nav-number">1.5.3.2.</span> <span class="nav-text">通过throw抛出异常后，如果想在上一级代码中来捕获并处理异常，则需要在抛出异常的方法中使用throws关键字在方法的生命中指明要抛出的异常；</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E8%A6%81%E6%8D%95%E6%8D%89throws%E6%8A%9B%E5%87%BA%E7%9A%84%E5%BC%82%E5%B8%B8%EF%BC%8C%E5%88%99%E5%BF%85%E9%A1%BB%E4%BD%BF%E7%94%A8try-catch%E8%AF%AD%E5%8F%A5%E5%9D%97"><span class="nav-number">1.5.3.3.</span> <span class="nav-text">如果要捕捉throws抛出的异常，则必须使用try-catch语句块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#throws-%E9%80%9A%E5%B8%B8%E7%94%A8%E6%9D%A5%E6%8A%9B%E5%87%BA%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8"><span class="nav-number">1.5.3.4.</span> <span class="nav-text">throws 通常用来抛出用户自定义异常</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E5%BC%82%E5%B8%B8"><span class="nav-number">1.6.</span> <span class="nav-text">运行时异常</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RuntimeException%E5%BC%82%E5%B8%B8%E6%98%AF%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%B8%AD%E4%BA%A7%E7%94%9F%E7%9A%84%E5%BC%82%E5%B8%B8%E3%80%82Java%E7%B1%BB%E5%BA%93%E7%9A%84%E6%AF%8F%E4%B8%AA%E5%8C%85%E4%B8%AD%E9%83%BD%E5%AE%9A%E4%B9%89%E4%BA%86%E5%BC%82%E5%B8%B8%E7%B1%BB%EF%BC%8C%E6%89%80%E6%9C%89%E8%BF%99%E4%BA%9B%E7%B1%BB%E9%83%BD%E6%98%AFThrowable%E7%B1%BB%E7%9A%84%E5%AD%90%E7%B1%BB%E3%80%82"><span class="nav-number">1.6.1.</span> <span class="nav-text">RuntimeException异常是程序运行过程中产生的异常。Java类库的每个包中都定义了异常类，所有这些类都是Throwable类的子类。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Throwable%E7%B1%BB%E6%B4%BE%E7%94%9F%E4%BA%86%E4%B8%A4%E4%B8%AA%E5%AD%90%E7%B1%BB%EF%BC%8C%E5%88%86%E5%88%AB%E6%98%AFException%E5%92%8CError%E7%B1%BB%E3%80%82"><span class="nav-number">1.6.2.</span> <span class="nav-text">Throwable类派生了两个子类，分别是Exception和Error类。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Error%E7%B1%BB%E5%8F%8A%E5%85%B6%E5%AD%90%E7%B1%BB%E7%94%A8%E6%9D%A5%E6%8F%8F%E8%BF%B0Java%E8%BF%90%E8%A1%8C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E5%86%85%E9%83%A8%E9%94%99%E8%AF%AF%E4%BB%A5%E5%8F%8A%E8%B5%84%E6%BA%90%E8%80%97%E5%B0%BD%E7%9A%84%E9%94%99%E8%AF%AF%EF%BC%8C%E8%BF%99%E7%B1%BB%E9%94%99%E8%AF%AF%E6%AF%94%E8%BE%83%E4%B8%A5%E9%87%8D%E3%80%82"><span class="nav-number">1.6.3.</span> <span class="nav-text">Error类及其子类用来描述Java运行系统中的内部错误以及资源耗尽的错误，这类错误比较严重。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exception%E7%B1%BB%E7%A7%B0%E4%B8%BA%E9%9D%9E%E8%87%B4%E5%91%BD%E6%80%A7%E7%B1%BB%EF%BC%8C%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87%E6%8D%95%E6%8D%89%E5%A4%84%E7%90%86%E4%BD%BF%E7%A8%8B%E5%BA%8F%E7%BB%A7%E7%BB%AD%E6%89%A7%E8%A1%8C%E3%80%82Exception%E7%B1%BB%E5%8F%88%E6%A0%B9%E6%8D%AE%E9%94%99%E8%AF%AF%E5%8F%91%E7%94%9F%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%88%86%E4%B8%BARuntimeException%E5%BC%82%E5%B8%B8%E5%92%8C%E9%99%A4RuntimeException%E4%B9%8B%E5%A4%96%E7%9A%84%E5%BC%82%E5%B8%B8"><span class="nav-number">1.6.4.</span> <span class="nav-text">Exception类称为非致命性类，可以通过捕捉处理使程序继续执行。Exception类又根据错误发生的原因分为RuntimeException异常和除RuntimeException之外的异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java%E4%B8%AD%E6%8F%90%E4%BE%9B%E4%BA%86%E5%B8%B8%E8%A7%81%E7%9A%84RuntimeException%E5%BC%82%E5%B8%B8%EF%BC%8C%E8%BF%99%E4%BA%9B%E5%BC%82%E5%B8%B8%E5%8F%AF%E9%80%9A%E8%BF%87try-catch%E8%AF%AD%E5%8F%A5%E6%8D%95%E8%8E%B7"><span class="nav-number">1.6.5.</span> <span class="nav-text">java中提供了常见的RuntimeException异常，这些异常可通过try-catch语句捕获</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RuntimeException%E5%BC%82%E5%B8%B8%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="nav-number">1.6.5.1.</span> <span class="nav-text">RuntimeException异常的种类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NullPointerException-%E7%A9%BA%E6%8C%87%E9%92%88%E5%BC%82%E5%B8%B8"><span class="nav-number">1.6.5.2.</span> <span class="nav-text">NullPointerException:空指针异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ArrayIndexOutOfBoundsException-%E6%95%B0%E7%BB%84%E4%B8%8B%E6%A0%87%E8%B6%8A%E7%95%8C%E5%BC%82%E5%B8%B8-1"><span class="nav-number">1.6.5.3.</span> <span class="nav-text">ArrayIndexOutOfBoundsException:数组下标越界异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ArithmeticException-%E7%AE%97%E6%9C%AF%E5%BC%82%E5%B8%B8"><span class="nav-number">1.6.5.4.</span> <span class="nav-text">ArithmeticException:算术异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ArrayStoreException-%E6%95%B0%E7%BB%84%E4%B8%AD%E5%8C%85%E5%90%AB%E4%B8%8D%E5%85%BC%E5%AE%B9%E7%9A%84%E5%80%BC%E6%8A%9B%E5%87%BA%E7%9A%84%E5%BC%82%E5%B8%B8-1"><span class="nav-number">1.6.5.5.</span> <span class="nav-text">ArrayStoreException:数组中包含不兼容的值抛出的异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IllegalArgumentException-%E9%9D%9E%E6%B3%95%E5%8F%82%E6%95%B0%E5%BC%82%E5%B8%B8"><span class="nav-number">1.6.5.6.</span> <span class="nav-text">IllegalArgumentException:非法参数异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SecurityException-%E5%AE%89%E5%85%A8%E6%80%A7%E5%BC%82%E5%B8%B8"><span class="nav-number">1.6.5.7.</span> <span class="nav-text">SecurityException:安全性异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NegativeArraySizeException-%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A6%E4%B8%BA%E8%B4%9F%E5%BC%82%E5%B8%B8"><span class="nav-number">1.6.5.8.</span> <span class="nav-text">NegativeArraySizeException:数组长度为负异常</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zhengtianhao"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">zhengtianhao</p>
+  <div class="site-description" itemprop="description">不忘初心,砥砺前行</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/zombiezheng" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zombiezheng" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/6256302575" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;6256302575" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengtianhao</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+<div class="weather">
+  <!-- 《添加“心知天气”-->
+  
+    <div id="tp-weather-widget"></div>
+  <script>
+    (function(a,h,g,f,e,d,c,b){b=function(){d=h.createElement(g);c=h.getElementsByTagName(g)[0];d.src=e;d.charset="utf-8";d.async=1;c.parentNode.insertBefore(d,c)};a["SeniverseWeatherWidgetObject"]=f;a[f]||(a[f]=function(){(a[f].q=a[f].q||[]).push(arguments)});a[f].l=+new Date();if(a.attachEvent){a.attachEvent("onload",b)}else{a.addEventListener("load",b,false)}}(window,document,"script","SeniverseWeatherWidget","//cdn.sencdn.com/widget2/static/js/bundle.js?t="+parseInt((new Date().getTime() / 100000000).toString(),10)));
+    window.SeniverseWeatherWidget('show', {
+      flavor: "slim",
+      location: "WX4FBXXFKE4F",
+      geolocation: true,
+      language: "zh-Hans",
+      unit: "c",
+      theme: "auto",
+      token: "efb760e3-5326-4f08-839b-122738249a17",
+      hover: "enabled",
+      container: "tp-weather-widget"
+    })
+  </script>
+  
+  </div>
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
